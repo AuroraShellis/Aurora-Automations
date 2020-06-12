@@ -50,7 +50,7 @@ $ADUserCreate.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([
 $ADUserCreate.TabIndex = [System.Int32]2
 $ADUserCreate.Text = [System.String]'Active Directory Individual User Creation'
 $ADUserCreate.UseVisualStyleBackColor = $true
-$ADUserCreate.add_Click($ADUserCreate_Click)
+$ADUserCreate.add_Click({Individual.User})
 #
 #ADUserDelete
 #
@@ -97,7 +97,7 @@ $Back.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.I
 $Back.TabIndex = [System.Int32]7
 $Back.Text = [System.String]'Back'
 $Back.UseVisualStyleBackColor = $true
-$Back.add_Click($Back_Click)
+$Back.add_Click({ADMenuBack})
 #
 #ActiveDirectoryMenu
 #

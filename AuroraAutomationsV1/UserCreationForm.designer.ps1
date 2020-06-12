@@ -76,7 +76,7 @@ $OutputTxtBox.ReadOnly = $true
 $OutputTxtBox.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]445,[System.Int32]123))
 $OutputTxtBox.TabIndex = [System.Int32]5
 $OutputTxtBox.Text = [System.String]''
-$OutputTxtBox.add_TextChanged($OutputTxtBox_TextChanged)
+$OutputTxtBox.add_TextChanged()
 #
 #BackButton
 #
@@ -86,7 +86,7 @@ $BackButton.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([Sy
 $BackButton.TabIndex = [System.Int32]6
 $BackButton.Text = [System.String]'Back'
 $BackButton.UseVisualStyleBackColor = $true
-$BackButton.add_Click($BackButton_Click)
+$BackButton.add_Click({Indivual.User.Back})
 #
 #SubmitButton
 #
@@ -96,7 +96,7 @@ $SubmitButton.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([
 $SubmitButton.TabIndex = [System.Int32]7
 $SubmitButton.Text = [System.String]'Submit'
 $SubmitButton.UseVisualStyleBackColor = $true
-$SubmitButton.add_Click($SubmitButton_Click)
+$SubmitButton.add_Click({Individual.User.Submit})
 #
 #label4
 #

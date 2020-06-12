@@ -8,12 +8,15 @@
     <AssemblyName>MyApplication</AssemblyName>
     <Name>AuroraAutomationsV1</Name>
     <PackageAsExecutable>True</PackageAsExecutable>
-    <PackageEntryPoint>AuroraAutomationsV1.ps1</PackageEntryPoint>
+    <PackageEntryPoint>AuroraAutomations.ps1</PackageEntryPoint>
     <Bundle>True</Bundle>
     <DotNetVersion>net462</DotNetVersion>
     <RequireElevation>True</RequireElevation>
     <PackageType>Console</PackageType>
     <PowerShellVersion>Windows PowerShell</PowerShellVersion>
+    <HideConsoleWindow>True</HideConsoleWindow>
+    <PackageModules>True</PackageModules>
+    <ApplicationIconPath>E:\Dropbox\Assets\LogoV3.ico</ApplicationIconPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -78,6 +81,7 @@
     <Compile Include="ActiveDirectoryMenu.ps1">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="AuroraAutomations.ps1" />
     <Compile Include="AuroraAutomationsV1.designer.ps1">
       <SubType>Code</SubType>
       <DependentUpon>AuroraAutomationsV1.ps1</DependentUpon>

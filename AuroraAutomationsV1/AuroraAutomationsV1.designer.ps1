@@ -69,7 +69,7 @@ $OpenAD.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System
 $OpenAD.TabIndex = [System.Int32]3
 $OpenAD.Text = [System.String]'Open'
 $OpenAD.UseVisualStyleBackColor = $true
-$OpenAD.add_Click($OpenAD_Click)
+$OpenAD.add_Click({ADMenu})
 #
 #OpenMgmt
 #
