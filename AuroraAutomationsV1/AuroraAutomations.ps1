@@ -21,7 +21,7 @@ $DiagnosticsMenu.ShowDialog()
 ## ACTIVE DIRECTORY MAIN MENU
 Function AD.Installation {
 $ActiveDirectoryMenu.Hide()
-$ADPrereqInstall.ShowDialog()
+$OUM.ShowDialog()
 }
 Function Individual.User {
 $ActiveDirectoryMenu.Hide()
@@ -72,7 +72,7 @@ Function ADPrereq.Install {
 
 }
 Function Prereq.Back{
-$ADPrereqInstall.Hide()
+$OUM.Hide()
 $ActiveDirectoryMenu.Show()
 }
 
@@ -96,11 +96,11 @@ $MainMenu.Show()
 . (Join-Path $PSScriptRoot 'UserCreationForm.designer.ps1')
 . (Join-Path $PSScriptRoot 'ManagementMenu.designer.ps1')
 . (Join-Path $PSScriptRoot 'DiagnosticsMenu.designer.ps1')
-. (Join-Path $PSScriptRoot 'ADPrereqInstall.designer.ps1')
+. (Join-Path $PSScriptRoot 'OUM.designer.ps1')
 # JOIN PATH FOR BASE POWERSHELL
 . (Join-Path $PSScriptRoot 'MainMenu.ps1')
 . (Join-Path $PSScriptRoot 'ActiveDirectoryMenu.ps1')
 . (Join-Path $PSScriptRoot 'UserCreationForm.ps1')
 . (Join-Path $PSScriptRoot 'ManagementMenu.ps1')
 . (Join-Path $PSScriptRoot 'DiagnosticsMenu.ps1')
-. (Join-Path $PSScriptRoot 'ADPrereqInstall.ps1')
+. (Join-Path $PSScriptRoot 'OUM.ps1')

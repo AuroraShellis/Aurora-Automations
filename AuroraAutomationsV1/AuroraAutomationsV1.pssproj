@@ -102,11 +102,11 @@
     <Compile Include="ADConfig.ps1">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ADPrereqInstall.designer.ps1">
+    <Compile Include="OUM.designer.ps1">
       <SubType>Code</SubType>
-      <DependentUpon>ADPrereqInstall.ps1</DependentUpon>
+      <DependentUpon>OUM.ps1</DependentUpon>
     </Compile>
-    <Compile Include="ADPrereqInstall.ps1">
+    <Compile Include="OUM.ps1">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AuroraAutomations.ps1" />
@@ -149,8 +149,8 @@
     <EmbeddedResource Include="ADConfig.resx">
       <DependentUpon>ADConfig.ps1</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ADPrereqInstall.resx">
-      <DependentUpon>ADPrereqInstall.ps1</DependentUpon>
+    <EmbeddedResource Include="OUM.resx">
+      <DependentUpon>OUM.ps1</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DiagnosticsMenu.resx">
       <DependentUpon>DiagnosticsMenu.ps1</DependentUpon>

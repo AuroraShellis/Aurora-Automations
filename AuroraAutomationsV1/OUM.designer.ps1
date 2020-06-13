@@ -1,6 +1,6 @@
 [void][System.Reflection.Assembly]::Load('System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a')
 [void][System.Reflection.Assembly]::Load('System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089')
-$ADPrereqInstall = New-Object -TypeName System.Windows.Forms.Form
+$OUM = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Button]$OUBackButton = $null
 [System.Windows.Forms.Button]$OUCreateButton = $null
 [System.Windows.Forms.Label]$OuDesc = $null
@@ -21,7 +21,7 @@ $ADPrereqInstall = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Button]$button1 = $null
 function InitializeComponent
 {
-$resources = . (Join-Path $PSScriptRoot 'ADPrereqInstall.resources.ps1')
+$resources = . (Join-Path $PSScriptRoot 'OUM.resources.ps1')
 $OUBackButton = (New-Object -TypeName System.Windows.Forms.Button)
 $OUCreateButton = (New-Object -TypeName System.Windows.Forms.Button)
 $OuDesc = (New-Object -TypeName System.Windows.Forms.Label)
@@ -39,7 +39,7 @@ $CheckOUButton = (New-Object -TypeName System.Windows.Forms.Button)
 $MoveOUUserTextBox = (New-Object -TypeName System.Windows.Forms.TextBox)
 $MoveOUUserTo = (New-Object -TypeName System.Windows.Forms.Label)
 $MoveOULabelOU = (New-Object -TypeName System.Windows.Forms.Label)
-$ADPrereqInstall.SuspendLayout()
+$OUM.SuspendLayout()
 #
 #OUBackButton
 #
@@ -189,49 +189,49 @@ $MoveOULabelOU.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @(
 $MoveOULabelOU.TabIndex = [System.Int32]16
 $MoveOULabelOU.Text = [System.String]'OU'
 #
-#ADPrereqInstall
+#OUM
 #
-$ADPrereqInstall.ClientSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]624,[System.Int32]441))
-$ADPrereqInstall.Controls.Add($MoveOULabelOU)
-$ADPrereqInstall.Controls.Add($MoveOUUserTo)
-$ADPrereqInstall.Controls.Add($MoveOUUserTextBox)
-$ADPrereqInstall.Controls.Add($CheckOUButton)
-$ADPrereqInstall.Controls.Add($OULabelOut)
-$ADPrereqInstall.Controls.Add($MoveOUOUTextBox)
-$ADPrereqInstall.Controls.Add($MoveOULabelUser)
-$ADPrereqInstall.Controls.Add($MoveOUButton)
-$ADPrereqInstall.Controls.Add($DeleteOUBox)
-$ADPrereqInstall.Controls.Add($DeleteOULabel)
-$ADPrereqInstall.Controls.Add($DeleteOUButton)
-$ADPrereqInstall.Controls.Add($OUCreateBox)
-$ADPrereqInstall.Controls.Add($OUCreateLabel)
-$ADPrereqInstall.Controls.Add($OUOutput)
-$ADPrereqInstall.Controls.Add($OuDesc)
-$ADPrereqInstall.Controls.Add($OUCreateButton)
-$ADPrereqInstall.Controls.Add($OUBackButton)
-$ADPrereqInstall.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
-$ADPrereqInstall.Name = [System.String]'ADPrereqInstall'
-$ADPrereqInstall.Text = [System.String]'Organizational Unit Management - Aurora Automations'
-$ADPrereqInstall.ResumeLayout($false)
-$ADPrereqInstall.PerformLayout()
-Add-Member -InputObject $ADPrereqInstall -Name base -Value $base -MemberType NoteProperty
-Add-Member -InputObject $ADPrereqInstall -Name OUBackButton -Value $OUBackButton -MemberType NoteProperty
-Add-Member -InputObject $ADPrereqInstall -Name OUCreateButton -Value $OUCreateButton -MemberType NoteProperty
-Add-Member -InputObject $ADPrereqInstall -Name OuDesc -Value $OuDesc -MemberType NoteProperty
-Add-Member -InputObject $ADPrereqInstall -Name OUOutput -Value $OUOutput -MemberType NoteProperty
-Add-Member -InputObject $ADPrereqInstall -Name OUCreateLabel -Value $OUCreateLabel -MemberType NoteProperty
-Add-Member -InputObject $ADPrereqInstall -Name OUCreateBox -Value $OUCreateBox -MemberType NoteProperty
-Add-Member -InputObject $ADPrereqInstall -Name DeleteOUBox -Value $DeleteOUBox -MemberType NoteProperty
-Add-Member -InputObject $ADPrereqInstall -Name DeleteOULabel -Value $DeleteOULabel -MemberType NoteProperty
-Add-Member -InputObject $ADPrereqInstall -Name DeleteOUButton -Value $DeleteOUButton -MemberType NoteProperty
-Add-Member -InputObject $ADPrereqInstall -Name MoveOUOUTextBox -Value $MoveOUOUTextBox -MemberType NoteProperty
-Add-Member -InputObject $ADPrereqInstall -Name MoveOULabelUser -Value $MoveOULabelUser -MemberType NoteProperty
-Add-Member -InputObject $ADPrereqInstall -Name MoveOUButton -Value $MoveOUButton -MemberType NoteProperty
-Add-Member -InputObject $ADPrereqInstall -Name OULabelOut -Value $OULabelOut -MemberType NoteProperty
-Add-Member -InputObject $ADPrereqInstall -Name CheckOUButton -Value $CheckOUButton -MemberType NoteProperty
-Add-Member -InputObject $ADPrereqInstall -Name MoveOUUserTextBox -Value $MoveOUUserTextBox -MemberType NoteProperty
-Add-Member -InputObject $ADPrereqInstall -Name MoveOUUserTo -Value $MoveOUUserTo -MemberType NoteProperty
-Add-Member -InputObject $ADPrereqInstall -Name MoveOULabelOU -Value $MoveOULabelOU -MemberType NoteProperty
-Add-Member -InputObject $ADPrereqInstall -Name button1 -Value $button1 -MemberType NoteProperty
+$OUM.ClientSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]624,[System.Int32]441))
+$OUM.Controls.Add($MoveOULabelOU)
+$OUM.Controls.Add($MoveOUUserTo)
+$OUM.Controls.Add($MoveOUUserTextBox)
+$OUM.Controls.Add($CheckOUButton)
+$OUM.Controls.Add($OULabelOut)
+$OUM.Controls.Add($MoveOUOUTextBox)
+$OUM.Controls.Add($MoveOULabelUser)
+$OUM.Controls.Add($MoveOUButton)
+$OUM.Controls.Add($DeleteOUBox)
+$OUM.Controls.Add($DeleteOULabel)
+$OUM.Controls.Add($DeleteOUButton)
+$OUM.Controls.Add($OUCreateBox)
+$OUM.Controls.Add($OUCreateLabel)
+$OUM.Controls.Add($OUOutput)
+$OUM.Controls.Add($OuDesc)
+$OUM.Controls.Add($OUCreateButton)
+$OUM.Controls.Add($OUBackButton)
+$OUM.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
+$OUM.Name = [System.String]'OUM'
+$OUM.Text = [System.String]'Organizational Unit Management - Aurora Automations'
+$OUM.ResumeLayout($false)
+$OUM.PerformLayout()
+Add-Member -InputObject $OUM -Name base -Value $base -MemberType NoteProperty
+Add-Member -InputObject $OUM -Name OUBackButton -Value $OUBackButton -MemberType NoteProperty
+Add-Member -InputObject $OUM -Name OUCreateButton -Value $OUCreateButton -MemberType NoteProperty
+Add-Member -InputObject $OUM -Name OuDesc -Value $OuDesc -MemberType NoteProperty
+Add-Member -InputObject $OUM -Name OUOutput -Value $OUOutput -MemberType NoteProperty
+Add-Member -InputObject $OUM -Name OUCreateLabel -Value $OUCreateLabel -MemberType NoteProperty
+Add-Member -InputObject $OUM -Name OUCreateBox -Value $OUCreateBox -MemberType NoteProperty
+Add-Member -InputObject $OUM -Name DeleteOUBox -Value $DeleteOUBox -MemberType NoteProperty
+Add-Member -InputObject $OUM -Name DeleteOULabel -Value $DeleteOULabel -MemberType NoteProperty
+Add-Member -InputObject $OUM -Name DeleteOUButton -Value $DeleteOUButton -MemberType NoteProperty
+Add-Member -InputObject $OUM -Name MoveOUOUTextBox -Value $MoveOUOUTextBox -MemberType NoteProperty
+Add-Member -InputObject $OUM -Name MoveOULabelUser -Value $MoveOULabelUser -MemberType NoteProperty
+Add-Member -InputObject $OUM -Name MoveOUButton -Value $MoveOUButton -MemberType NoteProperty
+Add-Member -InputObject $OUM -Name OULabelOut -Value $OULabelOut -MemberType NoteProperty
+Add-Member -InputObject $OUM -Name CheckOUButton -Value $CheckOUButton -MemberType NoteProperty
+Add-Member -InputObject $OUM -Name MoveOUUserTextBox -Value $MoveOUUserTextBox -MemberType NoteProperty
+Add-Member -InputObject $OUM -Name MoveOUUserTo -Value $MoveOUUserTo -MemberType NoteProperty
+Add-Member -InputObject $OUM -Name MoveOULabelOU -Value $MoveOULabelOU -MemberType NoteProperty
+Add-Member -InputObject $OUM -Name button1 -Value $button1 -MemberType NoteProperty
 }
 . InitializeComponent
