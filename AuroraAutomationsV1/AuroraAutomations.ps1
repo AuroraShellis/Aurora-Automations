@@ -3,13 +3,13 @@ Add-Type -AssemblyName PresentationFramework, System.Windows.Forms, System.Drawi
 # BUTTONS CONFIGURATION
 ## MAIN MENU
 Function ADMenu {
-$AuroraAutomationsV1.Hide()
+$MainMenu.Hide()
 $ActiveDirectorymenu.ShowDialog()
 }
 ## ACTIVE DIRECTORY MAIN MENU
 Function ADMenuBack {
 $ActiveDirectoryMenu.Hide()
-$AuroraAutomationsV1.Show()
+$MainMenu.Show()
 }
 Function Individual.User {
 $ActiveDirectoryMenu.Hide()
@@ -49,9 +49,9 @@ Function Individual.User.Submit {
 	}
 }
 
-. (Join-Path $PSScriptRoot 'AuroraAutomationsV1.designer.ps1')
+. (Join-Path $PSScriptRoot 'MainMenu.designer.ps1')
 . (Join-Path $PSScriptRoot 'ActiveDirectoryMenu.designer.ps1')
 . (Join-Path $PSScriptRoot 'UserCreationForm.designer.ps1')
-. (Join-Path $PSScriptRoot 'AuroraAutomationsV1.ps1')
+. (Join-Path $PSScriptRoot 'MainMenu.ps1')
 . (Join-Path $PSScriptRoot 'ActiveDirectoryMenu.ps1')
 . (Join-Path $PSScriptRoot 'UserCreationForm.ps1')

@@ -5,5 +5,5 @@
 
 $Back_Click = {
 	$ActiveDirectoryMenu.Hide()
-	$AuroraAutomationsV1.Show()
+	$MainMenu.Show()
 }

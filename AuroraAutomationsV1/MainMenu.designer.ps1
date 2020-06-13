@@ -1,6 +1,6 @@
 [void][System.Reflection.Assembly]::Load('System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a')
 [void][System.Reflection.Assembly]::Load('System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089')
-$AuroraAutomationsV1 = New-Object -TypeName System.Windows.Forms.Form
+$MainMenu = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Label]$label1 = $null
 [System.Windows.Forms.Label]$label2 = $null
 [System.Windows.Forms.Label]$label3 = $null
@@ -32,7 +32,7 @@ $label6 = (New-Object -TypeName System.Windows.Forms.Label)
 ([System.ComponentModel.ISupportInitialize]$pictureBox1).BeginInit()
 ([System.ComponentModel.ISupportInitialize]$pictureBox2).BeginInit()
 ([System.ComponentModel.ISupportInitialize]$pictureBox3).BeginInit()
-$AuroraAutomationsV1.SuspendLayout()
+$MainMenu.SuspendLayout()
 #
 #label1
 #
@@ -142,40 +142,40 @@ $label6.Text = [System.String]'APA'
 #
 #AuroraAutomationsV1
 #
-$AuroraAutomationsV1.ClientSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]624,[System.Int32]441))
-$AuroraAutomationsV1.Controls.Add($label6)
-$AuroraAutomationsV1.Controls.Add($label5)
-$AuroraAutomationsV1.Controls.Add($label4)
-$AuroraAutomationsV1.Controls.Add($pictureBox3)
-$AuroraAutomationsV1.Controls.Add($pictureBox2)
-$AuroraAutomationsV1.Controls.Add($pictureBox1)
-$AuroraAutomationsV1.Controls.Add($OpenDiag)
-$AuroraAutomationsV1.Controls.Add($OpenMgmt)
-$AuroraAutomationsV1.Controls.Add($OpenAD)
-$AuroraAutomationsV1.Controls.Add($label3)
-$AuroraAutomationsV1.Controls.Add($label2)
-$AuroraAutomationsV1.Controls.Add($label1)
-$AuroraAutomationsV1.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
-$AuroraAutomationsV1.Name = [System.String]'AuroraAutomationsV1'
-$AuroraAutomationsV1.Text = [System.String]'Main Menu - Aurora Automations'
+$MainMenu.ClientSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]624,[System.Int32]441))
+$MainMenu.Controls.Add($label6)
+$MainMenu.Controls.Add($label5)
+$MainMenu.Controls.Add($label4)
+$MainMenu.Controls.Add($pictureBox3)
+$MainMenu.Controls.Add($pictureBox2)
+$MainMenu.Controls.Add($pictureBox1)
+$MainMenu.Controls.Add($OpenDiag)
+$MainMenu.Controls.Add($OpenMgmt)
+$MainMenu.Controls.Add($OpenAD)
+$MainMenu.Controls.Add($label3)
+$MainMenu.Controls.Add($label2)
+$MainMenu.Controls.Add($label1)
+$MainMenu.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
+$MainMenu.Name = [System.String]'AuroraAutomationsV1'
+$MainMenu.Text = [System.String]'Main Menu - Aurora Automations'
 ([System.ComponentModel.ISupportInitialize]$pictureBox1).EndInit()
 ([System.ComponentModel.ISupportInitialize]$pictureBox2).EndInit()
 ([System.ComponentModel.ISupportInitialize]$pictureBox3).EndInit()
-$AuroraAutomationsV1.ResumeLayout($false)
-$AuroraAutomationsV1.PerformLayout()
-Add-Member -InputObject $AuroraAutomationsV1 -Name base -Value $base -MemberType NoteProperty
-Add-Member -InputObject $AuroraAutomationsV1 -Name label1 -Value $label1 -MemberType NoteProperty
-Add-Member -InputObject $AuroraAutomationsV1 -Name label2 -Value $label2 -MemberType NoteProperty
-Add-Member -InputObject $AuroraAutomationsV1 -Name label3 -Value $label3 -MemberType NoteProperty
-Add-Member -InputObject $AuroraAutomationsV1 -Name pictureBox1 -Value $pictureBox1 -MemberType NoteProperty
-Add-Member -InputObject $AuroraAutomationsV1 -Name pictureBox2 -Value $pictureBox2 -MemberType NoteProperty
-Add-Member -InputObject $AuroraAutomationsV1 -Name pictureBox3 -Value $pictureBox3 -MemberType NoteProperty
-Add-Member -InputObject $AuroraAutomationsV1 -Name label4 -Value $label4 -MemberType NoteProperty
-Add-Member -InputObject $AuroraAutomationsV1 -Name label5 -Value $label5 -MemberType NoteProperty
-Add-Member -InputObject $AuroraAutomationsV1 -Name label6 -Value $label6 -MemberType NoteProperty
-Add-Member -InputObject $AuroraAutomationsV1 -Name OpenAD -Value $OpenAD -MemberType NoteProperty
-Add-Member -InputObject $AuroraAutomationsV1 -Name OpenMgmt -Value $OpenMgmt -MemberType NoteProperty
-Add-Member -InputObject $AuroraAutomationsV1 -Name OpenDiag -Value $OpenDiag -MemberType NoteProperty
-Add-Member -InputObject $AuroraAutomationsV1 -Name button1 -Value $button1 -MemberType NoteProperty
+$MainMenu.ResumeLayout($false)
+$MainMenu.PerformLayout()
+Add-Member -InputObject $MainMenu -Name base -Value $base -MemberType NoteProperty
+Add-Member -InputObject $MainMenu -Name label1 -Value $label1 -MemberType NoteProperty
+Add-Member -InputObject $MainMenu -Name label2 -Value $label2 -MemberType NoteProperty
+Add-Member -InputObject $MainMenu -Name label3 -Value $label3 -MemberType NoteProperty
+Add-Member -InputObject $MainMenu -Name pictureBox1 -Value $pictureBox1 -MemberType NoteProperty
+Add-Member -InputObject $MainMenu -Name pictureBox2 -Value $pictureBox2 -MemberType NoteProperty
+Add-Member -InputObject $MainMenu -Name pictureBox3 -Value $pictureBox3 -MemberType NoteProperty
+Add-Member -InputObject $MainMenu -Name label4 -Value $label4 -MemberType NoteProperty
+Add-Member -InputObject $MainMenu -Name label5 -Value $label5 -MemberType NoteProperty
+Add-Member -InputObject $MainMenu -Name label6 -Value $label6 -MemberType NoteProperty
+Add-Member -InputObject $MainMenu -Name OpenAD -Value $OpenAD -MemberType NoteProperty
+Add-Member -InputObject $MainMenu -Name OpenMgmt -Value $OpenMgmt -MemberType NoteProperty
+Add-Member -InputObject $MainMenu -Name OpenDiag -Value $OpenDiag -MemberType NoteProperty
+Add-Member -InputObject $MainMenu -Name button1 -Value $button1 -MemberType NoteProperty
 }
 . InitializeComponent

@@ -1,2 +1,0 @@
-$AuroraAutomationsV1.ShowDialog()
-
