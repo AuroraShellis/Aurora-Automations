@@ -62,6 +62,13 @@
       <HintPath>
       </HintPath>
     </Reference>
+    <Reference Include="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+      <Name>System.Drawing</Name>
+      <AssemblyName>
+      </AssemblyName>
+      <HintPath>
+      </HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
       <Name>System.Windows.Forms</Name>
       <AssemblyName>
@@ -82,11 +89,25 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AuroraAutomations.ps1" />
+    <Compile Include="DiagnosticsMenu.designer.ps1">
+      <SubType>Code</SubType>
+      <DependentUpon>DiagnosticsMenu.ps1</DependentUpon>
+    </Compile>
+    <Compile Include="DiagnosticsMenu.ps1">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MainMenu.designer.ps1">
       <SubType>Code</SubType>
       <DependentUpon>MainMenu.ps1</DependentUpon>
     </Compile>
     <Compile Include="MainMenu.ps1">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManagementMenu.designer.ps1">
+      <SubType>Code</SubType>
+      <DependentUpon>ManagementMenu.ps1</DependentUpon>
+    </Compile>
+    <Compile Include="ManagementMenu.ps1">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UserCreationForm.designer.ps1">
@@ -101,8 +122,14 @@
     <EmbeddedResource Include="ActiveDirectoryMenu.resx">
       <DependentUpon>ActiveDirectoryMenu.ps1</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DiagnosticsMenu.resx">
+      <DependentUpon>DiagnosticsMenu.ps1</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainMenu.resx">
       <DependentUpon>MainMenu.ps1</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManagementMenu.resx">
+      <DependentUpon>ManagementMenu.ps1</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserCreationForm.resx">
       <DependentUpon>UserCreationForm.ps1</DependentUpon>

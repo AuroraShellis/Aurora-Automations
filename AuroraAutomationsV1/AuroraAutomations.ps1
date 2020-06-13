@@ -48,10 +48,14 @@ Function Individual.User.Submit {
 		UserCreation
 	}
 }
-
+# JOIN PATH FOR ALL DESIGNERS
 . (Join-Path $PSScriptRoot 'MainMenu.designer.ps1')
 . (Join-Path $PSScriptRoot 'ActiveDirectoryMenu.designer.ps1')
 . (Join-Path $PSScriptRoot 'UserCreationForm.designer.ps1')
+. (Join-Path $PSScriptRoot 'ManagementMenu.designer.ps1')
+
+# JOIN PATH FOR BASE POWERSHELL
 . (Join-Path $PSScriptRoot 'MainMenu.ps1')
 . (Join-Path $PSScriptRoot 'ActiveDirectoryMenu.ps1')
 . (Join-Path $PSScriptRoot 'UserCreationForm.ps1')
+. (Join-Path $PSScriptRoot 'ManagementMenu.ps1')
