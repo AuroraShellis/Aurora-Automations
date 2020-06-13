@@ -21,7 +21,7 @@ $DiagnosticsMenu.ShowDialog()
 ## ACTIVE DIRECTORY MAIN MENU
 Function AD.Installation {
 $ActiveDirectoryMenu.Hide()
-$OUM.ShowDialog()
+$ADPrereqInstall.ShowDialog()
 }
 Function Individual.User {
 $ActiveDirectoryMenu.Hide()
@@ -41,11 +41,18 @@ $ActiveDirectoryMenu.Show()
 }
 
 Function UserCreation {
+try {
 	New-ADUser -Name $FullName -GivenName $FirstName -Surname $LastName -SamAccountName $SamAccountName -UserPrincipalName $UserPrincipal -Path $UserContainer -AccountPassword (ConvertTo-SecureString -AsPlainText $DefaultPassword -Force) -Enabled $true -ChangePasswordAtLogon $true
 	$UserCreationForm.OutputTxtBox.AppendText("Your account has been created: `n")
 	$UserCreationForm.OutputTxtBox.AppendText("Login Name: " + (Get-ADUser $SamAccountName).UserPrincipalName)
 	$UserCreationForm.OutputTxtBox.AppendText("`nPassword is = " + $DefaultPassword)
 	$UserCreationForm.OutputTxtBox.AppendText("`nPassword will be reset on next login.")
+}
+
+catch {
+$UserCreationForm.OutputTxtBox.AppendText("User Already Exists in the Active Directory Domain")
+}
+	
 }
 
 Function Individual.User.Submit {
@@ -60,19 +67,22 @@ Function Individual.User.Submit {
 	$DefaultPassword = "P@ssword01"
 	$SamAccountChecker = (Get-ADUser $SamAccountName).SamAccountName
 
-	if($SamAccountName -eq $SamAccountChecker){
-		$UserCreationForm.OutputTxtBox.AppendText("User Already Exists in the Active Directory")
-	}else {
-		UserCreation
-	}
+	UserCreation
 }
 
-### ACTIVE DIRECTORY PREREQUISITES INSTALLATION FORM
-Function ADPrereq.Install {
-
+### ACTIVE DIRECTORY OU MANAGEMENT FORM
+Function OUMCreation{
+	$OUNameCreation = $OUCreateBox.Text
+try {
+	New-ADOrganizationalUnit $OUNameCreation
 }
-Function Prereq.Back{
-$OUM.Hide()
+catch {
+	$UserCreationForm.OutputTxtBox.AppendText("Error in Creation of OU")
+}
+}
+
+Function OUM.Back{
+$ADPrereqInstall.Hide()
 $ActiveDirectoryMenu.Show()
 }
 
