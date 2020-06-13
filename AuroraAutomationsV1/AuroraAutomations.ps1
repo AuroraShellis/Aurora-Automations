@@ -1,12 +1,12 @@
 Add-Type -AssemblyName PresentationFramework, System.Windows.Forms, System.Drawing
 
-#BUTTONS CONFIGURATION
-#MAIN MENU
+# BUTTONS CONFIGURATION
+## MAIN MENU
 Function ADMenu {
 $AuroraAutomationsV1.Hide()
 $ActiveDirectorymenu.ShowDialog()
 }
-#ACTIVE DIRECTORY MAIN MENU
+## ACTIVE DIRECTORY MAIN MENU
 Function ADMenuBack {
 $ActiveDirectoryMenu.Hide()
 $AuroraAutomationsV1.Show()
@@ -16,7 +16,7 @@ $ActiveDirectoryMenu.Hide()
 $UserCreationForm.ShowDialog()
 }
 
-#USER CREATION FORM
+## USER CREATION FORM
 Function Indivual.User.Back {
 $UserCreationForm.Hide()
 $ActiveDirectoryMenu.Show()

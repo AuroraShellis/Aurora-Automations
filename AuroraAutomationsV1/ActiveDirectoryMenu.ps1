@@ -1,5 +1,4 @@
-﻿
-$ADUserCreate_Click = {
+﻿$ADUserCreate_Click = {
 	$ActiveDirectoryMenu.Hide()
 	$UserCreationForm.ShowDialog()
 	}
