@@ -20,12 +20,6 @@ $DiagnosticsMenu.ShowDialog()
 
 ## ACTIVE DIRECTORY MAIN MENU
 Function AD.Installation {
-$ADPrereqInstall.ADPrereqOutput.AppendText("Current Computer: $env:ComputerName")
-$ADPrereqInstall.ADPrereqOutput.AppendText("`nCurrent Operating System: " + (Get-CimInstance Win32_OperatingSystem).Caption )
-$ADPrereqInstall.ADPrereqOutput.AppendText("`nCurrent Architecture: " + (Get-CimInstance Win32_OperatingSystem).OSArchitecture)
-$ADPrereqInstall.ADPrereqOutput.AppendText("`n")
-$ADPrereqInstall.ADPrereqOutput.AppendText("`nWe are about to Install Active Directory Domain Services and DNS Roles in this System")
-$ADPrereqInstall.ADPrereqOutput.AppendText("`nIT IS IMPORTANT THAT YOU ARE IN THE RIGHT SYSTEM")
 $ActiveDirectoryMenu.Hide()
 $ADPrereqInstall.ShowDialog()
 }
@@ -75,14 +69,9 @@ Function Individual.User.Submit {
 
 ### ACTIVE DIRECTORY PREREQUISITES INSTALLATION FORM
 Function ADPrereq.Install {
-$ADPrereqInstall.ADPrereqOutput.Clear()
-$ADPrereqInstall.ADPrereqOutput.AppendText("Installing Active Directory Domain Services...")
-	Install-WindowsFeature AD-Domain-Services -IncludeAllSubFeature -IncludeManagementTools
-$ADPrereqInstall.ADPrereqOutput.AppendText("Installing Domain Name System...")
-	Install-WindowsFeature DNS -IncludeAllSubFeature -IncludeManagementTools
+
 }
 Function Prereq.Back{
-$ADPrereqInstall.ADPrereqOutput.Clear()
 $ADPrereqInstall.Hide()
 $ActiveDirectoryMenu.Show()
 }
