@@ -1,4 +1,2 @@
-
-
 $MainMenu.ShowDialog()
 

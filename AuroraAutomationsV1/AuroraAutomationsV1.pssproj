@@ -62,6 +62,13 @@
       <HintPath>
       </HintPath>
     </Reference>
+    <Reference Include="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+      <Name>System.Drawing</Name>
+      <AssemblyName>
+      </AssemblyName>
+      <HintPath>
+      </HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
       <Name>System.Windows.Forms</Name>
       <AssemblyName>
@@ -79,6 +86,27 @@
       <DependentUpon>ActiveDirectoryMenu.ps1</DependentUpon>
     </Compile>
     <Compile Include="ActiveDirectoryMenu.ps1">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ADBulkUserCreation.designer.ps1">
+      <SubType>Code</SubType>
+      <DependentUpon>ADBulkUserCreation.ps1</DependentUpon>
+    </Compile>
+    <Compile Include="ADBulkUserCreation.ps1">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ADConfig.designer.ps1">
+      <SubType>Code</SubType>
+      <DependentUpon>ADConfig.ps1</DependentUpon>
+    </Compile>
+    <Compile Include="ADConfig.ps1">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ADPrereqInstall.designer.ps1">
+      <SubType>Code</SubType>
+      <DependentUpon>ADPrereqInstall.ps1</DependentUpon>
+    </Compile>
+    <Compile Include="ADPrereqInstall.ps1">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AuroraAutomations.ps1" />
@@ -114,6 +142,15 @@
   <ItemGroup>
     <EmbeddedResource Include="ActiveDirectoryMenu.resx">
       <DependentUpon>ActiveDirectoryMenu.ps1</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ADBulkUserCreation.resx">
+      <DependentUpon>ADBulkUserCreation.ps1</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ADConfig.resx">
+      <DependentUpon>ADConfig.ps1</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ADPrereqInstall.resx">
+      <DependentUpon>ADPrereqInstall.ps1</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DiagnosticsMenu.resx">
       <DependentUpon>DiagnosticsMenu.ps1</DependentUpon>

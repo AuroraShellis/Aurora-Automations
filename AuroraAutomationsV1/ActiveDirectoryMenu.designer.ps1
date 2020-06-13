@@ -10,7 +10,6 @@ $ActiveDirectoryMenu = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Button]$ADUserPassReset = $null
 [System.Windows.Forms.Button]$ADBulkUserCreate = $null
 [System.Windows.Forms.Button]$button1 = $null
-
 function InitializeComponent
 {
 $resources = . (Join-Path $PSScriptRoot 'ActiveDirectoryMenu.resources.ps1')
@@ -32,6 +31,7 @@ $ADInstall.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([Sys
 $ADInstall.TabIndex = [System.Int32]0
 $ADInstall.Text = [System.String]'Active Directory Prerequisite Installation'
 $ADInstall.UseVisualStyleBackColor = $true
+$ADInstall.add_Click({AD.Installation})
 #
 #ADDomainCreate
 #
@@ -41,6 +41,7 @@ $ADDomainCreate.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @
 $ADDomainCreate.TabIndex = [System.Int32]1
 $ADDomainCreate.Text = [System.String]'Active Directory Domain And Forest Creation '
 $ADDomainCreate.UseVisualStyleBackColor = $true
+$ADDomainCreate.add_Click($ADDomainCreate_Click)
 #
 #ADUserCreate
 #
@@ -60,6 +61,7 @@ $ADUserDelete.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([
 $ADUserDelete.TabIndex = [System.Int32]3
 $ADUserDelete.Text = [System.String]'Active Directory User Deletion'
 $ADUserDelete.UseVisualStyleBackColor = $true
+$ADUserDelete.add_Click($ADUserDelete_Click)
 #
 #ADUserPassReset
 #
@@ -69,6 +71,7 @@ $ADUserPassReset.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList 
 $ADUserPassReset.TabIndex = [System.Int32]4
 $ADUserPassReset.Text = [System.String]'Active Directory User Password Reset'
 $ADUserPassReset.UseVisualStyleBackColor = $true
+$ADUserPassReset.add_Click($ADUserPassReset_Click)
 #
 #ADBulkUserCreate
 #
