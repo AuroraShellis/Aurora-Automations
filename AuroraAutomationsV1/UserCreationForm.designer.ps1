@@ -76,7 +76,6 @@ $OutputTxtBox.ReadOnly = $true
 $OutputTxtBox.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]445,[System.Int32]123))
 $OutputTxtBox.TabIndex = [System.Int32]5
 $OutputTxtBox.Text = [System.String]''
-$OutputTxtBox.add_TextChanged()
 #
 #BackButton
 #

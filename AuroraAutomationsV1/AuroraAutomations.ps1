@@ -19,9 +19,9 @@ $DiagnosticsMenu.ShowDialog()
 }
 
 ## ACTIVE DIRECTORY MAIN MENU
-Function AD.Installation {
+Function OUMShowMenu {
 $ActiveDirectoryMenu.Hide()
-$ADPrereqInstall.ShowDialog()
+$OUM.ShowDialog()
 }
 Function Individual.User {
 $ActiveDirectoryMenu.Hide()
@@ -74,15 +74,29 @@ Function Individual.User.Submit {
 Function OUMCreation{
 	$OUNameCreation = $OUCreateBox.Text
 try {
-	New-ADOrganizationalUnit $OUNameCreation
+	New-ADOrganizationalUnit $OUNameCreation -ErrorAction Stop
+	Get-ADObject -Filter  {$OUNameCreation -eq 'organizationalunit' }
+	$OUM.OUOutput.AppendText("Creation of OU: $OUNameCreation Sucessful")
 }
 catch {
-	$UserCreationForm.OutputTxtBox.AppendText("Error in Creation of OU")
+	$OUM.OUOutput.AppendText("Error: OU Exists in Active Directory")
 }
 }
 
+Function OUMDeletion{
+	$OUnaming = "OU=" + $DeleteOUBox.Text + "," + (Get-ADDomain).DistinguishedName
+	Remove-ADOrganizationalUnit -Identity $naming
+
+}
+Function OUGetList{
+	$OUM.OUOutput.Clear()
+	$OUObjectList = Get-ADObject -Filter { ObjectClass -eq 'organizationalunit' }
+	$OUM.OUOutput.AppendText($OUObjectList)
+}
+
+
 Function OUM.Back{
-$ADPrereqInstall.Hide()
+$OUM.Hide()
 $ActiveDirectoryMenu.Show()
 }
 

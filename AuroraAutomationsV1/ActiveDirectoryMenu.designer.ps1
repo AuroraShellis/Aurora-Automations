@@ -29,9 +29,9 @@ $ADInstall.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @
 $ADInstall.Name = [System.String]'ADInstall'
 $ADInstall.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]200,[System.Int32]100))
 $ADInstall.TabIndex = [System.Int32]0
-$ADInstall.Text = [System.String]'Active Directory Prerequisite Installation'
+$ADInstall.Text = [System.String]'Organzational Units Management'
 $ADInstall.UseVisualStyleBackColor = $true
-$ADInstall.add_Click({AD.Installation})
+$ADInstall.add_Click({OUMShowMenu})
 #
 #ADDomainCreate
 #
