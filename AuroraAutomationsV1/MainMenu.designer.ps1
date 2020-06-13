@@ -16,7 +16,7 @@ $MainMenu = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Button]$button1 = $null
 function InitializeComponent
 {
-$resources = . (Join-Path $PSScriptRoot 'AuroraAutomationsV1.resources.ps1')
+$resources = . (Join-Path $PSScriptRoot 'MainMenu.resources.ps1')
 $label1 = (New-Object -TypeName System.Windows.Forms.Label)
 $label2 = (New-Object -TypeName System.Windows.Forms.Label)
 $label3 = (New-Object -TypeName System.Windows.Forms.Label)
@@ -79,6 +79,7 @@ $OpenMgmt.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([Syst
 $OpenMgmt.TabIndex = [System.Int32]4
 $OpenMgmt.Text = [System.String]'Open'
 $OpenMgmt.UseVisualStyleBackColor = $true
+$OpenMgmt.add_Click({ManagementMenu})
 #
 #OpenDiag
 #
@@ -88,6 +89,7 @@ $OpenDiag.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([Syst
 $OpenDiag.TabIndex = [System.Int32]5
 $OpenDiag.Text = [System.String]'Open'
 $OpenDiag.UseVisualStyleBackColor = $true
+$OpenDiag.add_Click({DiagnosticsMenu})
 #
 #pictureBox1
 #
@@ -140,7 +142,7 @@ $label6.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System
 $label6.TabIndex = [System.Int32]11
 $label6.Text = [System.String]'APA'
 #
-#AuroraAutomationsV1
+#MainMenu
 #
 $MainMenu.ClientSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]624,[System.Int32]441))
 $MainMenu.Controls.Add($label6)
@@ -156,7 +158,7 @@ $MainMenu.Controls.Add($label3)
 $MainMenu.Controls.Add($label2)
 $MainMenu.Controls.Add($label1)
 $MainMenu.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
-$MainMenu.Name = [System.String]'AuroraAutomationsV1'
+$MainMenu.Name = [System.String]'MainMenu'
 $MainMenu.Text = [System.String]'Main Menu - Aurora Automations'
 ([System.ComponentModel.ISupportInitialize]$pictureBox1).EndInit()
 ([System.ComponentModel.ISupportInitialize]$pictureBox2).EndInit()

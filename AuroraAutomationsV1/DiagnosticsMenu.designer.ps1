@@ -85,6 +85,7 @@ $DiagBack.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([Syst
 $DiagBack.TabIndex = [System.Int32]6
 $DiagBack.Text = [System.String]'Back'
 $DiagBack.UseVisualStyleBackColor = $true
+$DiagBack.add_Click({DiagnosticsBack})
 #
 #DiagLabel
 #

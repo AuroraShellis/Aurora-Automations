@@ -86,7 +86,7 @@ $MgmtBack.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([Syst
 $MgmtBack.TabIndex = [System.Int32]6
 $MgmtBack.Text = [System.String]'Back'
 $MgmtBack.UseVisualStyleBackColor = $true
-#
+$MgmtBack.add_Click({ManagementBack})
 #MgmtLabel
 #
 $MgmtLabel.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]12,[System.Int32]9))

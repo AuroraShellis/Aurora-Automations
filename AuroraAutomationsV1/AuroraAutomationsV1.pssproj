@@ -62,13 +62,6 @@
       <HintPath>
       </HintPath>
     </Reference>
-    <Reference Include="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-      <Name>System.Drawing</Name>
-      <AssemblyName>
-      </AssemblyName>
-      <HintPath>
-      </HintPath>
-    </Reference>
     <Reference Include="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
       <Name>System.Windows.Forms</Name>
       <AssemblyName>

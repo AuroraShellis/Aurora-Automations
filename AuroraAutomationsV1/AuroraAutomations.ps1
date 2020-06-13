@@ -6,6 +6,17 @@ Function ADMenu {
 $MainMenu.Hide()
 $ActiveDirectorymenu.ShowDialog()
 }
+
+Function ManagementMenu {
+$MainMenu.Hide()
+$ManagementMenu.ShowDialog()
+}
+
+Function DiagnosticsMenu {
+$MainMenu.Hide()
+$DiagnosticsMenu.ShowDialog()
+}
+
 ## ACTIVE DIRECTORY MAIN MENU
 Function ADMenuBack {
 $ActiveDirectoryMenu.Hide()
@@ -16,8 +27,20 @@ $ActiveDirectoryMenu.Hide()
 $UserCreationForm.ShowDialog()
 }
 
+## MANAGEMENT SCRIPTS MAIN MENU
+Function ManagementBack{
+$ManagementMenu.Hide()
+$MainMenu.Show()
+}
+
+## DIAGNOSTICS SCRIPTS MAIN MENU
+Function DiagnosticsBack{
+$DiagnosticsMenu.Hide()
+$MainMenu.Show()
+}
+ 
 ## USER CREATION FORM
-Function Indivual.User.Back {
+Function Indivual.User.Back{
 $UserCreationForm.Hide()
 $ActiveDirectoryMenu.Show()
 }
@@ -53,9 +76,10 @@ Function Individual.User.Submit {
 . (Join-Path $PSScriptRoot 'ActiveDirectoryMenu.designer.ps1')
 . (Join-Path $PSScriptRoot 'UserCreationForm.designer.ps1')
 . (Join-Path $PSScriptRoot 'ManagementMenu.designer.ps1')
-
+. (Join-Path $PSScriptRoot 'DiagnosticsMenu.designer.ps1')
 # JOIN PATH FOR BASE POWERSHELL
 . (Join-Path $PSScriptRoot 'MainMenu.ps1')
 . (Join-Path $PSScriptRoot 'ActiveDirectoryMenu.ps1')
 . (Join-Path $PSScriptRoot 'UserCreationForm.ps1')
 . (Join-Path $PSScriptRoot 'ManagementMenu.ps1')
+. (Join-Path $PSScriptRoot 'DiagnosticsMenu.ps1')
