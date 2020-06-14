@@ -85,7 +85,7 @@ $BackButton.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([Sy
 $BackButton.TabIndex = [System.Int32]6
 $BackButton.Text = [System.String]'Back'
 $BackButton.UseVisualStyleBackColor = $true
-$BackButton.add_Click({Indivual.User.Back})
+$BackButton.add_Click({Individual.User.Back})
 #
 #SubmitButton
 #

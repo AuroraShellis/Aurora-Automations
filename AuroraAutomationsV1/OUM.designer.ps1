@@ -48,6 +48,7 @@ $OUBackButton.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([
 $OUBackButton.TabIndex = [System.Int32]0
 $OUBackButton.Text = [System.String]'Back'
 $OUBackButton.UseVisualStyleBackColor = $true
+$OUBackButton.add_Click({OUM.Back})
 #
 #OUCreateButton
 #
@@ -57,6 +58,7 @@ $OUCreateButton.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @
 $OUCreateButton.TabIndex = [System.Int32]1
 $OUCreateButton.Text = [System.String]'Create'
 $OUCreateButton.UseVisualStyleBackColor = $true
+$OUCreateButton.add_Click({OUMCreation})
 #
 #OuDesc
 #
@@ -119,7 +121,7 @@ $DeleteOUButton.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @
 $DeleteOUButton.TabIndex = [System.Int32]6
 $DeleteOUButton.Text = [System.String]'Delete'
 $DeleteOUButton.UseVisualStyleBackColor = $true
-$DeleteOUButton.add_Click($OUMDeletion)
+$DeleteOUButton.add_Click({OUMDeletion})
 #
 #MoveOUOUTextBox
 #
@@ -145,7 +147,7 @@ $MoveOUButton.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([
 $MoveOUButton.TabIndex = [System.Int32]9
 $MoveOUButton.Text = [System.String]'Move'
 $MoveOUButton.UseVisualStyleBackColor = $true
-$MoveOUButton.add_Click($MoveOUButton_Click)
+$MoveOUButton.add_Click({OUMoveUser})
 #
 #OULabelOut
 #
