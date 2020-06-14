@@ -110,6 +110,13 @@
     <Compile Include="ADBulkUserCreation.ps1">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ADGroupMgmt.designer.ps1">
+      <SubType>Code</SubType>
+      <DependentUpon>ADGroupMgmt.ps1</DependentUpon>
+    </Compile>
+    <Compile Include="ADGroupMgmt.ps1">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ADPasswordReset.designer.ps1">
       <SubType>Code</SubType>
       <DependentUpon>ADPasswordReset.ps1</DependentUpon>
@@ -167,6 +174,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ADBulkUserCreation.resx">
       <DependentUpon>ADBulkUserCreation.ps1</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ADGroupMgmt.resx">
+      <DependentUpon>ADGroupMgmt.ps1</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ADPasswordReset.resx">
       <DependentUpon>ADPasswordReset.ps1</DependentUpon>
