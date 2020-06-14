@@ -80,7 +80,7 @@ Function Individual.User.Submit {
 	UserCreation
 }
 
-### ACTIVE DIRECTORY OU MANAGEMENT FORM
+### ACTIVE DIRECTORY OUM FORM
 Function OUMCreation{
 	$OUM.OUOutput.Clear()
 	$OUNameCreation = $OUCreateBox.Text
@@ -226,10 +226,11 @@ Function GroupMovementOU {
 	$GroupNameMove = Get-ADgroup -Identity $ADGroupNameMove.Text
 	$VariableGroupName = $ADGroupNameMove.Text
 	$TargeGroupNameMove = "OU=" + $ADGroupTargetOU.text + "," + (Get-ADDomain).DistinguishedName
+	$OUTargetGroupName =  $ADGroupTargetOU.text
 
 	try {
 		Move-ADObject -Identity $GroupNameMove -TargetPath $TargeGroupNameMove
-		$ADGroupMgmt.ADGroupMgmtOutput.AppendText($VariableGroupName + " Sucessfully Moved to " + $TargeGroupNameMove)
+		$ADGroupMgmt.ADGroupMgmtOutput.AppendText($VariableGroupName + " Sucessfully Moved to " + $OUTargetGroupName)
 	}
 	catch{
 		$ADGroupMgmt.ADGroupMgmtOutput.AppendText("OU or Group does not exist")

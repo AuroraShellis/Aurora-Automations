@@ -167,7 +167,7 @@ $ADGroupLabel6.Location = (New-Object -TypeName System.Drawing.Point -ArgumentLi
 $ADGroupLabel6.Name = [System.String]'ADGroupLabel6'
 $ADGroupLabel6.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]70,[System.Int32]13))
 $ADGroupLabel6.TabIndex = [System.Int32]13
-$ADGroupLabel6.Text = [System.String]'Group Name:'
+$ADGroupLabel6.Text = [System.String]'Insert Group Name:'
 #
 #ADGroupNameMove
 #
