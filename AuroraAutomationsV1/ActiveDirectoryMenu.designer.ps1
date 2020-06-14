@@ -70,7 +70,7 @@ $ADUserPassReset.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList 
 $ADUserPassReset.TabIndex = [System.Int32]4
 $ADUserPassReset.Text = [System.String]'Active Directory User Password Reset'
 $ADUserPassReset.UseVisualStyleBackColor = $true
-$ADUserPassReset.add_Click($ADUserPassReset_Click)
+$ADUserPassReset.add_Click({PasswordShowMenu})
 #
 #ADBulkUserCreate
 #
@@ -80,7 +80,7 @@ $ADBulkUserCreate.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList
 $ADBulkUserCreate.TabIndex = [System.Int32]5
 $ADBulkUserCreate.Text = [System.String]'Active Directory Bulk User Creation Through CSV'
 $ADBulkUserCreate.UseVisualStyleBackColor = $true
-$ADBulkUserCreate.add_Click($ADBulkUserCreate_Click)
+$ADBulkUserCreate.add_Click({BulkImportsShowMenu})
 #
 #label1
 #

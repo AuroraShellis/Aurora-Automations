@@ -6,7 +6,6 @@ $ADPasswordReset = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Label]$PassResetLabel = $null
 [System.Windows.Forms.Label]$PassResetLabel2 = $null
 [System.Windows.Forms.TextBox]$PassResetUserInput = $null
-[System.Windows.Forms.RichTextBox]$richTextBox1 = $null
 [System.Windows.Forms.Label]$PassResetLabel3 = $null
 [System.Windows.Forms.Label]$PassResetLabel4 = $null
 [System.Windows.Forms.Button]$PassResetQueryOU = $null
@@ -16,6 +15,7 @@ $ADPasswordReset = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Label]$PassResetLabel6 = $null
 [System.Windows.Forms.TextBox]$PassResetPassConfirm = $null
 [System.Windows.Forms.Button]$PassResetListOU = $null
+[System.Windows.Forms.RichTextBox]$ADPasswordOutput = $null
 [System.Windows.Forms.Button]$button1 = $null
 function InitializeComponent
 {
@@ -25,7 +25,7 @@ $PassResetSubmit = (New-Object -TypeName System.Windows.Forms.Button)
 $PassResetLabel = (New-Object -TypeName System.Windows.Forms.Label)
 $PassResetLabel2 = (New-Object -TypeName System.Windows.Forms.Label)
 $PassResetUserInput = (New-Object -TypeName System.Windows.Forms.TextBox)
-$richTextBox1 = (New-Object -TypeName System.Windows.Forms.RichTextBox)
+$ADPasswordOutput = (New-Object -TypeName System.Windows.Forms.RichTextBox)
 $PassResetLabel3 = (New-Object -TypeName System.Windows.Forms.Label)
 $PassResetLabel4 = (New-Object -TypeName System.Windows.Forms.Label)
 $PassResetQueryTextBox = (New-Object -TypeName System.Windows.Forms.TextBox)
@@ -45,6 +45,7 @@ $PassResetBack.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @(
 $PassResetBack.TabIndex = [System.Int32]0
 $PassResetBack.Text = [System.String]'Back'
 $PassResetBack.UseVisualStyleBackColor = $true
+$PassResetBack.add_Click({PasswordResetBack})
 #
 #PassResetSubmit
 #
@@ -54,6 +55,7 @@ $PassResetSubmit.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList 
 $PassResetSubmit.TabIndex = [System.Int32]1
 $PassResetSubmit.Text = [System.String]'Change'
 $PassResetSubmit.UseVisualStyleBackColor = $true
+$PassResetSubmit.add_Click({PasswordResetInputs})
 #
 #PassResetLabel
 #
@@ -67,11 +69,11 @@ $PassResetLabel.Text = [System.String]'This will aid in the reseting of Active D
 #PassResetLabel2
 #
 $PassResetLabel2.AutoSize = $true
-$PassResetLabel2.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]372,[System.Int32]163))
+$PassResetLabel2.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]366,[System.Int32]163))
 $PassResetLabel2.Name = [System.String]'PassResetLabel2'
-$PassResetLabel2.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]32,[System.Int32]13))
+$PassResetLabel2.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]107,[System.Int32]13))
 $PassResetLabel2.TabIndex = [System.Int32]3
-$PassResetLabel2.Text = [System.String]'User:'
+$PassResetLabel2.Text = [System.String]'SAM Account Name:'
 #
 #PassResetUserInput
 #
@@ -80,13 +82,13 @@ $PassResetUserInput.Name = [System.String]'PassResetUserInput'
 $PassResetUserInput.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]221,[System.Int32]20))
 $PassResetUserInput.TabIndex = [System.Int32]4
 #
-#richTextBox1
+#ADPasswordOutput
 #
-$richTextBox1.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]30,[System.Int32]82))
-$richTextBox1.Name = [System.String]'richTextBox1'
-$richTextBox1.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]298,[System.Int32]280))
-$richTextBox1.TabIndex = [System.Int32]5
-$richTextBox1.Text = [System.String]''
+$ADPasswordOutput.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]30,[System.Int32]82))
+$ADPasswordOutput.Name = [System.String]'ADPasswordOutput'
+$ADPasswordOutput.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]298,[System.Int32]280))
+$ADPasswordOutput.TabIndex = [System.Int32]5
+$ADPasswordOutput.Text = [System.String]''
 #
 #PassResetLabel3
 #
@@ -100,7 +102,7 @@ $PassResetLabel3.Text = [System.String]'Output:'
 #PassResetLabel4
 #
 $PassResetLabel4.AutoSize = $true
-$PassResetLabel4.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]373,[System.Int32]55))
+$PassResetLabel4.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]366,[System.Int32]66))
 $PassResetLabel4.Name = [System.String]'PassResetLabel4'
 $PassResetLabel4.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]102,[System.Int32]13))
 $PassResetLabel4.TabIndex = [System.Int32]7
@@ -121,11 +123,12 @@ $PassResetQueryOU.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList
 $PassResetQueryOU.TabIndex = [System.Int32]9
 $PassResetQueryOU.Text = [System.String]'Query OU'
 $PassResetQueryOU.UseVisualStyleBackColor = $true
+$PassResetQueryOU.add_Click({PasswordOUQuery})
 #
 #PassResetLabel5
 #
 $PassResetLabel5.AutoSize = $true
-$PassResetLabel5.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]372,[System.Int32]213))
+$PassResetLabel5.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]366,[System.Int32]213))
 $PassResetLabel5.Name = [System.String]'PassResetLabel5'
 $PassResetLabel5.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]56,[System.Int32]13))
 $PassResetLabel5.TabIndex = [System.Int32]10
@@ -141,7 +144,7 @@ $PassResetPassInput.TabIndex = [System.Int32]11
 #PassResetLabel6
 #
 $PassResetLabel6.AutoSize = $true
-$PassResetLabel6.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]372,[System.Int32]261))
+$PassResetLabel6.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]366,[System.Int32]262))
 $PassResetLabel6.Name = [System.String]'PassResetLabel6'
 $PassResetLabel6.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]94,[System.Int32]13))
 $PassResetLabel6.TabIndex = [System.Int32]12
@@ -162,6 +165,7 @@ $PassResetListOU.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList 
 $PassResetListOU.TabIndex = [System.Int32]14
 $PassResetListOU.Text = [System.String]'List Current OUs'
 $PassResetListOU.UseVisualStyleBackColor = $true
+$PassResetListOU.add_Click({PasswordListOU})
 #
 #ADPasswordReset
 #
@@ -175,7 +179,7 @@ $ADPasswordReset.Controls.Add($PassResetQueryOU)
 $ADPasswordReset.Controls.Add($PassResetQueryTextBox)
 $ADPasswordReset.Controls.Add($PassResetLabel4)
 $ADPasswordReset.Controls.Add($PassResetLabel3)
-$ADPasswordReset.Controls.Add($richTextBox1)
+$ADPasswordReset.Controls.Add($ADPasswordOutput)
 $ADPasswordReset.Controls.Add($PassResetUserInput)
 $ADPasswordReset.Controls.Add($PassResetLabel2)
 $ADPasswordReset.Controls.Add($PassResetLabel)
@@ -192,7 +196,6 @@ Add-Member -InputObject $ADPasswordReset -Name PassResetSubmit -Value $PassReset
 Add-Member -InputObject $ADPasswordReset -Name PassResetLabel -Value $PassResetLabel -MemberType NoteProperty
 Add-Member -InputObject $ADPasswordReset -Name PassResetLabel2 -Value $PassResetLabel2 -MemberType NoteProperty
 Add-Member -InputObject $ADPasswordReset -Name PassResetUserInput -Value $PassResetUserInput -MemberType NoteProperty
-Add-Member -InputObject $ADPasswordReset -Name richTextBox1 -Value $richTextBox1 -MemberType NoteProperty
 Add-Member -InputObject $ADPasswordReset -Name PassResetLabel3 -Value $PassResetLabel3 -MemberType NoteProperty
 Add-Member -InputObject $ADPasswordReset -Name PassResetLabel4 -Value $PassResetLabel4 -MemberType NoteProperty
 Add-Member -InputObject $ADPasswordReset -Name PassResetQueryOU -Value $PassResetQueryOU -MemberType NoteProperty
@@ -202,6 +205,7 @@ Add-Member -InputObject $ADPasswordReset -Name PassResetPassInput -Value $PassRe
 Add-Member -InputObject $ADPasswordReset -Name PassResetLabel6 -Value $PassResetLabel6 -MemberType NoteProperty
 Add-Member -InputObject $ADPasswordReset -Name PassResetPassConfirm -Value $PassResetPassConfirm -MemberType NoteProperty
 Add-Member -InputObject $ADPasswordReset -Name PassResetListOU -Value $PassResetListOU -MemberType NoteProperty
+Add-Member -InputObject $ADPasswordReset -Name ADPasswordOutput -Value $ADPasswordOutput -MemberType NoteProperty
 Add-Member -InputObject $ADPasswordReset -Name button1 -Value $button1 -MemberType NoteProperty
 }
 . InitializeComponent

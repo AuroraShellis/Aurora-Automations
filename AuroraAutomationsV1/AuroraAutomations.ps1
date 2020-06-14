@@ -7,12 +7,10 @@ Function ADMenu {
 	$MainMenu.Hide()
 	$ActiveDirectorymenu.ShowDialog()
 }
-
 Function ManagementMenu {
 	$MainMenu.Hide()
 	$ManagementMenu.ShowDialog()
 }
-
 Function DiagnosticsMenu {
 	$MainMenu.Hide()
 	$DiagnosticsMenu.ShowDialog()
@@ -24,7 +22,6 @@ Function ADUserDeleteShowMenu {
 	$ActiveDirectoryMenu.Hide()
 	$ADUserDeletion.ShowDialog()
 }
-
 Function OUMShowMenu {
 	$ActiveDirectoryMenu.Hide()
 	$OUM.ShowDialog()
@@ -39,7 +36,15 @@ Function Individual.User {
 	$ActiveDirectoryMenu.Hide()
 	$UserCreationForm.ShowDialog()
 }
-
+Function PasswordShowMenu {
+	$ActiveDirectoryMenu.Hide()
+	$ADPasswordReset.ADPasswordOutput.AppendText("WARNING: Password will be changed without Confirmation.")
+	$ADPasswordReset.ShowDialog()
+}
+Function BulkImportsShowMenu {
+	$ActiveDirectoryMenu.Hide()
+	$ADBulkUserCreation.ShowDialog()
+}
 Function ADMenuBack {
 	$ActiveDirectoryMenu.Hide()
 	$MainMenu.Show()
@@ -209,7 +214,7 @@ Function GroupCreation {
 	catch{
 		 $ADGroupMgmt.ADGroupMgmtOutput.AppendText("Unspecified Organizational Unit or Group Name Already Exists.")
 	}
-	}
+}
 Function GroupDeletion {
 	$ADGroupMgmt.ADGroupMgmtOutput.Clear()
 	$GroupNameDeletion = $ADGroupNameInput.Text
@@ -235,8 +240,7 @@ Function GroupMovementOU {
 	catch{
 		$ADGroupMgmt.ADGroupMgmtOutput.AppendText("OU or Group does not exist")
 	}
-
-	}
+}
 Function ListOUGroupManagement {
 	$ADGroupMgmt.ADGroupMgmtOutput.Clear()
 	$GroupManagmentListOU = Get-ADObject -Filter { ObjectClass -eq 'organizationalunit' }
@@ -248,6 +252,55 @@ Function GroupBack {
 	$ADGroupMgmt.Hide()
 	$ActiveDirectoryMenu.Show()
 }
+
+### PASSWORD RESET FORM 
+# $ADPasswordReset.ADPasswordOutput.Clear()
+# $ADPasswordReset
+	# PassResetQueryTextBox
+	# ADPasswordOutput
+	# -AccountPassword (ConvertTo-SecureString -AsPlainText $DefaultPassword -Force) -Enabled $true -ChangePasswordAtLogon $true
+
+Function PasswordOUQuery{
+	$ADPasswordReset.ADPasswordOutput.Clear()
+	$QueryPWInput = $PassResetQueryTextBox.Text
+	$TargetPWQuery = "OU=" + $QueryPWInput + "," + (Get-ADDomain).DistinguishedName
+	try{
+		$PasswordSearchList = Get-ADUser -Filter * -SearchBase $TargetPWQuery | Select-Object SamAccountName, Name, Enabled, ObjectClass | Format-List SamAccountName, Name, Enabled, ObjectClass | Out-String
+		$ADPasswordReset.ADPasswordOutput.AppendText($PasswordSearchList)
+	}
+	catch{
+		$ADPasswordReset.ADPasswordOutput.AppendText("Could not find any Users in the " + $QueryPWInput + " OU. Check if the OU exists beforehand.")
+	}
+}
+Function PasswordResetInputs{
+	$ADPasswordReset.ADPasswordOutput.Clear()
+	$PWUsernameInput = $PassResetUserInput.Text
+	$PPasswordInputOne = $PassResetPassInput.Text
+	$PasswordInputTwo = $PassResetPassConfirm.Text
+
+	if($PPasswordInputOne -eq $PasswordInputTwo){
+		try{
+			Set-ADAccountPassword -Identity $PWUsernameInput -Reset -NewPassword (ConvertTo-SecureString -AsPlainText $PPasswordInputOne -Force ) -Confirm:$false
+			$ADPasswordReset.ADPasswordOutput.AppendText("Password Successfully changed for " + $PWUsernameInput)
+		}catch{
+			$ADPasswordReset.ADPasswordOutput.AppendText("User does not exist. Check Username.")
+		}
+	}else{
+		$ADPasswordReset.ADPasswordOutput.AppendText("Password does not match.")
+	}
+}
+Function PasswordResetBack{
+	$ADPasswordReset.ADPasswordOutput.Clear()
+	$ADPasswordReset.Hide()
+	$ActiveDirectoryMenu.Show()
+}
+
+Function PasswordListOU{
+	$ADPasswordReset.ADPasswordOutput.Clear()
+	$PWOLObjectList = Get-ADObject -Filter { ObjectClass -eq 'organizationalunit' }
+	$ADPasswordReset.ADPasswordOutput.AppendText($PWOLObjectList)
+}
+
 ## MANAGEMENT SCRIPTS MAIN MENU
 Function ManagementBack{
 	$ManagementMenu.Hide()
