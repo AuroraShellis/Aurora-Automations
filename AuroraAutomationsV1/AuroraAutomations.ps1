@@ -52,37 +52,65 @@ Function ADMenuBack {
 
 ### ACTIVE DIRECTORY MENU BUTTONS - 3RD LAYER
 ### USER CREATION FORM
-Function Individual.User.Back{
-	$UserCreationForm.OutputTxtBox.Clear()
-	$UserCreationForm.Hide()
-	$ActiveDirectoryMenu.Show()
-}
-
-Function UserCreation {
-try {
-	New-ADUser -Name $FullName -GivenName $FirstName -Surname $LastName -SamAccountName $SamAccountChecker -UserPrincipalName $UserPrincipal -Path $UserContainer -AccountPassword (ConvertTo-SecureString -AsPlainText $DefaultPassword -Force) -Enabled $true -ChangePasswordAtLogon $true
-	$UserCreationForm.OutputTxtBox.AppendText("Your account has been created: `n")
-	$UserCreationForm.OutputTxtBox.AppendText("User Principal Name: " + (Get-ADUser $SamAccountChecker).UserPrincipalName)
-	$UserCreationForm.OutputTxtBox.AppendText("`nSAM Account Name: " + (Get-ADDomain).NetBIOSName + "\" + (Get-ADUser $SamAccountChecker).SamAccountName)
-	$UserCreationForm.OutputTxtBox.AppendText("`nPassword is = " + $DefaultPassword)
-	$UserCreationForm.OutputTxtBox.AppendText("`nPassword will be reset on next login.")
-}catch {
-	$UserCreationForm.OutputTxtBox.AppendText("User Already Exists in the Active Directory Domain")
-	}	
-}
-
 Function Individual.User.Submit {
 	$UserCreationForm.OutputTxtBox.Clear()
 	$FirstName = $FirstNameTxtBox.Text
 	$LastName = $LastNameTxtBox.Text
+	$FirstNameSub = $FirstName.Substring(0,1)
+
+	If($LastName.Length -lt 14){
+		$numberx = $LastName.Length
+	}Else{
+		$numberx = 14
+	}
+	$LastNameSub = $LastName.Substring( 0, $numberx)
+	
 	$FullName = $FirstName + " " + $LastName
-	$SamAccountName = $FirstName + "." + $LastName
+	$SamAccountName = $FirstNameSub + "." + $LastNameSub
 	$Domain = (Get-ADDomain).DNSRoot
 	$UserPrincipal = $SamAccountName + "@" + $Domain
 	$UserContainer = (Get-ADDomain).UsersContainer
 	$DefaultPassword = "P@ssword01"
 	$SamAccountChecker = $LastName
 	UserCreation
+}
+
+Function UserCreation {
+	try {
+		New-ADUser -Name $FullName -GivenName $FirstName -Surname $LastName -SamAccountName $SamAccountName -UserPrincipalName $UserPrincipal -Path $UserContainer -AccountPassword (ConvertTo-SecureString -AsPlainText $DefaultPassword -Force) -Enabled $true -ChangePasswordAtLogon $true
+		$UserCreationForm.OutputTxtBox.AppendText("Your account has been created: `n")
+		$UserCreationForm.OutputTxtBox.AppendText("Account Full Name: " + (Get-ADUser $SamAccountName).Name)
+		$UserCreationForm.OutputTxtBox.AppendText("`nUser Principal Name: " + (Get-ADUser $SamAccountName).UserPrincipalName)
+		$UserCreationForm.OutputTxtBox.AppendText("`nSAM Account Name: " + (Get-ADDomain).NetBIOSName + "\" + (Get-ADUser $SamAccountName).SamAccountName)
+		$UserCreationForm.OutputTxtBox.AppendText("`nPassword is = " + $DefaultPassword)
+		$UserCreationForm.OutputTxtBox.AppendText("`nPassword will be reset on next login.")
+	}catch [Microsoft.ActiveDirectory.Management.ADIdentityAlreadyExistsException] {
+		$UserCreationForm.OutputTxtBox.AppendText("NOTE: Account Name Already Exists in the Active Directory Domain. `nTherefore you will get a different Account Name.`n")
+		$UserRandomVar = Get-Random -Minimum 1 -Maximum 999
+		$NewSamAccountName = $FirstNameSub + "." + $LastNameSub + "." + $UserRandomVar
+		$NewLastName = $LastName + "." + $UserRandomVar
+		$NewFullName = $FirstName + " " + $NewLastName
+		$NewUserPrincipal = $NewSamAccountName + "@" + $Domain
+		try{
+			New-ADUser -Name $NewFullName -GivenName $FirstName -Surname $NewLastName -SamAccountName $NewSamAccountName -UserPrincipalName $NewUserPrincipal -Path $UserContainer -AccountPassword (ConvertTo-SecureString -AsPlainText $DefaultPassword -Force) -Enabled $true -ChangePasswordAtLogon $true
+			$UserCreationForm.OutputTxtBox.AppendText("Your account has been created: `n")
+			$UserCreationForm.OutputTxtBox.AppendText("Account Full Name: " + (Get-ADUser $NewSamAccountName).Name)
+			$UserCreationForm.OutputTxtBox.AppendText("`nUser Principal Name: " + (Get-ADUser $NewSamAccountName).UserPrincipalName)
+			$UserCreationForm.OutputTxtBox.AppendText("`nSAM Account Name: " + (Get-ADDomain).NetBIOSName + "\" + (Get-ADUser $NewSamAccountName).SamAccountName)
+			$UserCreationForm.OutputTxtBox.AppendText("`nPassword is = " + $DefaultPassword)
+			$UserCreationForm.OutputTxtBox.AppendText("`nPassword will be reset on next login.")
+		}catch{
+			$UserCreationForm.OutputTxtBox.AppendText("Unexpected Error, Something went wrong. Please try again.")
+		}
+	}catch {
+		$UserCreationForm.OutputTxtBox.AppendText("Something went wrong. Please try again.")
+	}	
+}
+
+Function Individual.User.Back{
+	$UserCreationForm.OutputTxtBox.Clear()
+	$UserCreationForm.Hide()
+	$ActiveDirectoryMenu.Show()
 }
 
 ### ACTIVE DIRECTORY OUM FORM
