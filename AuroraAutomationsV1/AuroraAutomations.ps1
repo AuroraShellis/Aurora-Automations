@@ -32,7 +32,7 @@ Function ManagmentShowMenu {
 	$ADGroupMgmt.ShowDialog()
 }
 Function Individual.User {
-	$UserCreationForm.OutputTxtBox.AppendText("Make Sure that the Last Name Contains Only 20 Characters")
+	#$UserCreationForm.OutputTxtBox.AppendText("Make Sure that the Last Name Contains Only 20 Characters")
 	$ActiveDirectoryMenu.Hide()
 	$UserCreationForm.ShowDialog()
 }
@@ -63,7 +63,7 @@ Function Individual.User.Submit {
 	}Else{
 		$numberx = 14
 	}
-	$LastNameSub = $LastName.Substring( 0, $numberx)
+	$LastNameSub = $LastName.Substring(0, $numberx)
 	
 	$FullName = $FirstName + " " + $LastName
 	$SamAccountName = $FirstNameSub + "." + $LastNameSub
@@ -185,11 +185,23 @@ Function ADDeleteFormOUQuery{
 	$TargetUserDeleteOUQuery = "OU=" + $UserDeleteQueryOUInput + "," + (Get-ADDomain).DistinguishedName
 
 	try{
-		$UserDeleteOUSearchList =	Get-ADUser -Filter * -SearchBase $TargetUserDeleteOUQuery | Select-Object SamAccountName, Name, Enabled, ObjectClass | Format-List SamAccountName, Name, Enabled, ObjectClass | Out-String
+		$UserDeleteOUSearchList = Get-ADUser -Filter * -SearchBase $TargetUserDeleteOUQuery | Select-Object SamAccountName, Name, Enabled, ObjectClass | Format-List SamAccountName, Name, Enabled, ObjectClass | Out-String
 		$ADUserDeletion.UserDeleteOutput.AppendText($UserDeleteOUSearchList)
 	}
 	catch{
 	 $ADUserDeletion.UserDeleteOutput.AppendText("Could not find any Users in the " + $UserDeleteQueryOUInput + " OU. Check if the OU exists beforehand.")
+	}
+}
+Function ADDeleteFormUsersCNQuery{
+	$ADUserDeletion.UserDeleteOutput.Clear()
+	$TargetUserDeleteUsersCNQuery = "CN=Users," + (Get-ADDomain).DistinguishedName
+
+	try{
+		$UserDeleteCNUserSearchList = Get-ADUser -Filter * -SearchBase $TargetUserDeleteUsersCNQuery | Select-Object SamAccountName, Name, Enabled, ObjectClass | Format-List SamAccountName, Name, Enabled, ObjectClass | Out-String
+		$ADUserDeletion.UserDeleteOutput.AppendText($UserDeleteCNUserSearchList)
+	}
+	catch{
+	 $ADUserDeletion.UserDeleteOutput.AppendText("Could not find any Users in the Default Users Container. Check if their are Users in there.")
 	}
 }
 
@@ -319,6 +331,13 @@ Function PasswordListOU{
 Function PasswordResetBack{
 	$ADPasswordReset.ADPasswordOutput.Clear()
 	$ADPasswordReset.Hide()
+	$ActiveDirectoryMenu.Show()
+}
+### CSV USER CREATION FORM 
+
+
+Function CSVBulkBack{
+	$ADBulkUserCreation.Hide()
 	$ActiveDirectoryMenu.Show()
 }
 

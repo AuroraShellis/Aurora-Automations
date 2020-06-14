@@ -13,6 +13,7 @@ $ADUserDeletion = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.TextBox]$UserDeleteUserTextBox = $null
 [System.Windows.Forms.Button]$UserDeleteListOU = $null
 [System.Windows.Forms.Label]$label1 = $null
+[System.Windows.Forms.Button]$UserDeleteQueryUserCN = $null
 [System.Windows.Forms.Button]$button1 = $null
 function InitializeComponent
 {
@@ -29,6 +30,7 @@ $UserDeleteLabel4 = (New-Object -TypeName System.Windows.Forms.Label)
 $UserDeleteQueryOU = (New-Object -TypeName System.Windows.Forms.Button)
 $UserDeleteListOU = (New-Object -TypeName System.Windows.Forms.Button)
 $label1 = (New-Object -TypeName System.Windows.Forms.Label)
+$UserDeleteQueryUserCN = (New-Object -TypeName System.Windows.Forms.Button)
 $ADUserDeletion.SuspendLayout()
 #
 #UserDeleteBack
@@ -39,17 +41,17 @@ $UserDeleteBack.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @
 $UserDeleteBack.TabIndex = [System.Int32]0
 $UserDeleteBack.Text = [System.String]'Back'
 $UserDeleteBack.UseVisualStyleBackColor = $true
-$UserDeleteBack.add_Click({ADUD.Back})
+$UserDeleteBack.Add_Click({ADUD.Back})
 #
 #UserDeleteSubmit
 #
-$UserDeleteSubmit.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]523,[System.Int32]212))
+$UserDeleteSubmit.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]523,[System.Int32]261))
 $UserDeleteSubmit.Name = [System.String]'UserDeleteSubmit'
 $UserDeleteSubmit.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]75,[System.Int32]23))
 $UserDeleteSubmit.TabIndex = [System.Int32]1
 $UserDeleteSubmit.Text = [System.String]'Delete'
 $UserDeleteSubmit.UseVisualStyleBackColor = $true
-$UserDeleteSubmit.add_Click({ADDeleteFormUserDeletion})
+$UserDeleteSubmit.Add_Click({ADDeleteFormUserDeletion})
 #
 #UserDeleteLabel
 #
@@ -80,9 +82,9 @@ $UserDeleteOutput.Text = [System.String]''
 $UserDeleteLabel2.AutoSize = $true
 $UserDeleteLabel2.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]35,[System.Int32]65))
 $UserDeleteLabel2.Name = [System.String]'UserDeleteLabel2'
-$UserDeleteLabel2.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]39,[System.Int32]13))
+$UserDeleteLabel2.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]42,[System.Int32]13))
 $UserDeleteLabel2.TabIndex = [System.Int32]5
-$UserDeleteLabel2.Text = [System.String]'Output'
+$UserDeleteLabel2.Text = [System.String]'Output:'
 #
 #UserDeleteLabel3
 #
@@ -95,7 +97,7 @@ $UserDeleteLabel3.Text = [System.String]'Query OU for Users:'
 #
 #UserDeleteUserTextBox
 #
-$UserDeleteUserTextBox.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]350,[System.Int32]186))
+$UserDeleteUserTextBox.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]350,[System.Int32]235))
 $UserDeleteUserTextBox.Name = [System.String]'UserDeleteUserTextBox'
 $UserDeleteUserTextBox.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]248,[System.Int32]20))
 $UserDeleteUserTextBox.TabIndex = [System.Int32]7
@@ -103,7 +105,7 @@ $UserDeleteUserTextBox.TabIndex = [System.Int32]7
 #UserDeleteLabel4
 #
 $UserDeleteLabel4.AutoSize = $true
-$UserDeleteLabel4.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]347,[System.Int32]170))
+$UserDeleteLabel4.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]347,[System.Int32]219))
 $UserDeleteLabel4.Name = [System.String]'UserDeleteLabel4'
 $UserDeleteLabel4.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]199,[System.Int32]13))
 $UserDeleteLabel4.TabIndex = [System.Int32]8
@@ -117,7 +119,7 @@ $UserDeleteQueryOU.Size = (New-Object -TypeName System.Drawing.Size -ArgumentLis
 $UserDeleteQueryOU.TabIndex = [System.Int32]9
 $UserDeleteQueryOU.Text = [System.String]'Query OU'
 $UserDeleteQueryOU.UseVisualStyleBackColor = $true
-$UserDeleteQueryOU.add_Click({ADDeleteFormOUQuery})
+$UserDeleteQueryOU.Add_Click({ADDeleteFormOUQuery})
 #
 #UserDeleteListOU
 #
@@ -127,7 +129,7 @@ $UserDeleteListOU.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList
 $UserDeleteListOU.TabIndex = [System.Int32]10
 $UserDeleteListOU.Text = [System.String]'List Current OUs'
 $UserDeleteListOU.UseVisualStyleBackColor = $true
-$UserDeleteListOU.add_Click({UDGetList})
+$UserDeleteListOU.Add_Click({UDGetList})
 #
 #label1
 #
@@ -137,9 +139,20 @@ $label1.Name = [System.String]'label1'
 $label1.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]0,[System.Int32]13))
 $label1.TabIndex = [System.Int32]11
 #
+#UserDeleteQueryUserCN
+#
+$UserDeleteQueryUserCN.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]347,[System.Int32]144))
+$UserDeleteQueryUserCN.Name = [System.String]'UserDeleteQueryUserCN'
+$UserDeleteQueryUserCN.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]251,[System.Int32]23))
+$UserDeleteQueryUserCN.TabIndex = [System.Int32]12
+$UserDeleteQueryUserCN.Text = [System.String]'Query Default Users Container'
+$UserDeleteQueryUserCN.UseVisualStyleBackColor = $true
+$UserDeleteQueryUserCN.Add_Click({ADDeleteFormUsersCNQuery})
+#
 #ADUserDeletion
 #
 $ADUserDeletion.ClientSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]624,[System.Int32]441))
+$ADUserDeletion.Controls.Add($UserDeleteQueryUserCN)
 $ADUserDeletion.Controls.Add($label1)
 $ADUserDeletion.Controls.Add($UserDeleteListOU)
 $ADUserDeletion.Controls.Add($UserDeleteQueryOU)
@@ -172,6 +185,7 @@ Add-Member -InputObject $ADUserDeletion -Name UserDeleteQueryTextBox -Value $Use
 Add-Member -InputObject $ADUserDeletion -Name UserDeleteUserTextBox -Value $UserDeleteUserTextBox -MemberType NoteProperty
 Add-Member -InputObject $ADUserDeletion -Name UserDeleteListOU -Value $UserDeleteListOU -MemberType NoteProperty
 Add-Member -InputObject $ADUserDeletion -Name label1 -Value $label1 -MemberType NoteProperty
+Add-Member -InputObject $ADUserDeletion -Name UserDeleteQueryUserCN -Value $UserDeleteQueryUserCN -MemberType NoteProperty
 Add-Member -InputObject $ADUserDeletion -Name button1 -Value $button1 -MemberType NoteProperty
 }
 . InitializeComponent
