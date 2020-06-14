@@ -4,7 +4,6 @@ $ADGroupMgmt = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Button]$ADGroupBack = $null
 [System.Windows.Forms.Button]$ADGroupSubmit = $null
 [System.Windows.Forms.Label]$ADGroupLabel1 = $null
-[System.Windows.Forms.RichTextBox]$ADBulkOutput = $null
 [System.Windows.Forms.Label]$ADGroupLabel2 = $null
 [System.Windows.Forms.Button]$ADGroupListOU = $null
 [System.Windows.Forms.Label]$ADGroupLabel3 = $null
@@ -22,6 +21,7 @@ $ADGroupMgmt = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Label]$ADGroupLabel7 = $null
 [System.Windows.Forms.Label]$ADGroupLabel9 = $null
 [System.Windows.Forms.Button]$ADGroupMove = $null
+[System.Windows.Forms.RichTextBox]$ADGroupMgmtOutput = $null
 [System.Windows.Forms.Button]$button1 = $null
 function InitializeComponent
 {
@@ -29,7 +29,7 @@ $resources = . (Join-Path $PSScriptRoot 'ADGroupMgmt.resources.ps1')
 $ADGroupBack = (New-Object -TypeName System.Windows.Forms.Button)
 $ADGroupSubmit = (New-Object -TypeName System.Windows.Forms.Button)
 $ADGroupLabel1 = (New-Object -TypeName System.Windows.Forms.Label)
-$ADBulkOutput = (New-Object -TypeName System.Windows.Forms.RichTextBox)
+$ADGroupMgmtOutput = (New-Object -TypeName System.Windows.Forms.RichTextBox)
 $ADGroupLabel2 = (New-Object -TypeName System.Windows.Forms.Label)
 $ADGroupListOU = (New-Object -TypeName System.Windows.Forms.Button)
 $ADGroupLabel3 = (New-Object -TypeName System.Windows.Forms.Label)
@@ -57,6 +57,7 @@ $ADGroupBack.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([S
 $ADGroupBack.TabIndex = [System.Int32]0
 $ADGroupBack.Text = [System.String]'Back'
 $ADGroupBack.UseVisualStyleBackColor = $true
+$ADGroupBack.add_Click({GroupBack})
 #
 #ADGroupSubmit
 #
@@ -76,13 +77,13 @@ $ADGroupLabel1.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @(
 $ADGroupLabel1.TabIndex = [System.Int32]2
 $ADGroupLabel1.Text = [System.String]'This will aid in the management of Active Directory Groups'
 #
-#ADBulkOutput
+#ADGroupMgmtOutput
 #
-$ADBulkOutput.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]15,[System.Int32]78))
-$ADBulkOutput.Name = [System.String]'ADBulkOutput'
-$ADBulkOutput.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]298,[System.Int32]280))
-$ADBulkOutput.TabIndex = [System.Int32]3
-$ADBulkOutput.Text = [System.String]''
+$ADGroupMgmtOutput.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]15,[System.Int32]78))
+$ADGroupMgmtOutput.Name = [System.String]'ADGroupMgmtOutput'
+$ADGroupMgmtOutput.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]298,[System.Int32]280))
+$ADGroupMgmtOutput.TabIndex = [System.Int32]3
+$ADGroupMgmtOutput.Text = [System.String]''
 #
 #ADGroupLabel2
 #
@@ -107,9 +108,9 @@ $ADGroupListOU.UseVisualStyleBackColor = $true
 $ADGroupLabel3.AutoSize = $true
 $ADGroupLabel3.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]357,[System.Int32]53))
 $ADGroupLabel3.Name = [System.String]'ADGroupLabel3'
-$ADGroupLabel3.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]160,[System.Int32]13))
+$ADGroupLabel3.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]106,[System.Int32]13))
 $ADGroupLabel3.TabIndex = [System.Int32]6
-$ADGroupLabel3.Text = [System.String]'Query OU for Groups and Users:'
+$ADGroupLabel3.Text = [System.String]'Query OU for Groups'
 #
 #ADGroupQueryTextBox
 #
@@ -117,6 +118,7 @@ $ADGroupQueryTextBox.Location = (New-Object -TypeName System.Drawing.Point -Argu
 $ADGroupQueryTextBox.Name = [System.String]'ADGroupQueryTextBox'
 $ADGroupQueryTextBox.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]241,[System.Int32]20))
 $ADGroupQueryTextBox.TabIndex = [System.Int32]7
+$ADGroupQueryTextBox.add_TextChanged($ADGroupQueryTextBox_TextChanged)
 #
 #ADGroupOUQuery
 #
@@ -126,6 +128,7 @@ $ADGroupOUQuery.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @
 $ADGroupOUQuery.TabIndex = [System.Int32]8
 $ADGroupOUQuery.Text = [System.String]'Query OU'
 $ADGroupOUQuery.UseVisualStyleBackColor = $true
+$ADGroupOUQuery.add_Click({GroupQuery})
 #
 #ADGroupLabel4
 #
@@ -245,7 +248,7 @@ $ADGroupMgmt.Controls.Add($ADGroupQueryTextBox)
 $ADGroupMgmt.Controls.Add($ADGroupLabel3)
 $ADGroupMgmt.Controls.Add($ADGroupListOU)
 $ADGroupMgmt.Controls.Add($ADGroupLabel2)
-$ADGroupMgmt.Controls.Add($ADBulkOutput)
+$ADGroupMgmt.Controls.Add($ADGroupMgmtOutput)
 $ADGroupMgmt.Controls.Add($ADGroupLabel1)
 $ADGroupMgmt.Controls.Add($ADGroupSubmit)
 $ADGroupMgmt.Controls.Add($ADGroupBack)
@@ -258,7 +261,6 @@ Add-Member -InputObject $ADGroupMgmt -Name base -Value $base -MemberType NotePro
 Add-Member -InputObject $ADGroupMgmt -Name ADGroupBack -Value $ADGroupBack -MemberType NoteProperty
 Add-Member -InputObject $ADGroupMgmt -Name ADGroupSubmit -Value $ADGroupSubmit -MemberType NoteProperty
 Add-Member -InputObject $ADGroupMgmt -Name ADGroupLabel1 -Value $ADGroupLabel1 -MemberType NoteProperty
-Add-Member -InputObject $ADGroupMgmt -Name ADBulkOutput -Value $ADBulkOutput -MemberType NoteProperty
 Add-Member -InputObject $ADGroupMgmt -Name ADGroupLabel2 -Value $ADGroupLabel2 -MemberType NoteProperty
 Add-Member -InputObject $ADGroupMgmt -Name ADGroupListOU -Value $ADGroupListOU -MemberType NoteProperty
 Add-Member -InputObject $ADGroupMgmt -Name ADGroupLabel3 -Value $ADGroupLabel3 -MemberType NoteProperty
@@ -276,6 +278,7 @@ Add-Member -InputObject $ADGroupMgmt -Name ADGroupLabel8 -Value $ADGroupLabel8 -
 Add-Member -InputObject $ADGroupMgmt -Name ADGroupLabel7 -Value $ADGroupLabel7 -MemberType NoteProperty
 Add-Member -InputObject $ADGroupMgmt -Name ADGroupLabel9 -Value $ADGroupLabel9 -MemberType NoteProperty
 Add-Member -InputObject $ADGroupMgmt -Name ADGroupMove -Value $ADGroupMove -MemberType NoteProperty
+Add-Member -InputObject $ADGroupMgmt -Name ADGroupMgmtOutput -Value $ADGroupMgmtOutput -MemberType NoteProperty
 Add-Member -InputObject $ADGroupMgmt -Name button1 -Value $button1 -MemberType NoteProperty
 }
 . InitializeComponent

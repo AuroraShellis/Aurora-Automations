@@ -31,7 +31,7 @@ $ADInstall.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([Sys
 $ADInstall.TabIndex = [System.Int32]0
 $ADInstall.Text = [System.String]'Organzational Units Management'
 $ADInstall.UseVisualStyleBackColor = $true
-#
+$ADInstall.add_Click({OUMShowMenu})
 #ADDomainCreate
 #
 $ADDomainCreate.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]341,[System.Int32]54))
@@ -40,7 +40,7 @@ $ADDomainCreate.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @
 $ADDomainCreate.TabIndex = [System.Int32]1
 $ADDomainCreate.Text = [System.String]'Active Directory Group Management'
 $ADDomainCreate.UseVisualStyleBackColor = $true
-$ADDomainCreate.add_Click($ADDomainCreate_Click)
+$ADDomainCreate.add_Click({ManagmentShowMenu })
 #
 #ADUserCreate
 #
@@ -50,6 +50,7 @@ $ADUserCreate.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([
 $ADUserCreate.TabIndex = [System.Int32]2
 $ADUserCreate.Text = [System.String]'Active Directory Individual User Creation'
 $ADUserCreate.UseVisualStyleBackColor = $true
+$ADUserCreate.add_Click({Individual.User})
 #
 #ADUserDelete
 #
@@ -59,6 +60,7 @@ $ADUserDelete.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([
 $ADUserDelete.TabIndex = [System.Int32]3
 $ADUserDelete.Text = [System.String]'Active Directory User Deletion'
 $ADUserDelete.UseVisualStyleBackColor = $true
+$ADUserDelete.add_Click({ADUserDeleteShowMenu})
 #
 #ADUserPassReset
 #

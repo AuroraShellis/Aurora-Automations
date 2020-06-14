@@ -29,6 +29,10 @@ Function OUMShowMenu {
 	$ActiveDirectoryMenu.Hide()
 	$OUM.ShowDialog()
 }
+Function ManagmentShowMenu {
+	$ActiveDirectoryMenu.Hide()
+	$ADGroupMgmt.ShowDialog()
+}
 Function Individual.User {
 	$UserCreationForm.OutputTxtBox.AppendText("Make Sure that the Last Name Contains Only 20 Characters")
 	$ActiveDirectoryMenu.Hide()
@@ -119,6 +123,7 @@ Function OUUserQuery{
 	$OUM.OUOutput.Clear()
 	$QueryOUInput = $QueryOUTextBox.Text
 	$TargetOUQuery = "OU=" + $QueryOUInput + "," + (Get-ADDomain).DistinguishedName
+
 	try{
     $OUSearchList =	Get-ADUser -Filter * -SearchBase $TargetOUQuery | Select-Object SamAccountName, Name, Enabled, ObjectClass | Format-List SamAccountName, Name, Enabled, ObjectClass | Out-String
     $OUM.OUOutput.AppendText($OUSearchList)
@@ -176,7 +181,25 @@ Function ADUD.Back{
 	$ADUserDeletion.Hide()
 	$ActiveDirectoryMenu.Show()
 }
+### GROUP MANAGEMENT FORM 
+Function GroupQuery {
+	$ADGroupMgmt.ADGroupMgmtOutput.Clear()
+	$QueryGMInput = $ADGroupQueryTextBox.Text
+	$TargetGMQuery = "OU=" + $QueryGMInput + "," + (Get-ADDomain).DistinguishedName
 
+	try{
+    $GroupSearchList =	Get-ADGroup -Filter * -SearchBase "OU=Testing,DC=Micheal,DC=Kiwi" | Select-Object Name , GroupCategory, GroupScope | Format-List  Name , GroupCategory, GroupScope | Out-string
+    $ADGroupMgmt.ADGroupMgmtOutput.AppendText($GroupSearchList)
+	}
+	catch{
+    $ADGroupMgmt.ADGroupMgmtOutput.AppendText("Could not find any Users in the " + $QueryGMInput + " OU. Check if the OU exists beforehand.")
+	}
+}
+
+Function GroupBack {
+	$ADGroupMgmt.Hide()
+	$ActiveDirectoryMenu.ShowDialog()
+}
 ## MANAGEMENT SCRIPTS MAIN MENU
 Function ManagementBack{
 	$ManagementMenu.Hide()
@@ -202,7 +225,7 @@ Function DiagnosticsBack{
 . (Join-Path $PSScriptRoot 'ADUserDeletion.designer.ps1')
 . (Join-Path $PSScriptRoot 'ADBulkUserCreation.designer.ps1')
 . (Join-Path $PSScriptRoot 'ADPasswordReset.designer.ps1')
-. (Join-Path $PSScriptRoot 'ADGroupMgt.designer.ps1')
+. (Join-Path $PSScriptRoot 'ADGroupMgmt.designer.ps1')
 
 # JOIN PATH FOR BASE POWERSHELL
 ## MAINMENU
@@ -216,4 +239,4 @@ Function DiagnosticsBack{
 . (Join-Path $PSScriptRoot 'ADUserDeletion.ps1')
 . (Join-Path $PSScriptRoot 'ADBulkUserCreation.ps1')
 . (Join-Path $PSScriptRoot 'ADPasswordReset.ps1')
-. (Join-Path $PSScriptRoot 'ADGroupMgt.ps1')
+. (Join-Path $PSScriptRoot 'ADGroupMgmt.ps1')
