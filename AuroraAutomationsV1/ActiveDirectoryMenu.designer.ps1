@@ -61,7 +61,7 @@ $ADUserDelete.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([
 $ADUserDelete.TabIndex = [System.Int32]3
 $ADUserDelete.Text = [System.String]'Active Directory User Deletion'
 $ADUserDelete.UseVisualStyleBackColor = $true
-$ADUserDelete.add_Click($ADUserDelete_Click)
+$ADUserDelete.add_Click({ADUserDeleteShowMenu})
 #
 #ADUserPassReset
 #

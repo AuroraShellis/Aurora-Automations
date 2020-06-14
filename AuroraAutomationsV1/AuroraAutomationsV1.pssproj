@@ -70,6 +70,13 @@
       <HintPath>
       </HintPath>
     </Reference>
+    <Reference Include="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+      <Name>System.Drawing</Name>
+      <AssemblyName>
+      </AssemblyName>
+      <HintPath>
+      </HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
       <Name>System.Windows.Forms</Name>
       <AssemblyName>
@@ -101,6 +108,13 @@
       <DependentUpon>ADConfig.ps1</DependentUpon>
     </Compile>
     <Compile Include="ADConfig.ps1">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ADUserDeletion.designer.ps1">
+      <SubType>Code</SubType>
+      <DependentUpon>ADUserDeletion.ps1</DependentUpon>
+    </Compile>
+    <Compile Include="ADUserDeletion.ps1">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="OUM.designer.ps1">
@@ -149,6 +163,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ADConfig.resx">
       <DependentUpon>ADConfig.ps1</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ADUserDeletion.resx">
+      <DependentUpon>ADUserDeletion.ps1</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OUM.resx">
       <DependentUpon>OUM.ps1</DependentUpon>
