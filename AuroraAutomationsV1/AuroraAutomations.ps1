@@ -334,7 +334,16 @@ Function PasswordResetBack{
 	$ActiveDirectoryMenu.Show()
 }
 ### CSV USER CREATION FORM 
-
+Function ADBulkCSVBrowse{
+	$ADBulkUserCreation.ADBulkCSVInput.Clear()
+	$BulkBrowsePopup = $ADBulkUserCreation.ADOpenFileBrowse.ShowDialog()
+	 if($BulkBrowsePopup -eq "OK"){    
+		$FilePathCSVPopup = $ADOpenFileBrowse.filename
+	}else{
+		$FilePathCSVPopup = $ADOpenFileBrowse.AppendText("Invalid File (?)")
+	}
+	$ADBulkUserCreation.ADBulkCSVInput.AppendText($FilePathCSVPopup)
+}
 
 Function CSVBulkBack{
 	$ADBulkUserCreation.Hide()

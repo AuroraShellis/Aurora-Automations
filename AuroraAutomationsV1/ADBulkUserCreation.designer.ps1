@@ -8,6 +8,8 @@ $ADBulkUserCreation = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.TextBox]$ADBulkCSVInput = $null
 [System.Windows.Forms.Label]$ADBulkLabel3 = $null
 [System.Windows.Forms.RichTextBox]$ADBulkOutput = $null
+[System.Windows.Forms.Button]$ADBulkBrowseButton = $null
+[System.Windows.Forms.OpenFileDialog]$ADOpenFileBrowse = $null
 [System.Windows.Forms.Button]$button1 = $null
 function InitializeComponent
 {
@@ -19,6 +21,8 @@ $ADBulkLabel2 = (New-Object -TypeName System.Windows.Forms.Label)
 $ADBulkCSVInput = (New-Object -TypeName System.Windows.Forms.TextBox)
 $ADBulkLabel3 = (New-Object -TypeName System.Windows.Forms.Label)
 $ADBulkOutput = (New-Object -TypeName System.Windows.Forms.RichTextBox)
+$ADOpenFileBrowse = (New-Object -TypeName System.Windows.Forms.OpenFileDialog)
+$ADBulkBrowseButton = (New-Object -TypeName System.Windows.Forms.Button)
 $ADBulkUserCreation.SuspendLayout()
 #
 #ADBulkBack
@@ -29,6 +33,7 @@ $ADBulkBack.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([Sy
 $ADBulkBack.TabIndex = [System.Int32]0
 $ADBulkBack.Text = [System.String]'Back'
 $ADBulkBack.UseVisualStyleBackColor = $true
+$ADBulkBack.Add_Click({CSVBulkBack})
 #
 #ADBulkSubmit
 #
@@ -77,13 +82,31 @@ $ADBulkLabel3.Text = [System.String]'Output:'
 #
 $ADBulkOutput.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]27,[System.Int32]127))
 $ADBulkOutput.Name = [System.String]'ADBulkOutput'
+$ADBulkOutput.ReadOnly = $true
 $ADBulkOutput.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]481,[System.Int32]227))
 $ADBulkOutput.TabIndex = [System.Int32]6
 $ADBulkOutput.Text = [System.String]''
 #
+#ADOpenFileBrowse
+#
+$ADOpenFileBrowse.DefaultExt = [System.String]'csv'
+$ADOpenFileBrowse.FileName = [System.String]'ADOpenFileBrowse'
+$ADOpenFileBrowse.add_FileOk($openFileDialog1_FileOk)
+#
+#ADBulkBrowseButton
+#
+$ADBulkBrowseButton.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]432,[System.Int32]97))
+$ADBulkBrowseButton.Name = [System.String]'ADBulkBrowseButton'
+$ADBulkBrowseButton.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]75,[System.Int32]23))
+$ADBulkBrowseButton.TabIndex = [System.Int32]7
+$ADBulkBrowseButton.Text = [System.String]'Browse'
+$ADBulkBrowseButton.UseVisualStyleBackColor = $true
+$ADBulkBrowseButton.add_Click({ADBulkCSVBrowse})
+#
 #ADBulkUserCreation
 #
 $ADBulkUserCreation.ClientSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]624,[System.Int32]441))
+$ADBulkUserCreation.Controls.Add($ADBulkBrowseButton)
 $ADBulkUserCreation.Controls.Add($ADBulkOutput)
 $ADBulkUserCreation.Controls.Add($ADBulkLabel3)
 $ADBulkUserCreation.Controls.Add($ADBulkCSVInput)
@@ -104,6 +127,8 @@ Add-Member -InputObject $ADBulkUserCreation -Name ADBulkLabel2 -Value $ADBulkLab
 Add-Member -InputObject $ADBulkUserCreation -Name ADBulkCSVInput -Value $ADBulkCSVInput -MemberType NoteProperty
 Add-Member -InputObject $ADBulkUserCreation -Name ADBulkLabel3 -Value $ADBulkLabel3 -MemberType NoteProperty
 Add-Member -InputObject $ADBulkUserCreation -Name ADBulkOutput -Value $ADBulkOutput -MemberType NoteProperty
+Add-Member -InputObject $ADBulkUserCreation -Name ADBulkBrowseButton -Value $ADBulkBrowseButton -MemberType NoteProperty
+Add-Member -InputObject $ADBulkUserCreation -Name ADOpenFileBrowse -Value $ADOpenFileBrowse -MemberType NoteProperty
 Add-Member -InputObject $ADBulkUserCreation -Name button1 -Value $button1 -MemberType NoteProperty
 }
 . InitializeComponent
