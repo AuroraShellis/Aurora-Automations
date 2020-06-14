@@ -191,6 +191,7 @@ Function DiagnosticsBack{
  
 
 # JOIN PATH FOR ALL DESIGNERS
+## MAINMENU
 . (Join-Path $PSScriptRoot 'MainMenu.designer.ps1')
 . (Join-Path $PSScriptRoot 'ActiveDirectoryMenu.designer.ps1')
 . (Join-Path $PSScriptRoot 'ManagementMenu.designer.ps1')
@@ -204,6 +205,7 @@ Function DiagnosticsBack{
 . (Join-Path $PSScriptRoot 'ADGroupMgt.designer.ps1')
 
 # JOIN PATH FOR BASE POWERSHELL
+## MAINMENU
 . (Join-Path $PSScriptRoot 'MainMenu.ps1')
 . (Join-Path $PSScriptRoot 'ActiveDirectoryMenu.ps1')
 . (Join-Path $PSScriptRoot 'ManagementMenu.ps1')
