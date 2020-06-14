@@ -86,9 +86,8 @@ Function OUMCreation{
 Function OUMDeletion{
 	$OUM.OUOutput.Clear()
 	$OUnaming = "OU=" + $DeleteOUBox.Text + "," + (Get-ADDomain).DistinguishedName
-	#Remove-ADOrganizationalUnit -Identity $OUnaming
 	try{
-		Get-ADOrganizationalUnit -Identity $OUnaming | Set-ADObject -ProtectedFromAccidentalDeletion:$false -PassThru | Remove-ADOrganizationalUnit -Confirm:$false
+		Get-ADOrganizationalUnit -Identity $OUnaming | Set-ADObject -ProtectedFromAccidentalDeletion:$false -PassThru | Remove-ADOrganizationalUnit -Confirm:$false -Recursive
 		$OUM.OUOutput.AppendText("The " + $DeleteOUBox.Text + " OU has been removed from the Domain Successfully.")
 	}catch{
 		$OUM.OUOutput.AppendText("The " + $DeleteOUBox.Text + " OU does not exist in the Domain anymore or never existed in the first place.")
@@ -109,6 +108,21 @@ Function OUMoveUser{
 		$OUM.OUOutput.AppendText("The " + $MoveUserInput + " user could not be moved to the " + $MoveOUInput + " OU. Check if the User or OU Exists.")
 	}
 }
+
+Function OUUserQuery{
+	$OUM.OUOutput.Clear()
+	$QueryOUInput = $QueryOUTextBox.Text
+	$TargetOUQuery = "OU=" + $QueryOUInput + "," + (Get-ADDomain).DistinguishedName
+
+	try{
+    $OUSearchList =	Get-ADUser -Filter * -SearchBase $TargetOUQuery | Select-Object SamAccountName, Enabled, ObjectClass | Format-List SamAccountName, Enabled, ObjectClass | Out-String
+    $OUM.OUOutput.AppendText($OUSearchList)
+	}
+	catch{
+    $OUM.OUOutput.AppendText("Could not find any Users in the " + $QueryOUInput + " OU. Check if the OU exists beforehand.")
+	}
+}
+
 
 Function OUGetList{
 	$OUM.OUOutput.Clear()

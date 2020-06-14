@@ -17,6 +17,9 @@ $OUM = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Button]$CheckOUButton = $null
 [System.Windows.Forms.TextBox]$MoveOUUserTextBox = $null
 [System.Windows.Forms.Label]$MoveOUUserTo = $null
+[System.Windows.Forms.Button]$OUQueryButton = $null
+[System.Windows.Forms.Label]$QueryOULabel = $null
+[System.Windows.Forms.TextBox]$QueryOUTextBox = $null
 [System.Windows.Forms.Label]$MoveOULabelOU = $null
 function InitializeComponent
 {
@@ -38,6 +41,9 @@ $CheckOUButton = (New-Object -TypeName System.Windows.Forms.Button)
 $MoveOUUserTextBox = (New-Object -TypeName System.Windows.Forms.TextBox)
 $MoveOUUserTo = (New-Object -TypeName System.Windows.Forms.Label)
 $MoveOULabelOU = (New-Object -TypeName System.Windows.Forms.Label)
+$OUQueryButton = (New-Object -TypeName System.Windows.Forms.Button)
+$QueryOUTextBox = (New-Object -TypeName System.Windows.Forms.TextBox)
+$QueryOULabel = (New-Object -TypeName System.Windows.Forms.Label)
 $OUM.SuspendLayout()
 #
 #OUBackButton
@@ -81,11 +87,11 @@ $OUOutput.add_TextChanged($ADPrereqOutput_TextChanged)
 #OUCreateLabel
 #
 $OUCreateLabel.AutoSize = $true
-$OUCreateLabel.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]352,[System.Int32]63))
+$OUCreateLabel.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]352,[System.Int32]62))
 $OUCreateLabel.Name = [System.String]'OUCreateLabel'
-$OUCreateLabel.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]57,[System.Int32]13))
+$OUCreateLabel.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]60,[System.Int32]13))
 $OUCreateLabel.TabIndex = [System.Int32]4
-$OUCreateLabel.Text = [System.String]'Create OU'
+$OUCreateLabel.Text = [System.String]'Create OU:'
 $OUCreateLabel.add_Click($label1_Click)
 #
 #OUCreateBox
@@ -106,11 +112,11 @@ $DeleteOUBox.TabIndex = [System.Int32]8
 #DeleteOULabel
 #
 $DeleteOULabel.AutoSize = $true
-$DeleteOULabel.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]352,[System.Int32]160))
+$DeleteOULabel.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]352,[System.Int32]168))
 $DeleteOULabel.Name = [System.String]'DeleteOULabel'
-$DeleteOULabel.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]57,[System.Int32]13))
+$DeleteOULabel.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]167,[System.Int32]13))
 $DeleteOULabel.TabIndex = [System.Int32]7
-$DeleteOULabel.Text = [System.String]'Delete OU'
+$DeleteOULabel.Text = [System.String]'Delete OU (And All Child Objects):'
 $DeleteOULabel.add_Click($label2_Click)
 #
 #DeleteOUButton
@@ -135,9 +141,9 @@ $MoveOUOUTextBox.TabIndex = [System.Int32]11
 $MoveOULabelUser.AutoSize = $true
 $MoveOULabelUser.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]352,[System.Int32]269))
 $MoveOULabelUser.Name = [System.String]'MoveOULabelUser'
-$MoveOULabelUser.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]29,[System.Int32]13))
+$MoveOULabelUser.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]84,[System.Int32]13))
 $MoveOULabelUser.TabIndex = [System.Int32]10
-$MoveOULabelUser.Text = [System.String]'User'
+$MoveOULabelUser.Text = [System.String]'SAM Username:'
 #
 #MoveOUButton
 #
@@ -161,9 +167,9 @@ $OULabelOut.add_Click($label4_Click)
 #
 #CheckOUButton
 #
-$CheckOUButton.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]355,[System.Int32]356))
+$CheckOUButton.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]121,[System.Int32]356))
 $CheckOUButton.Name = [System.String]'CheckOUButton'
-$CheckOUButton.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]247,[System.Int32]47))
+$CheckOUButton.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]214,[System.Int32]23))
 $CheckOUButton.TabIndex = [System.Int32]13
 $CheckOUButton.Text = [System.String]'List Current OUs'
 $CheckOUButton.UseVisualStyleBackColor = $true
@@ -179,24 +185,53 @@ $MoveOUUserTextBox.TabIndex = [System.Int32]14
 #MoveOUUserTo
 #
 $MoveOUUserTo.AutoSize = $true
-$MoveOUUserTo.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]475,[System.Int32]288))
+$MoveOUUserTo.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]472,[System.Int32]288))
 $MoveOUUserTo.Name = [System.String]'MoveOUUserTo'
-$MoveOUUserTo.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]20,[System.Int32]13))
+$MoveOUUserTo.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]22,[System.Int32]13))
 $MoveOUUserTo.TabIndex = [System.Int32]15
-$MoveOUUserTo.Text = [System.String]'To'
+$MoveOUUserTo.Text = [System.String]'TO'
 #
 #MoveOULabelOU
 #
 $MoveOULabelOU.AutoSize = $true
 $MoveOULabelOU.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]494,[System.Int32]269))
 $MoveOULabelOU.Name = [System.String]'MoveOULabelOU'
-$MoveOULabelOU.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]23,[System.Int32]13))
+$MoveOULabelOU.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]60,[System.Int32]13))
 $MoveOULabelOU.TabIndex = [System.Int32]16
-$MoveOULabelOU.Text = [System.String]'OU'
+$MoveOULabelOU.Text = [System.String]'Target OU:'
+#
+#OUQueryButton
+#
+$OUQueryButton.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]529,[System.Int32]385))
+$OUQueryButton.Name = [System.String]'OUQueryButton'
+$OUQueryButton.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]73,[System.Int32]23))
+$OUQueryButton.TabIndex = [System.Int32]17
+$OUQueryButton.Text = [System.String]'Query OU'
+$OUQueryButton.UseVisualStyleBackColor = $true
+$OUQueryButton.add_Click({OUUserQuery})
+#
+#QueryOUTextBox
+#
+$QueryOUTextBox.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]355,[System.Int32]359))
+$QueryOUTextBox.Name = [System.String]'QueryOUTextBox'
+$QueryOUTextBox.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]247,[System.Int32]20))
+$QueryOUTextBox.TabIndex = [System.Int32]18
+#
+#QueryOULabel
+#
+$QueryOULabel.AutoSize = $true
+$QueryOULabel.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]355,[System.Int32]340))
+$QueryOULabel.Name = [System.String]'QueryOULabel'
+$QueryOULabel.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]102,[System.Int32]13))
+$QueryOULabel.TabIndex = [System.Int32]19
+$QueryOULabel.Text = [System.String]'Query OU for Users:'
 #
 #OUM
 #
 $OUM.ClientSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]624,[System.Int32]441))
+$OUM.Controls.Add($QueryOULabel)
+$OUM.Controls.Add($QueryOUTextBox)
+$OUM.Controls.Add($OUQueryButton)
 $OUM.Controls.Add($MoveOULabelOU)
 $OUM.Controls.Add($MoveOUUserTo)
 $OUM.Controls.Add($MoveOUUserTextBox)
@@ -236,6 +271,9 @@ Add-Member -InputObject $OUM -Name OULabelOut -Value $OULabelOut -MemberType Not
 Add-Member -InputObject $OUM -Name CheckOUButton -Value $CheckOUButton -MemberType NoteProperty
 Add-Member -InputObject $OUM -Name MoveOUUserTextBox -Value $MoveOUUserTextBox -MemberType NoteProperty
 Add-Member -InputObject $OUM -Name MoveOUUserTo -Value $MoveOUUserTo -MemberType NoteProperty
+Add-Member -InputObject $OUM -Name OUQueryButton -Value $OUQueryButton -MemberType NoteProperty
+Add-Member -InputObject $OUM -Name QueryOULabel -Value $QueryOULabel -MemberType NoteProperty
+Add-Member -InputObject $OUM -Name QueryOUTextBox -Value $QueryOUTextBox -MemberType NoteProperty
 Add-Member -InputObject $OUM -Name MoveOULabelOU -Value $MoveOULabelOU -MemberType NoteProperty
 }
 . InitializeComponent
