@@ -14,9 +14,10 @@
     <RequireElevation>True</RequireElevation>
     <PackageType>Console</PackageType>
     <PowerShellVersion>Windows PowerShell</PowerShellVersion>
-    <HideConsoleWindow>True</HideConsoleWindow>
+    <HideConsoleWindow>False</HideConsoleWindow>
     <PackageModules>True</PackageModules>
     <ApplicationIconPath>E:\Dropbox\Assets\LogoV3.ico</ApplicationIconPath>
+    <PackagePlatform>x64</PackagePlatform>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

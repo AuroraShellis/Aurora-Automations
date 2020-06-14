@@ -42,9 +42,10 @@ $ActiveDirectoryMenu.Show()
 
 Function UserCreation {
 try {
-	New-ADUser -Name $FullName -GivenName $FirstName -Surname $LastName -SamAccountName $SamAccountName -UserPrincipalName $UserPrincipal -Path $UserContainer -AccountPassword (ConvertTo-SecureString -AsPlainText $DefaultPassword -Force) -Enabled $true -ChangePasswordAtLogon $true
+	New-ADUser -Name $FullName -GivenName $FirstName -Surname $LastName -SamAccountName $SamAccountChecker -UserPrincipalName $UserPrincipal -Path $UserContainer -AccountPassword (ConvertTo-SecureString -AsPlainText $DefaultPassword -Force) -Enabled $true -ChangePasswordAtLogon $true
 	$UserCreationForm.OutputTxtBox.AppendText("Your account has been created: `n")
-	$UserCreationForm.OutputTxtBox.AppendText("Login Name: " + (Get-ADUser $SamAccountName).UserPrincipalName)
+	$UserCreationForm.OutputTxtBox.AppendText("User Principal Name: " + (Get-ADUser $SamAccountChecker).UserPrincipalName)
+	$UserCreationForm.OutputTxtBox.AppendText("`nSam Account Name: " + (Get-ADUser $SamAccountChecker).SamAccountName)
 	$UserCreationForm.OutputTxtBox.AppendText("`nPassword is = " + $DefaultPassword)
 	$UserCreationForm.OutputTxtBox.AppendText("`nPassword will be reset on next login.")
 }
@@ -65,22 +66,21 @@ Function Individual.User.Submit {
 	$UserPrincipal = $SamAccountName + "@" + $Domain
 	$UserContainer = (Get-ADDomain).UsersContainer
 	$DefaultPassword = "P@ssword01"
-	$SamAccountChecker = (Get-ADUser $SamAccountName).SamAccountName
-
+	$SamAccountChecker = $SamAccountName.substring(0,20)
 	UserCreation
 }
 
 ### ACTIVE DIRECTORY OU MANAGEMENT FORM
 Function OUMCreation{
 	$OUNameCreation = $OUCreateBox.Text
-try {
-	New-ADOrganizationalUnit $OUNameCreation -ErrorAction Stop
-	Get-ADObject -Filter  {$OUNameCreation -eq 'organizationalunit' }
-	$OUM.OUOutput.AppendText("Creation of OU: $OUNameCreation Sucessful")
-}
-catch {
-	$OUM.OUOutput.AppendText("Error: OU Exists in Active Directory")
-}
+	try {
+		New-ADOrganizationalUnit $OUNameCreation -ErrorAction Stop
+		Get-ADObject -Filter  {$OUNameCreation -eq 'organizationalunit' }
+		$OUM.OUOutput.AppendText("Creation of OU: $OUNameCreation Sucessful")
+	}
+	catch {
+		$OUM.OUOutput.AppendText("Error: The " + $OUNameCreation + "OU Exists in Active Directory")
+	}
 }
 
 Function OUMDeletion{
