@@ -30,6 +30,7 @@ Function OUMShowMenu {
 	$OUM.ShowDialog()
 }
 Function ManagmentShowMenu {
+	$ADGroupMgmt.ADGroupMgmtOutput.AppendText("WARNING: When the Delete or Move button is pressed. There will be NO Confirmation.")
 	$ActiveDirectoryMenu.Hide()
 	$ADGroupMgmt.ShowDialog()
 }
@@ -188,7 +189,7 @@ Function GroupQuery {
 	$TargetGMQuery = "OU=" + $QueryGMInput + "," + (Get-ADDomain).DistinguishedName
 
 	try{
-    $GroupSearchList =	Get-ADGroup -Filter * -SearchBase "OU=Testing,DC=Micheal,DC=Kiwi" | Select-Object Name , GroupCategory, GroupScope | Format-List  Name , GroupCategory, GroupScope | Out-string
+    $GroupSearchList =	Get-ADGroup -Filter * -SearchBase $TargetGMQuery | Select-Object Name , GroupCategory, GroupScope | Format-List  Name , GroupCategory, GroupScope | Out-string
     $ADGroupMgmt.ADGroupMgmtOutput.AppendText($GroupSearchList)
 	}
 	catch{
@@ -196,9 +197,55 @@ Function GroupQuery {
 	}
 }
 
+Function GroupCreation {
+	$ADGroupMgmt.ADGroupMgmtOutput.Clear()
+	$GroupNameCreation = $ADGroupNameInput.Text
+	$TargetCreationGroup = "OU=" + $ADGroupLocateInput.Text + "," + (Get-ADDomain).DistinguishedName
+
+	try {
+		New-ADGroup –name $GroupNameCreation –groupscope Global –path $TargetCreationGroup
+		 $ADGroupMgmt.ADGroupMgmtOutput.AppendText($GroupNameCreation +" was sucessfully created in " + $ADGroupLocateInput.Text + " OU")
+	}
+	catch{
+		 $ADGroupMgmt.ADGroupMgmtOutput.AppendText("Unspecified Organizational Unit or Group Name Already Exists.")
+	}
+	}
+Function GroupDeletion {
+	$ADGroupMgmt.ADGroupMgmtOutput.Clear()
+	$GroupNameDeletion = $ADGroupNameInput.Text
+	try{
+		Remove-ADGroup –Identity $GroupNameDeletion -Confirm:$False
+		$ADGroupMgmt.ADGroupMgmtOutput.AppendText("Group was successfully deleted: "+ $GroupNameDeletion)
+	}
+	catch{
+		$ADGroupMgmt.ADGroupMgmtOutput.AppendText("Group was not found in the OU")
+	}
+}
+Function GroupMovementOU {
+	$ADGroupMgmt.ADGroupMgmtOutput.Clear()
+	$GroupNameMove = Get-ADgroup -Identity $ADGroupNameMove.Text
+	$VariableGroupName = $ADGroupNameMove.Text
+	$TargeGroupNameMove = "OU=" + $ADGroupTargetOU.text + "," + (Get-ADDomain).DistinguishedName
+
+	try {
+		Move-ADObject -Identity $GroupNameMove -TargetPath $TargeGroupNameMove
+		$ADGroupMgmt.ADGroupMgmtOutput.AppendText($VariableGroupName + " Sucessfully Moved to " + $TargeGroupNameMove)
+	}
+	catch{
+		$ADGroupMgmt.ADGroupMgmtOutput.AppendText("OU or Group does not exist")
+	}
+
+	}
+Function ListOUGroupManagement {
+	$ADGroupMgmt.ADGroupMgmtOutput.Clear()
+	$GroupManagmentListOU = Get-ADObject -Filter { ObjectClass -eq 'organizationalunit' }
+	$ADGroupMgmt.ADGroupMgmtOutput.AppendText($GroupManagmentListOU)
+}
+
 Function GroupBack {
+	$ADGroupMgmt.ADGroupMgmtOutput.Clear()
 	$ADGroupMgmt.Hide()
-	$ActiveDirectoryMenu.ShowDialog()
+	$ActiveDirectoryMenu.Show()
 }
 ## MANAGEMENT SCRIPTS MAIN MENU
 Function ManagementBack{

@@ -15,13 +15,11 @@ $ADGroupMgmt = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Label]$ADGroupLabel5 = $null
 [System.Windows.Forms.Label]$ADGroupLabel6 = $null
 [System.Windows.Forms.TextBox]$ADGroupNameMove = $null
-[System.Windows.Forms.TextBox]$ADGroupCurrentOU = $null
 [System.Windows.Forms.TextBox]$ADGroupTargetOU = $null
 [System.Windows.Forms.Label]$ADGroupLabel8 = $null
-[System.Windows.Forms.Label]$ADGroupLabel7 = $null
-[System.Windows.Forms.Label]$ADGroupLabel9 = $null
 [System.Windows.Forms.Button]$ADGroupMove = $null
 [System.Windows.Forms.RichTextBox]$ADGroupMgmtOutput = $null
+[System.Windows.Forms.Button]$DeleteGroupButton = $null
 [System.Windows.Forms.Button]$button1 = $null
 function InitializeComponent
 {
@@ -41,12 +39,10 @@ $ADGroupNameInput = (New-Object -TypeName System.Windows.Forms.TextBox)
 $ADGroupLocateInput = (New-Object -TypeName System.Windows.Forms.TextBox)
 $ADGroupLabel6 = (New-Object -TypeName System.Windows.Forms.Label)
 $ADGroupNameMove = (New-Object -TypeName System.Windows.Forms.TextBox)
-$ADGroupCurrentOU = (New-Object -TypeName System.Windows.Forms.TextBox)
 $ADGroupTargetOU = (New-Object -TypeName System.Windows.Forms.TextBox)
 $ADGroupLabel8 = (New-Object -TypeName System.Windows.Forms.Label)
-$ADGroupLabel7 = (New-Object -TypeName System.Windows.Forms.Label)
-$ADGroupLabel9 = (New-Object -TypeName System.Windows.Forms.Label)
 $ADGroupMove = (New-Object -TypeName System.Windows.Forms.Button)
+$DeleteGroupButton = (New-Object -TypeName System.Windows.Forms.Button)
 $ADGroupMgmt.SuspendLayout()
 #
 #ADGroupBack
@@ -61,12 +57,13 @@ $ADGroupBack.add_Click({GroupBack})
 #
 #ADGroupSubmit
 #
-$ADGroupSubmit.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]526,[System.Int32]248))
+$ADGroupSubmit.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]360,[System.Int32]248))
 $ADGroupSubmit.Name = [System.String]'ADGroupSubmit'
 $ADGroupSubmit.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]75,[System.Int32]23))
 $ADGroupSubmit.TabIndex = [System.Int32]1
 $ADGroupSubmit.Text = [System.String]'Create'
 $ADGroupSubmit.UseVisualStyleBackColor = $true
+$ADGroupSubmit.add_Click({GroupCreation})
 #
 #ADGroupLabel1
 #
@@ -102,6 +99,7 @@ $ADGroupListOU.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @(
 $ADGroupListOU.TabIndex = [System.Int32]5
 $ADGroupListOU.Text = [System.String]'List Current OUs'
 $ADGroupListOU.UseVisualStyleBackColor = $true
+$ADGroupListOU.add_Click({ListOUGroupManagement})
 #
 #ADGroupLabel3
 #
@@ -135,18 +133,18 @@ $ADGroupOUQuery.add_Click({GroupQuery})
 $ADGroupLabel4.AutoSize = $true
 $ADGroupLabel4.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]357,[System.Int32]151))
 $ADGroupLabel4.Name = [System.String]'ADGroupLabel4'
-$ADGroupLabel4.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]70,[System.Int32]13))
+$ADGroupLabel4.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]99,[System.Int32]13))
 $ADGroupLabel4.TabIndex = [System.Int32]9
-$ADGroupLabel4.Text = [System.String]'Group Name:'
+$ADGroupLabel4.Text = [System.String]'Insert Group Name:'
 #
 #ADGroupLabel5
 #
 $ADGroupLabel5.AutoSize = $true
 $ADGroupLabel5.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]357,[System.Int32]206))
 $ADGroupLabel5.Name = [System.String]'ADGroupLabel5'
-$ADGroupLabel5.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]83,[System.Int32]13))
+$ADGroupLabel5.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]149,[System.Int32]13))
 $ADGroupLabel5.TabIndex = [System.Int32]10
-$ADGroupLabel5.Text = [System.String]'Group Location:'
+$ADGroupLabel5.Text = [System.String]'Group Location (OU Location)'
 #
 #ADGroupNameInput
 #
@@ -167,9 +165,9 @@ $ADGroupLocateInput.TabIndex = [System.Int32]12
 $ADGroupLabel6.AutoSize = $true
 $ADGroupLabel6.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]357,[System.Int32]294))
 $ADGroupLabel6.Name = [System.String]'ADGroupLabel6'
-$ADGroupLabel6.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]36,[System.Int32]13))
+$ADGroupLabel6.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]70,[System.Int32]13))
 $ADGroupLabel6.TabIndex = [System.Int32]13
-$ADGroupLabel6.Text = [System.String]'Group'
+$ADGroupLabel6.Text = [System.String]'Group Name:'
 #
 #ADGroupNameMove
 #
@@ -178,46 +176,21 @@ $ADGroupNameMove.Name = [System.String]'ADGroupNameMove'
 $ADGroupNameMove.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]241,[System.Int32]20))
 $ADGroupNameMove.TabIndex = [System.Int32]14
 #
-#ADGroupCurrentOU
-#
-$ADGroupCurrentOU.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]343,[System.Int32]368))
-$ADGroupCurrentOU.Name = [System.String]'ADGroupCurrentOU'
-$ADGroupCurrentOU.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]116,[System.Int32]20))
-$ADGroupCurrentOU.TabIndex = [System.Int32]15
-#
 #ADGroupTargetOU
 #
-$ADGroupTargetOU.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]500,[System.Int32]368))
+$ADGroupTargetOU.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]360,[System.Int32]365))
 $ADGroupTargetOU.Name = [System.String]'ADGroupTargetOU'
-$ADGroupTargetOU.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]115,[System.Int32]20))
+$ADGroupTargetOU.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]241,[System.Int32]20))
 $ADGroupTargetOU.TabIndex = [System.Int32]16
 #
 #ADGroupLabel8
 #
 $ADGroupLabel8.AutoSize = $true
-$ADGroupLabel8.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]512,[System.Int32]349))
+$ADGroupLabel8.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]357,[System.Int32]349))
 $ADGroupLabel8.Name = [System.String]'ADGroupLabel8'
 $ADGroupLabel8.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]60,[System.Int32]13))
 $ADGroupLabel8.TabIndex = [System.Int32]17
 $ADGroupLabel8.Text = [System.String]'Target OU:'
-#
-#ADGroupLabel7
-#
-$ADGroupLabel7.AutoSize = $true
-$ADGroupLabel7.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]341,[System.Int32]349))
-$ADGroupLabel7.Name = [System.String]'ADGroupLabel7'
-$ADGroupLabel7.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]63,[System.Int32]13))
-$ADGroupLabel7.TabIndex = [System.Int32]18
-$ADGroupLabel7.Text = [System.String]'Current OU:'
-#
-#ADGroupLabel9
-#
-$ADGroupLabel9.AutoSize = $true
-$ADGroupLabel9.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]471,[System.Int32]371))
-$ADGroupLabel9.Name = [System.String]'ADGroupLabel9'
-$ADGroupLabel9.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]22,[System.Int32]13))
-$ADGroupLabel9.TabIndex = [System.Int32]19
-$ADGroupLabel9.Text = [System.String]'TO'
 #
 #ADGroupMove
 #
@@ -227,16 +200,25 @@ $ADGroupMove.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([S
 $ADGroupMove.TabIndex = [System.Int32]20
 $ADGroupMove.Text = [System.String]'Move'
 $ADGroupMove.UseVisualStyleBackColor = $true
+$ADGroupMove.add_Click({GroupMovementOU})
+#
+#DeleteGroupButton
+#
+$DeleteGroupButton.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]526,[System.Int32]248))
+$DeleteGroupButton.Name = [System.String]'DeleteGroupButton'
+$DeleteGroupButton.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]75,[System.Int32]23))
+$DeleteGroupButton.TabIndex = [System.Int32]21
+$DeleteGroupButton.Text = [System.String]'Delete'
+$DeleteGroupButton.UseVisualStyleBackColor = $true
+$DeleteGroupButton.add_Click({GroupDeletion})
 #
 #ADGroupMgmt
 #
 $ADGroupMgmt.ClientSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]624,[System.Int32]441))
+$ADGroupMgmt.Controls.Add($DeleteGroupButton)
 $ADGroupMgmt.Controls.Add($ADGroupMove)
-$ADGroupMgmt.Controls.Add($ADGroupLabel9)
-$ADGroupMgmt.Controls.Add($ADGroupLabel7)
 $ADGroupMgmt.Controls.Add($ADGroupLabel8)
 $ADGroupMgmt.Controls.Add($ADGroupTargetOU)
-$ADGroupMgmt.Controls.Add($ADGroupCurrentOU)
 $ADGroupMgmt.Controls.Add($ADGroupNameMove)
 $ADGroupMgmt.Controls.Add($ADGroupLabel6)
 $ADGroupMgmt.Controls.Add($ADGroupLocateInput)
@@ -272,13 +254,11 @@ Add-Member -InputObject $ADGroupMgmt -Name ADGroupLocateInput -Value $ADGroupLoc
 Add-Member -InputObject $ADGroupMgmt -Name ADGroupLabel5 -Value $ADGroupLabel5 -MemberType NoteProperty
 Add-Member -InputObject $ADGroupMgmt -Name ADGroupLabel6 -Value $ADGroupLabel6 -MemberType NoteProperty
 Add-Member -InputObject $ADGroupMgmt -Name ADGroupNameMove -Value $ADGroupNameMove -MemberType NoteProperty
-Add-Member -InputObject $ADGroupMgmt -Name ADGroupCurrentOU -Value $ADGroupCurrentOU -MemberType NoteProperty
 Add-Member -InputObject $ADGroupMgmt -Name ADGroupTargetOU -Value $ADGroupTargetOU -MemberType NoteProperty
 Add-Member -InputObject $ADGroupMgmt -Name ADGroupLabel8 -Value $ADGroupLabel8 -MemberType NoteProperty
-Add-Member -InputObject $ADGroupMgmt -Name ADGroupLabel7 -Value $ADGroupLabel7 -MemberType NoteProperty
-Add-Member -InputObject $ADGroupMgmt -Name ADGroupLabel9 -Value $ADGroupLabel9 -MemberType NoteProperty
 Add-Member -InputObject $ADGroupMgmt -Name ADGroupMove -Value $ADGroupMove -MemberType NoteProperty
 Add-Member -InputObject $ADGroupMgmt -Name ADGroupMgmtOutput -Value $ADGroupMgmtOutput -MemberType NoteProperty
+Add-Member -InputObject $ADGroupMgmt -Name DeleteGroupButton -Value $DeleteGroupButton -MemberType NoteProperty
 Add-Member -InputObject $ADGroupMgmt -Name button1 -Value $button1 -MemberType NoteProperty
 }
 . InitializeComponent
