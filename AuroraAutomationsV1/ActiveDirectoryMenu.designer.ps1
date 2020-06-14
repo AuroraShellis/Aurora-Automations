@@ -99,6 +99,7 @@ $Back.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.I
 $Back.TabIndex = [System.Int32]7
 $Back.Text = [System.String]'Back'
 $Back.UseVisualStyleBackColor = $true
+$Back.Add_Click({ADMenuBack})
 #
 #ActiveDirectoryMenu
 #

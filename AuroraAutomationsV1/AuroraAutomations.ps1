@@ -254,12 +254,6 @@ Function GroupBack {
 }
 
 ### PASSWORD RESET FORM 
-# $ADPasswordReset.ADPasswordOutput.Clear()
-# $ADPasswordReset
-	# PassResetQueryTextBox
-	# ADPasswordOutput
-	# -AccountPassword (ConvertTo-SecureString -AsPlainText $DefaultPassword -Force) -Enabled $true -ChangePasswordAtLogon $true
-
 Function PasswordOUQuery{
 	$ADPasswordReset.ADPasswordOutput.Clear()
 	$QueryPWInput = $PassResetQueryTextBox.Text
@@ -289,16 +283,15 @@ Function PasswordResetInputs{
 		$ADPasswordReset.ADPasswordOutput.AppendText("Password does not match.")
 	}
 }
-Function PasswordResetBack{
-	$ADPasswordReset.ADPasswordOutput.Clear()
-	$ADPasswordReset.Hide()
-	$ActiveDirectoryMenu.Show()
-}
-
 Function PasswordListOU{
 	$ADPasswordReset.ADPasswordOutput.Clear()
 	$PWOLObjectList = Get-ADObject -Filter { ObjectClass -eq 'organizationalunit' }
 	$ADPasswordReset.ADPasswordOutput.AppendText($PWOLObjectList)
+}
+Function PasswordResetBack{
+	$ADPasswordReset.ADPasswordOutput.Clear()
+	$ADPasswordReset.Hide()
+	$ActiveDirectoryMenu.Show()
 }
 
 ## MANAGEMENT SCRIPTS MAIN MENU
