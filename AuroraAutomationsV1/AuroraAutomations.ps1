@@ -193,16 +193,25 @@ Function DiagnosticsBack{
 # JOIN PATH FOR ALL DESIGNERS
 . (Join-Path $PSScriptRoot 'MainMenu.designer.ps1')
 . (Join-Path $PSScriptRoot 'ActiveDirectoryMenu.designer.ps1')
-. (Join-Path $PSScriptRoot 'UserCreationForm.designer.ps1')
 . (Join-Path $PSScriptRoot 'ManagementMenu.designer.ps1')
 . (Join-Path $PSScriptRoot 'DiagnosticsMenu.designer.ps1')
+## JOIN PATH AD MENU DESIGNERS
+. (Join-Path $PSScriptRoot 'UserCreationForm.designer.ps1')
 . (Join-Path $PSScriptRoot 'OUM.designer.ps1')
 . (Join-Path $PSScriptRoot 'ADUserDeletion.designer.ps1')
+. (Join-Path $PSScriptRoot 'ADBulkUserCreation.designer.ps1')
+. (Join-Path $PSScriptRoot 'ADPasswordReset.designer.ps1')
+. (Join-Path $PSScriptRoot 'ADGroupMgt.designer.ps1')
+
 # JOIN PATH FOR BASE POWERSHELL
 . (Join-Path $PSScriptRoot 'MainMenu.ps1')
 . (Join-Path $PSScriptRoot 'ActiveDirectoryMenu.ps1')
-. (Join-Path $PSScriptRoot 'UserCreationForm.ps1')
 . (Join-Path $PSScriptRoot 'ManagementMenu.ps1')
 . (Join-Path $PSScriptRoot 'DiagnosticsMenu.ps1')
+## JOIN PATH AD MENU
+. (Join-Path $PSScriptRoot 'UserCreationForm.ps1')
 . (Join-Path $PSScriptRoot 'OUM.ps1')
 . (Join-Path $PSScriptRoot 'ADUserDeletion.ps1')
+. (Join-Path $PSScriptRoot 'ADBulkUserCreation.ps1')
+. (Join-Path $PSScriptRoot 'ADPasswordReset.ps1')
+. (Join-Path $PSScriptRoot 'ADGroupMgt.ps1')
