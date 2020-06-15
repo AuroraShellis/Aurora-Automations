@@ -43,6 +43,7 @@ $ADBulkSubmit.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([
 $ADBulkSubmit.TabIndex = [System.Int32]1
 $ADBulkSubmit.Text = [System.String]'Submit'
 $ADBulkSubmit.UseVisualStyleBackColor = $true
+$ADBulkSubmit.Add_Click({ADBulkCSVAddUsers})
 #
 #ADBulkLabel1
 #

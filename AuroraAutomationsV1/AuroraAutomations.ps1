@@ -43,6 +43,11 @@ Function PasswordShowMenu {
 }
 Function BulkImportsShowMenu {
 	$ActiveDirectoryMenu.Hide()
+	$ADBulkUserCreation.ADBulkOutput.AppendText("Browse to a CSV using the Text Box above. The CSV should follow this structure from Left to Right:")
+	$ADBulkUserCreation.ADBulkOutput.AppendText("`nFirst Name | Last Name | OU `n")
+	$ADBulkUserCreation.ADBulkOutput.AppendText("`nThe SAM Account Name will be generated based on our User Naming Convention.`nThis may shortern long names. Check the Results after running the Command.")
+	$ADBulkUserCreation.ADBulkOutput.AppendText("`nAll Users will have our default preassigned password.`nThe user will be prompted to change their password on the first login.")
+	$ADBulkUserCreation.ADBulkOutput.AppendText("`nOUs will not be created. Please ensure the OUs are existing before trying to Import users.")
 	$ADBulkUserCreation.ShowDialog()
 }
 Function ADMenuBack {
@@ -71,7 +76,6 @@ Function Individual.User.Submit {
 	$UserPrincipal = $SamAccountName + "@" + $Domain
 	$UserContainer = (Get-ADDomain).UsersContainer
 	$DefaultPassword = "P@ssword01"
-	$SamAccountChecker = $LastName
 	UserCreation
 }
 
@@ -337,14 +341,73 @@ Function PasswordResetBack{
 Function ADBulkCSVBrowse{
 	$ADBulkUserCreation.ADBulkCSVInput.Clear()
 	$BulkBrowsePopup = $ADBulkUserCreation.ADOpenFileBrowse.ShowDialog()
-	 if($BulkBrowsePopup -eq "OK"){    
+	if($BulkBrowsePopup -eq "OK"){    
 		$FilePathCSVPopup = $ADOpenFileBrowse.filename
 	}else{
 		$FilePathCSVPopup = $ADOpenFileBrowse.AppendText("Invalid File (?)")
 	}
 	$ADBulkUserCreation.ADBulkCSVInput.AppendText($FilePathCSVPopup)
+	$ImportCSVTmpVar = Import-CSV -Path "$FilePathCSVPopup"
 }
 
+Function ADBulkCSVAddUsers{
+	$ADBulkUserCreation.ADBulkOutput.Clear()
+	#$ADBulkUserCreation.ADBulkOutput.AppendText($FilePathCSVPopup)
+	
+	$ImportedCSVADUsers = "C:\Users\Mike.Micheal\Desktop\new.csv"
+	foreach ($BulkUser in $ImportedCSVADUsers){       
+		$BulkUserFirstName = $BulkUser.FirstName 
+		$BulkUserLastName = $BulkUser.LastName
+		$BulkUserOUTarget = $BulkUser.OU
+		
+		$BulkFirstNameSub = $BulkUserFirstName.Substring(0,1)
+		
+		If($BulkUserLastName.Length -lt 14){
+			$BulkNumberX = $BulkUserLastName.Length
+		}Else{
+			$BulkNumberX = 14
+		}
+		$BulkLastNameSub = $BulkUserLastName.Substring(0, $BulkNumberX)
+		
+		$BulkFullName =  $BulkUserFirstName + " " + $BulkUserLastName
+		$BulkSamAccountName = $BulkFirstNameSub + "." + $LastNameSub
+		$BulkDomain = (Get-ADDomain).DNSRoot
+		$BulkUserPrincipal = $BulkSamAccountName + "@" + $BulkDomain
+		$BulkUserContainer = (Get-ADDomain).UsersContainer
+		$DefaultPassword = "P@ssword01"
+		$BulkUserOUPath = "OU=" + $BulkUserOUTarget + "," + (Get-ADDomain).DistinguishedName
+
+		try {
+			New-ADUser -Name $BulkFullName -GivenName $BulkUserFirstName -Surname $BulkUserLastName -SamAccountName $BulkSamAccountName -UserPrincipalName $BulkUserPrincipal -Path $BulkUserOUPath -AccountPassword (ConvertTo-SecureString -AsPlainText $DefaultPassword -Force) -Enabled $true -ChangePasswordAtLogon $true
+			$ADBulkUserCreation.ADBulkOutput.AppendText("Your account has been created: `n")
+			$ADBulkUserCreation.ADBulkOutput.AppendText("Account Full Name: " + (Get-ADUser $BulkSamAccountName).Name)
+			$ADBulkUserCreation.ADBulkOutput.AppendText("`nUser Principal Name: " + (Get-ADUser $BulkSamAccountName).UserPrincipalName)
+			$ADBulkUserCreation.ADBulkOutput.AppendText("`nSAM Account Name: " + (Get-ADDomain).NetBIOSName + "\" + (Get-ADUser $BulkSamAccountName).SamAccountName)
+			$ADBulkUserCreation.ADBulkOutput.AppendText("`nPassword is = " + $DefaultPassword)
+			$ADBulkUserCreation.ADBulkOutput.AppendText("`nPassword will be reset on next login.`n")
+		}catch [Microsoft.ActiveDirectory.Management.ADIdentityAlreadyExistsException] {
+			$ADBulkUserCreation.ADBulkOutput.AppendText("NOTE: Account Name Already Exists in the Active Directory Domain. `nTherefore you will get a different Account Name.`n")
+			$UserRandomVar = Get-Random -Minimum 1 -Maximum 999
+			$NewBulkSamAccountName = $BulkFirstNameSub + "." + $BulkUserLastName + "." + $UserRandomVar
+			$NewBulkLastName = $BulkUserLastName + "." + $UserRandomVar
+			$NewBulkFullName = $BulkUserFirstName + " " + $NewBulkLastName
+			$NewBulkUserPrincipal = $NewBulkSamAccountName + "@" + $BulkDomain
+			try{
+				New-ADUser -Name $NewBulkFullName -GivenName $NewBulkFullName -Surname $NewBulkLastName -SamAccountName $NewBulkSamAccountName -UserPrincipalName $NewBulkUserPrincipal -Path $BulkUserOUPath -AccountPassword (ConvertTo-SecureString -AsPlainText $DefaultPassword -Force) -Enabled $true -ChangePasswordAtLogon $true
+				$ADBulkUserCreation.ADBulkOutput.AppendText("Your account has been created: `n")
+				$ADBulkUserCreation.ADBulkOutput.AppendText("Account Full Name: " + (Get-ADUser $NewBulkSamAccountName).Name)
+				$ADBulkUserCreation.ADBulkOutput.AppendText("`nUser Principal Name: " + (Get-ADUser $NewBulkSamAccountName).UserPrincipalName)
+				$ADBulkUserCreation.ADBulkOutput.AppendText("`nSAM Account Name: " + (Get-ADDomain).NetBIOSName + "\" + (Get-ADUser $NewBulkSamAccountName).SamAccountName)
+				$ADBulkUserCreation.ADBulkOutput.AppendText("`nPassword is = " + $DefaultPassword)
+				$ADBulkUserCreation.ADBulkOutput.AppendText("`nPassword will be reset on next login.")
+			}catch{
+				$ADBulkUserCreation.ADBulkOutput.AppendText("Unexpected Error, Something went wrong. Please try again.")
+			}
+		}catch {
+			$ADBulkUserCreation.ADBulkOutput.AppendText("Something went wrong. Please try again. Check if OU Exists?")
+		}	
+	}
+}
 Function CSVBulkBack{
 	$ADBulkUserCreation.Hide()
 	$ActiveDirectoryMenu.Show()
