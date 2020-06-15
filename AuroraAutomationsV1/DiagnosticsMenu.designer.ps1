@@ -12,6 +12,7 @@ $DiagnosticsMenu = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Button]$button1 = $null
 function InitializeComponent
 {
+$resources = . (Join-Path $PSScriptRoot 'DiagnosticsMenu.resources.ps1')
 $DiagADDetailsButton = (New-Object -TypeName System.Windows.Forms.Button)
 $DiagADListUsers = (New-Object -TypeName System.Windows.Forms.Button)
 $DiagPortStatusButton = (New-Object -TypeName System.Windows.Forms.Button)
@@ -112,6 +113,7 @@ $DiagnosticsMenu.Controls.Add($DiagADMachines)
 $DiagnosticsMenu.Controls.Add($DiagPortStatusButton)
 $DiagnosticsMenu.Controls.Add($DiagADListUsers)
 $DiagnosticsMenu.Controls.Add($DiagADDetailsButton)
+$DiagnosticsMenu.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $DiagnosticsMenu.Name = [System.String]'DiagnosticsMenu'
 $DiagnosticsMenu.Text = [System.String]'Diagnostics Menu - Aurora Automations'
 $DiagnosticsMenu.ResumeLayout($false)

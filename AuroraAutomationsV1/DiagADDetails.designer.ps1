@@ -25,6 +25,7 @@ $DiagADDetailsBack.Size = (New-Object -TypeName System.Drawing.Size -ArgumentLis
 $DiagADDetailsBack.TabIndex = [System.Int32]0
 $DiagADDetailsBack.Text = [System.String]'Back'
 $DiagADDetailsBack.UseVisualStyleBackColor = $true
+$DiagADDetailsBack.add_Click({ActiveDirectortDetailsBack})
 #
 #DiagADDetailsSubmit
 #
@@ -34,6 +35,7 @@ $DiagADDetailsSubmit.Size = (New-Object -TypeName System.Drawing.Size -ArgumentL
 $DiagADDetailsSubmit.TabIndex = [System.Int32]1
 $DiagADDetailsSubmit.Text = [System.String]'Refresh'
 $DiagADDetailsSubmit.UseVisualStyleBackColor = $true
+$DiagADDetailsSubmit.add_Click({RefreshActiveDirectoryDetails})
 #
 #DiagADDetailsOutput
 #

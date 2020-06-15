@@ -19,12 +19,13 @@ $DiagListADPCs.SuspendLayout()
 #
 #DiagListPCBack
 #
-$DiagListPCBack.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]25,[System.Int32]397))
+$DiagListPCBack.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]28,[System.Int32]397))
 $DiagListPCBack.Name = [System.String]'DiagListPCBack'
 $DiagListPCBack.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]75,[System.Int32]23))
 $DiagListPCBack.TabIndex = [System.Int32]0
 $DiagListPCBack.Text = [System.String]'Back'
 $DiagListPCBack.UseVisualStyleBackColor = $true
+$DiagListPCBack.add_Click({BackMachineListDiagnostics})
 #
 #DiagListPCSubmit
 #
@@ -34,6 +35,7 @@ $DiagListPCSubmit.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList
 $DiagListPCSubmit.TabIndex = [System.Int32]1
 $DiagListPCSubmit.Text = [System.String]'Refresh'
 $DiagListPCSubmit.UseVisualStyleBackColor = $true
+$DiagListPCSubmit.add_Click({RefreshMachinesDiagnosticsList})
 #
 #DiagListPCOutput
 #

@@ -25,6 +25,7 @@ $DiagListUsersBack.Size = (New-Object -TypeName System.Drawing.Size -ArgumentLis
 $DiagListUsersBack.TabIndex = [System.Int32]0
 $DiagListUsersBack.Text = [System.String]'Back'
 $DiagListUsersBack.UseVisualStyleBackColor = $true
+$DiagListUsersBack.add_Click({BackCheckALLUsersAD})
 #
 #DiagListUsersSubmit
 #
@@ -34,6 +35,7 @@ $DiagListUsersSubmit.Size = (New-Object -TypeName System.Drawing.Size -ArgumentL
 $DiagListUsersSubmit.TabIndex = [System.Int32]1
 $DiagListUsersSubmit.Text = [System.String]'Refresh'
 $DiagListUsersSubmit.UseVisualStyleBackColor = $true
+$DiagListUsersSubmit.add_Click({RefreshUserListAD})
 #
 #DiagListUsersOutput
 #

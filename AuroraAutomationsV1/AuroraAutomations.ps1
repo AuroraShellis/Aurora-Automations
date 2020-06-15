@@ -55,14 +55,27 @@ Function ADMenuBack {
 }
 ## DIAGNOSTICS MAIN MENU BUTTONS
 Function DiagnosticsADDetails {
+	$DiagnosticsDetailsLoadingOutput = Get-ADDomain | Format-List | Out-String
+	$DiagADDetails.DiagADDetailsOutput.AppendText($DiagnosticsDetailsLoadingOutput)
 	$DiagnosticsMenu.Hide()
 	$DiagADDetails.ShowDialog()
 }
 Function DiagnosticsCheckMachines {
+	$DiagListADPCs.DiagListPCOutput.AppendText("OS Type Count: `n")
+	$DiagnosticsMachineLoading = Get-ADComputer -Filter * -Properties operatingSystem | group -Property operatingSystem | Select Name,Count | Format-List  Name,Count | Out-String
+	$DiagnosticsMachineLoading2 = Get-ADComputer -Filter * | Select-Object Name,DNSHostName,Enabled | Format-List Name,DNSHostName,Enabled | Out-String
+	$DiagListADPCs.DiagListPCOutput.AppendText($DiagnosticsMachineLoading)
+	$DiagListADPCs.DiagListPCOutput.AppendText(" Names of the Machines Connected to the Active Directory")
+	$DiagListADPCs.DiagListPCOutput.AppendText($DiagnosticsMachineLoading2)
 	$DiagnosticsMenu.Hide()
 	$DiagListADPCs.ShowDialog()
+
 }
 Function DiagnosticsListUsers {
+	$DiagListADUsers.DiagListUsersOutput.Clear()
+	$DiagListADUsersOutputEnter = Get-ADUser -Filter * | Select-Object SamAccountName, Name, Enabled, ObjectClass | Format-List SamAccountName, Name, Enabled, ObjectClass | Out-String
+	$DiagListADUsers.DiagListUsersOutput.AppendText("Users Are:")
+	$DiagListADUsers.DiagListUsersOutput.AppendText($DiagListADUsersOutputEnter)
 	$DiagnosticsMenu.Hide()
 	$DiagListADUsers.ShowDialog()
 }
@@ -289,6 +302,7 @@ Function GroupCreation {
 Function GroupDeletion {
 	$ADGroupMgmt.ADGroupMgmtOutput.Clear()
 	$GroupNameDeletion = $ADGroupNameInput.Text
+
 	try{
 		Remove-ADGroup –Identity $GroupNameDeletion -Confirm:$False
 		$ADGroupMgmt.ADGroupMgmtOutput.AppendText("Group was successfully deleted: "+ $GroupNameDeletion)
@@ -297,6 +311,7 @@ Function GroupDeletion {
 		$ADGroupMgmt.ADGroupMgmtOutput.AppendText("Group was not found in the OU")
 	}
 }
+
 Function GroupMovementOU {
 	$ADGroupMgmt.ADGroupMgmtOutput.Clear()
 	$GroupNameMove = Get-ADgroup -Identity $ADGroupNameMove.Text
@@ -447,8 +462,48 @@ Function ManagementBack{
 	$MainMenu.Show()
 }
 
+## DIAGNOSTIC MENU BUTTONS - 3RD LAYER
+### CHECK ACTIVE DIRECTORY INFORMATION
+Function RefreshActiveDirectoryDetails{
+	$DiagADDetails.DiagADDetailsOutput.Clear()
+	$DetailsRefreshActiveDirectory = Get-ADDomain | Format-List | Out-String
+	$DiagADDetails.DiagADDetailsOutput.AppendText($DetailsRefreshActiveDirectory)
+}
+Function ActiveDirectortDetailsBack {
+	$DiagADDetails.DiagADDetailsOutputt.Clear()
+	$DiagADDetailss.Hide()
+	$DiagnosticsMenu.Show()
+}
+### CHECK MACHINES FORMS
 
- 
+Function RefreshMachinesDiagnosticsList{
+$DiagListADPCs.DiagListPCOutput.Clear()
+$DiagnosticsRefreshList = Get-ADComputer -Filter * -Properties operatingSystem | group -Property operatingSystem | Select Name,Count | Format-List  Name,Count | Out-String
+$DiagnosticsRefreshList2 = Get-ADComputer -Filter * | Select-Object Name,DNSHostName,Enabled | Format-List Name,DNSHostName,Enabled | Out-String
+
+$DiagListADPCs.DiagListPCOutput.AppendText("OS Type Count: `n ")
+$DiagListADPCs.DiagListPCOutput.AppendText($DiagnosticsRefreshList)
+$DiagListADPCs.DiagListPCOutput.AppendText("Names of the Machines Connected to the Active Directory:")
+$DiagListADPCs.DiagListPCOutput.AppendText($DiagnosticsRefreshList2)
+
+}
+Function BackMachineListDiagnostics{
+	$DiagListADPCs.DiagListPCOutput.Clear()
+	$DiagListADPCs.Hide()
+	$DiagnosticsMenu.Show()
+}
+### CHECK ALL USERS IN ACTIVE DIRECTORY
+Function RefreshUserListAD {
+	$DiagListADUsers.DiagListUsersOutput.Clear()
+	$DiagListADUsersOutput = Get-ADUser -Filter * | Select-Object SamAccountName, Name, Enabled, ObjectClass | Format-List SamAccountName, Name, Enabled, ObjectClass | Out-String
+	$DiagListADUsers.DiagListUsersOutput.AppendText("Users Are:")
+	$DiagListADUsers.DiagListUsersOutput.AppendText($DiagListADUsersOutput)
+}
+ Function BackCheckALLUsersAD {
+	$DiagListADUsers.DiagListUsersOutput.Clear()
+	$DiagListADUsers.Hide()
+	$DiagnosticsMenu.Show()
+}
 
 # JOIN PATH FOR ALL DESIGNERS
 ## MAINMENU
