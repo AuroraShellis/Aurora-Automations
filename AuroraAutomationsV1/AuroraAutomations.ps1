@@ -347,14 +347,14 @@ Function ADBulkCSVBrowse{
 		$FilePathCSVPopup = $ADOpenFileBrowse.AppendText("Invalid File (?)")
 	}
 	$ADBulkUserCreation.ADBulkCSVInput.AppendText($FilePathCSVPopup)
-	#$ImportCSVTmpVar = Import-CSV -Path "$FilePathCSVPopup"
 }
 
 Function ADBulkCSVAddUsers{
 	$ADBulkUserCreation.ADBulkOutput.Clear()
 	#$ADBulkUserCreation.ADBulkOutput.AppendText($FilePathCSVPopup)
-	
-	$ImportedCSVADUsers = Import-CSV -Path C:\Users\Mike.Micheal\Desktop\new.csv
+	$ADFilePathName = $ADBulkCSVInput.Text
+
+	$ImportedCSVADUsers = Import-CSV -Path $ADFilePathName
 	foreach ($BulkUser in $ImportedCSVADUsers){       
 		$BulkUserFirstName = $BulkUser.FirstName 
 		$BulkUserLastName = $BulkUser.LastName
@@ -388,7 +388,7 @@ Function ADBulkCSVAddUsers{
 		}catch [Microsoft.ActiveDirectory.Management.ADIdentityAlreadyExistsException] {
 			$ADBulkUserCreation.ADBulkOutput.AppendText("`nNOTE: Account Name Already Exists in the Active Directory Domain. `nTherefore you will get a different Account Name.`n")
 			$UserRandomVar = Get-Random -Minimum 1 -Maximum 999
-			$NewBulkSamAccountName = $BulkFirstNameSub + "." + $BulkUserLastNameSub + "." + $UserRandomVar
+			$NewBulkSamAccountName = $BulkFirstNameSub + "." + $BulkUserLastName + "." + $UserRandomVar
 			$NewBulkLastName = $BulkUserLastName + "." + $UserRandomVar
 			$NewBulkFullName = $BulkUserFirstName + " " + $NewBulkLastName
 			$NewBulkUserPrincipal = $NewBulkSamAccountName + "@" + $BulkDomain
