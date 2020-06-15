@@ -25,6 +25,7 @@ $DiagPortStatusBack.Size = (New-Object -TypeName System.Drawing.Size -ArgumentLi
 $DiagPortStatusBack.TabIndex = [System.Int32]0
 $DiagPortStatusBack.Text = [System.String]'Back'
 $DiagPortStatusBack.UseVisualStyleBackColor = $true
+$DiagPortStatusBack.add_Click({BackPortStatus})
 #
 #DiagPortStatusSubmit
 #
@@ -34,6 +35,7 @@ $DiagPortStatusSubmit.Size = (New-Object -TypeName System.Drawing.Size -Argument
 $DiagPortStatusSubmit.TabIndex = [System.Int32]1
 $DiagPortStatusSubmit.Text = [System.String]'Refresh'
 $DiagPortStatusSubmit.UseVisualStyleBackColor = $true
+$DiagPortStatusSubmit.add_Click({RefreshPortStatus})
 #
 #DiagPortStatusOutput
 #

@@ -80,10 +80,16 @@ Function DiagnosticsListUsers {
 	$DiagListADUsers.ShowDialog()
 }
 Function DiagnosticsOSCheck {
+	$DiagCheckOS.DiagRemoteOSOutput.AppendText("These are the list of computers connected to your " + (Get-ADDomain).DNSRoot )
+	$OutputCheckRemoteOUT = Get-ADComputer -Filter * -Properties operatingSystem | Select-Object Name, OperatingSystem | Format-List Name, OperatingSystem | Out-String
+	$DiagCheckOS.DiagRemoteOSOutput.AppendText($OutputCheckRemoteOUT)
 	$DiagnosticsMenu.Hide()
 	$DiagCheckOS.ShowDialog()
 }
 Function DiagnosticsPortStatus {
+	$DiagPortStatus.DiagPortStatusOutput.Clear()
+	$PortStatusOutputOut = Get-NetTCPConnection | Sort-Object LocalPort | Select-Object LocalPort, State | Out-String
+	$DiagPortStatus.DiagPortStatusOutput.AppendText($PortStatusOutputOut)
 	$DiagnosticsMenu.Hide()
 	$DiagPortStatus.ShowDialog()
 }
@@ -504,7 +510,52 @@ Function RefreshUserListAD {
 	$DiagListADUsers.Hide()
 	$DiagnosticsMenu.Show()
 }
+### CHECK OS ARCHITECTURE FORM
+Function RemoteQueryOSArchitecture {
+	$DiagCheckOS.DiagRemoteOSOutput.Clear()
+	$DiagRemoteComputer = $DiagRemoteOSInput.Text
+	$DiagRemoteInfo1 = (Get-WmiObject -ComputerName $DiagRemoteComputer win32_operatingsystem).name
+	$DiagRemoteInfo2 = (Get-WmiObject -ComputerName $DiagRemoteComputer Win32_OperatingSystem).OSArchitecture
+	$DiagRemoteJoin = $DiagRemoteInfo1.Split("|")[0]
+	$DiagCheckOS.DiagRemoteOSOutput.AppendText("This remote computer is running: " + $DiagRemoteJoin)
+	$DiagCheckOS.DiagRemoteOSOutput.AppendText("`nThis remote computer's architecture is " + $DiagRemoteInfo2)
+}
+Function RefreshCheckLocalMachinesOS {
+	$DiagCheckOS.DiagRemoteOSOutput.Clear()
+	$DiagCheckOS.DiagRemoteOSOutput.AppendText("These are the list of computers connected to your " + (Get-ADDomain).DNSRoot )
+	$OutputCheckRemoteIN = Get-ADComputer -Filter * -Properties operatingSystem | Select-Object Name, OperatingSystem | Format-List Name, OperatingSystem | Out-String
+	$DiagCheckOS.DiagRemoteOSOutput.AppendText($OutputCheckRemoteIN)
+}
+Function CheckOSBack {
+	$DiagCheckOS.DiagRemoteOSOutput.Clear()
+	$DiagCheckOS.Hide()
+	$DiagnosticsMenu.Show()
+}
+### PORT STATUS FORM
+Function RefreshPortStatus {
+	$DiagPortStatus.DiagPortStatusOutput.Clear()
+	$PortStatusOutputIn = Get-NetTCPConnection | Sort-Object LocalPort | Select-Object LocalPort, State | Out-String
+	$DiagPortStatus.DiagPortStatusOutput.AppendText($PortStatusOutputIn)
 
+}
+Funtion BackPortStatus{
+	$DiagPortStatus.DiagPortStatusOutput.Clear()
+	$DiagPortStatus.Hide()
+	$DiagnosticsMenu.Show()
+}
+
+### CONNECTION STATUS FORM
+Function CheckingIPStatus {
+	$DiagTraceroute.DiagTraceInput.Clear()
+	$IPaddressStatus = $DiagTraceInput.Text
+	$IPAddressStatusResult = Test-NetConnection $IPaddressStatus | Out-String
+	$DiagTraceroute.DiagTraceInput.AppendText($IPAddressStatusResult)
+}
+Function BackConnectionStatusForm {
+	$DiagTraceroute.DiagTraceInput.Clear()
+	$DiagTraceroute.Hide()
+	$DiagnosticsMenu.Show()
+}
 # JOIN PATH FOR ALL DESIGNERS
 ## MAINMENU
 . (Join-Path $PSScriptRoot 'MainMenu.designer.ps1')

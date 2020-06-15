@@ -31,6 +31,7 @@ $DiagRemoteOSBack.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList
 $DiagRemoteOSBack.TabIndex = [System.Int32]0
 $DiagRemoteOSBack.Text = [System.String]'Back'
 $DiagRemoteOSBack.UseVisualStyleBackColor = $true
+$DiagRemoteOSBack.add_Click({CheckOSBack})
 #
 #DiagRemoteOSSubmit
 #
@@ -40,6 +41,7 @@ $DiagRemoteOSSubmit.Size = (New-Object -TypeName System.Drawing.Size -ArgumentLi
 $DiagRemoteOSSubmit.TabIndex = [System.Int32]1
 $DiagRemoteOSSubmit.Text = [System.String]'Check'
 $DiagRemoteOSSubmit.UseVisualStyleBackColor = $true
+$DiagRemoteOSSubmit.add_Click({RemoteQueryOSArchitecture})
 #
 #DiagRemoteOSLocal
 #
@@ -47,8 +49,9 @@ $DiagRemoteOSLocal.Location = (New-Object -TypeName System.Drawing.Point -Argume
 $DiagRemoteOSLocal.Name = [System.String]'DiagRemoteOSLocal'
 $DiagRemoteOSLocal.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]195,[System.Int32]23))
 $DiagRemoteOSLocal.TabIndex = [System.Int32]2
-$DiagRemoteOSLocal.Text = [System.String]'Local Computer Check'
+$DiagRemoteOSLocal.Text = [System.String]'Refresh'
 $DiagRemoteOSLocal.UseVisualStyleBackColor = $true
+$DiagRemoteOSLocal.add_Click({RefreshCheckLocalMachinesOS})
 #
 #DiagRemoteOSInput
 #

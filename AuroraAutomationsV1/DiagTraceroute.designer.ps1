@@ -29,6 +29,7 @@ $DiagTraceBack.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @(
 $DiagTraceBack.TabIndex = [System.Int32]0
 $DiagTraceBack.Text = [System.String]'Back'
 $DiagTraceBack.UseVisualStyleBackColor = $true
+$DiagTraceBack.add_Click({BackConnectionStatusForm})
 #
 #DiagTraceSubmit
 #
@@ -38,6 +39,7 @@ $DiagTraceSubmit.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList 
 $DiagTraceSubmit.TabIndex = [System.Int32]1
 $DiagTraceSubmit.Text = [System.String]'Traceroute'
 $DiagTraceSubmit.UseVisualStyleBackColor = $true
+$DiagTraceSubmit.add_Click({CheckingIPStatus})
 #
 #DiagTraceInput
 #
