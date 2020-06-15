@@ -420,7 +420,7 @@ Function ADBulkCSVAddUsers{
 			$NewBulkFullName = $BulkUserFirstName + " " + $NewBulkLastName
 			$NewBulkUserPrincipal = $NewBulkSamAccountName + "@" + $BulkDomain
 			try{
-				New-ADUser -Name $NewBulkFullName -GivenName $NewBulkFullName -Surname $NewBulkLastName -SamAccountName $NewBulkSamAccountName -UserPrincipalName $NewBulkUserPrincipal -Path $BulkUserOUPath -AccountPassword (ConvertTo-SecureString -AsPlainText $DefaultPassword -Force) -Enabled $true -ChangePasswordAtLogon $true
+				New-ADUser -Name $NewBulkFullName -GivenName $BulkUserFirstName -Surname $NewBulkLastName -SamAccountName $NewBulkSamAccountName -UserPrincipalName $NewBulkUserPrincipal -Path $BulkUserOUPath -AccountPassword (ConvertTo-SecureString -AsPlainText $DefaultPassword -Force) -Enabled $true -ChangePasswordAtLogon $true
 				$ADBulkUserCreation.ADBulkOutput.AppendText("`nYour account has been created: `n")
 				$ADBulkUserCreation.ADBulkOutput.AppendText("Account Full Name: " + (Get-ADUser $NewBulkSamAccountName).Name)
 				$ADBulkUserCreation.ADBulkOutput.AppendText("`nUser Principal Name: " + (Get-ADUser $NewBulkSamAccountName).UserPrincipalName)
