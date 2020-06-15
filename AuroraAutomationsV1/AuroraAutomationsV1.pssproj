@@ -84,6 +84,13 @@
       <HintPath>
       </HintPath>
     </Reference>
+    <Reference Include="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+      <Name>System.Drawing</Name>
+      <AssemblyName>
+      </AssemblyName>
+      <HintPath>
+      </HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
       <Name>System.Windows.Forms</Name>
       <AssemblyName>
@@ -129,6 +136,48 @@
       <DependentUpon>ADUserDeletion.ps1</DependentUpon>
     </Compile>
     <Compile Include="ADUserDeletion.ps1">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DiagADDetails.designer.ps1">
+      <SubType>Code</SubType>
+      <DependentUpon>DiagADDetails.ps1</DependentUpon>
+    </Compile>
+    <Compile Include="DiagADDetails.ps1">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DiagCheckOS.designer.ps1">
+      <SubType>Code</SubType>
+      <DependentUpon>DiagCheckOS.ps1</DependentUpon>
+    </Compile>
+    <Compile Include="DiagCheckOS.ps1">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DiagListADPCs.designer.ps1">
+      <SubType>Code</SubType>
+      <DependentUpon>DiagListADPCs.ps1</DependentUpon>
+    </Compile>
+    <Compile Include="DiagListADPCs.ps1">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DiagListADUsers.designer.ps1">
+      <SubType>Code</SubType>
+      <DependentUpon>DiagListADUsers.ps1</DependentUpon>
+    </Compile>
+    <Compile Include="DiagListADUsers.ps1">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DiagPortStatus.designer.ps1">
+      <SubType>Code</SubType>
+      <DependentUpon>DiagPortStatus.ps1</DependentUpon>
+    </Compile>
+    <Compile Include="DiagPortStatus.ps1">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DiagTraceroute.designer.ps1">
+      <SubType>Code</SubType>
+      <DependentUpon>DiagTraceroute.ps1</DependentUpon>
+    </Compile>
+    <Compile Include="DiagTraceroute.ps1">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="OUM.designer.ps1">
@@ -183,6 +232,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ADUserDeletion.resx">
       <DependentUpon>ADUserDeletion.ps1</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DiagADDetails.resx">
+      <DependentUpon>DiagADDetails.ps1</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DiagCheckOS.resx">
+      <DependentUpon>DiagCheckOS.ps1</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DiagListADPCs.resx">
+      <DependentUpon>DiagListADPCs.ps1</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DiagListADUsers.resx">
+      <DependentUpon>DiagListADUsers.ps1</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DiagPortStatus.resx">
+      <DependentUpon>DiagPortStatus.ps1</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DiagTraceroute.resx">
+      <DependentUpon>DiagTraceroute.ps1</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OUM.resx">
       <DependentUpon>OUM.ps1</DependentUpon>

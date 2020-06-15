@@ -32,7 +32,6 @@ Function ManagmentShowMenu {
 	$ADGroupMgmt.ShowDialog()
 }
 Function Individual.User {
-	#$UserCreationForm.OutputTxtBox.AppendText("Make Sure that the Last Name Contains Only 20 Characters")
 	$ActiveDirectoryMenu.Hide()
 	$UserCreationForm.ShowDialog()
 }
@@ -54,8 +53,36 @@ Function ADMenuBack {
 	$ActiveDirectoryMenu.Hide()
 	$MainMenu.Show()
 }
-
-### ACTIVE DIRECTORY MENU BUTTONS - 3RD LAYER
+## DIAGNOSTICS MAIN MENU BUTTONS
+Function DiagnosticsADDetails {
+	$DiagnosticsMenu.Hide()
+	$DiagADDetails.ShowDialog()
+}
+Function DiagnosticsCheckMachines {
+	$DiagnosticsMenu.Hide()
+	$DiagListADPCs.ShowDialog()
+}
+Function DiagnosticsListUsers {
+	$DiagnosticsMenu.Hide()
+	$DiagListADUsers.ShowDialog()
+}
+Function DiagnosticsOSCheck {
+	$DiagnosticsMenu.Hide()
+	$DiagCheckOS.ShowDialog()
+}
+Function DiagnosticsPortStatus {
+	$DiagnosticsMenu.Hide()
+	$DiagPortStatus.ShowDialog()
+}
+Function DiagnosticsConnectionTest {
+	$DiagnosticsMenu.Hide()
+	$DiagTraceroute.ShowDialog()
+}
+Function DiagnosticsBack{
+	$DiagnosticsMenu.Hide()
+	$MainMenu.Show()
+}
+### ACTIVE DIRECTORY BUTTONS - 3RD LAYER
 ### USER CREATION FORM
 Function Individual.User.Submit {
 	$UserCreationForm.OutputTxtBox.Clear()
@@ -420,11 +447,7 @@ Function ManagementBack{
 	$MainMenu.Show()
 }
 
-## DIAGNOSTICS SCRIPTS MAIN MENU
-Function DiagnosticsBack{
-	$DiagnosticsMenu.Hide()
-	$MainMenu.Show()
-}
+
  
 
 # JOIN PATH FOR ALL DESIGNERS
@@ -440,6 +463,13 @@ Function DiagnosticsBack{
 . (Join-Path $PSScriptRoot 'ADBulkUserCreation.designer.ps1')
 . (Join-Path $PSScriptRoot 'ADPasswordReset.designer.ps1')
 . (Join-Path $PSScriptRoot 'ADGroupMgmt.designer.ps1')
+## JOIN PATH DIAGNOSTICS DESIGNERS
+. (Join-Path $PSScriptRoot 'DiagADDetails.designer.ps1')
+. (Join-Path $PSScriptRoot 'DiagCheckOS.designer.ps1')
+. (Join-Path $PSScriptRoot 'DiagListADPCs.designer.ps1')
+. (Join-Path $PSScriptRoot 'DiagListADUsers.designer.ps1')
+. (Join-Path $PSScriptRoot 'DiagPortStatus.designer.ps1')
+. (Join-Path $PSScriptRoot 'DiagTraceroute.designer.ps1')
 
 # JOIN PATH FOR BASE POWERSHELL
 ## MAINMENU
@@ -454,3 +484,10 @@ Function DiagnosticsBack{
 . (Join-Path $PSScriptRoot 'ADBulkUserCreation.ps1')
 . (Join-Path $PSScriptRoot 'ADPasswordReset.ps1')
 . (Join-Path $PSScriptRoot 'ADGroupMgmt.ps1')
+## JOIN PATH DIAGNOSTICS MENU
+. (Join-Path $PSScriptRoot 'DiagADDetails.ps1')
+. (Join-Path $PSScriptRoot 'DiagCheckOS.ps1')
+. (Join-Path $PSScriptRoot 'DiagListADPCs.ps1')
+. (Join-Path $PSScriptRoot 'DiagListADUsers.ps1')
+. (Join-Path $PSScriptRoot 'DiagPortStatus.ps1')
+. (Join-Path $PSScriptRoot 'DiagTraceroute.ps1')
