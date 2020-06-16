@@ -493,12 +493,66 @@ Function CSVBulkBack{
 	$ActiveDirectoryMenu.Show()
 }
 
-## MANAGEMENT SCRIPTS MAIN MENU
-Function ManagementBack{
-	$ManagementMenu.Hide()
-	$MainMenu.Show()
+## Manage MENU BUTTONS 3RD LAYER
+### FILE SHARE PERMISSION CHECK 
+Function FilesShareCreationButton{
+	$MgmtFileShareForm.MgmtFileShareOutput.Clear()
+	$FileShareNameCreation = $MgmtFileShareName.Text
+	$FileSharePathCreation = $MgmtFileShareDir.Text
+	$UserorGroupShareName = $MgmtFileShareUser.Text
+
+	try{
+		if ($MgmtFileShareFull.Checked -eq $true)
+		{
+			New-SmbShare -Name $FileShareNameCreation -Path $FileSharePathCreation -FullAccess $UserorGroupShareName -ReadAccess Everyone -ErrorAction Stop
+			$MgmtFileShareForm.MgmtFileShareOutput.AppendText("File Share Successfully Created in " + $FileSharePathCreation + " With Full Access")		
+		
+		
+		}
+			elseif ($MgmtFileShareChange.Checked -eq $true)
+			{
+				New-SmbShare -Name $FileShareNameCreation -Path $FileSharePathCreation -ChangeAccess $UserorGroupShareName -ReadAccess Everyone -ErrorAction Stop
+					$MgmtFileShareForm.MgmtFileShareOutput.AppendText("File Share Successfully Created in " + $FileSharePathCreation + " With Change Access")
+			}
+				elseif ($MgmtFileShareRead.Checked -eq $true)
+					{
+					New-SmbShare -Name $FileShareNameCreation -Path $FileSharePathCreation -ReadAccess $UserorGroupShareName , Everyone -ErrorAction Stop
+						$MgmtFileShareForm.MgmtFileShareOutput.AppendText("File Share Successfully Created in " + $FileSharePathCreation + " With Read Access")
+					}
+		}
+
+			catch [Microsoft.Management.Infrastructure.CimException]{
+				$MgmtFileShareForm.MgmtFileShareOutput.AppendText("`nFolder not found")
+				$MgmtFileShareForm.MgmtFileShareOutput.AppendText("`nFolder was created at " + $FileSharePathCreation)
+				$MgmtFileShareForm.MgmtFileShareOutput.AppendText("`nTry Again")
+				mkdir $FileSharePathCreation
+			}
 }
 
+Function FullControl {
+	if ($MgmtFileShareFull.Checked -eq $true){
+		$MgmtFileShareChange.Checked = $true
+		$MgmtFileShareRead.Checked = $true
+	}
+}
+Function ChangeAccessControl {
+	if ($MgmtFileShareChange.Checked -eq $true ){
+		$MgmtFileShareRead.Checked = $true
+		}
+	if ($MgmtFileShareChange.Checked -eq $false){
+		$MgmtFileShareFull.Checked =$false
+		}
+	}
+Function ReadAccessControl{
+	if ($MgmtFileShareRead.Checked -eq $false){
+		$MgmtFileShareFull.Checked =$false
+		$MgmtFileShareChange.Checked = $frue
+	}
+	
+
+}
+
+	
 ## DIAGNOSTIC MENU BUTTONS - 3RD LAYER
 ### CHECK ACTIVE DIRECTORY INFORMATION
 Function RefreshActiveDirectoryDetails{

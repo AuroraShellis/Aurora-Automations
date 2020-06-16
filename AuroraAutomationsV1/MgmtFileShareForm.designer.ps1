@@ -17,6 +17,7 @@ $MgmtFileShareForm = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.CheckBox]$MgmtFileShareChange = $null
 [System.Windows.Forms.CheckBox]$MgmtFileShareRead = $null
 [System.Windows.Forms.Label]$label1 = $null
+[System.Windows.Forms.Button]$MgmtChangePerm = $null
 [System.Windows.Forms.Button]$button1 = $null
 function InitializeComponent
 {
@@ -37,6 +38,7 @@ $MgmtFileShareFull = (New-Object -TypeName System.Windows.Forms.CheckBox)
 $MgmtFileShareChange = (New-Object -TypeName System.Windows.Forms.CheckBox)
 $MgmtFileShareRead = (New-Object -TypeName System.Windows.Forms.CheckBox)
 $label1 = (New-Object -TypeName System.Windows.Forms.Label)
+$MgmtChangePerm = (New-Object -TypeName System.Windows.Forms.Button)
 $MgmtFileShareForm.SuspendLayout()
 #
 #MgmtFileShareBack
@@ -50,12 +52,14 @@ $MgmtFileShareBack.UseVisualStyleBackColor = $true
 #
 #MgmtFileShareSubmit
 #
-$MgmtFileShareSubmit.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]505,[System.Int32]327))
+$MgmtFileShareSubmit.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]410,[System.Int32]336))
 $MgmtFileShareSubmit.Name = [System.String]'MgmtFileShareSubmit'
 $MgmtFileShareSubmit.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]75,[System.Int32]23))
 $MgmtFileShareSubmit.TabIndex = [System.Int32]1
 $MgmtFileShareSubmit.Text = [System.String]'Create'
 $MgmtFileShareSubmit.UseVisualStyleBackColor = $true
+$MgmtFileShareSubmit.add_Click({FilesShareCreationButton})
+
 #
 #MgmtFileShareRefresh
 #
@@ -105,22 +109,22 @@ $MgmtFileShareName.TabIndex = [System.Int32]6
 $MgmtFileShareLabel3.AutoSize = $true
 $MgmtFileShareLabel3.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]409,[System.Int32]48))
 $MgmtFileShareLabel3.Name = [System.String]'MgmtFileShareLabel3'
-$MgmtFileShareLabel3.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]158,[System.Int32]13))
+$MgmtFileShareLabel3.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]85,[System.Int32]13))
 $MgmtFileShareLabel3.TabIndex = [System.Int32]7
-$MgmtFileShareLabel3.Text = [System.String]'Insert the name of the file share:'
+$MgmtFileShareLabel3.Text = [System.String]'File Share Name'
 #
 #MgmtFileShareDir
 #
 $MgmtFileShareDir.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]409,[System.Int32]130))
 $MgmtFileShareDir.Name = [System.String]'MgmtFileShareDir'
-$MgmtFileShareDir.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]170,[System.Int32]20))
+$MgmtFileShareDir.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]173,[System.Int32]20))
 $MgmtFileShareDir.TabIndex = [System.Int32]8
 #
 #MgmtFileShareUser
 #
 $MgmtFileShareUser.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]410,[System.Int32]190))
 $MgmtFileShareUser.Name = [System.String]'MgmtFileShareUser'
-$MgmtFileShareUser.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]170,[System.Int32]20))
+$MgmtFileShareUser.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]172,[System.Int32]20))
 $MgmtFileShareUser.TabIndex = [System.Int32]9
 #
 #MgmtFileShareLabel4
@@ -128,18 +132,18 @@ $MgmtFileShareUser.TabIndex = [System.Int32]9
 $MgmtFileShareLabel4.AutoSize = $true
 $MgmtFileShareLabel4.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]409,[System.Int32]107))
 $MgmtFileShareLabel4.Name = [System.String]'MgmtFileShareLabel4'
-$MgmtFileShareLabel4.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]170,[System.Int32]13))
+$MgmtFileShareLabel4.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]134,[System.Int32]13))
 $MgmtFileShareLabel4.TabIndex = [System.Int32]10
-$MgmtFileShareLabel4.Text = [System.String]'Insert the location of this file share:'
+$MgmtFileShareLabel4.Text = [System.String]'Location Of The File Share'
 #
 #MgmtFileShareLabel5
 #
 $MgmtFileShareLabel5.AutoSize = $true
 $MgmtFileShareLabel5.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]407,[System.Int32]165))
 $MgmtFileShareLabel5.Name = [System.String]'MgmtFileShareLabel5'
-$MgmtFileShareLabel5.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]88,[System.Int32]13))
+$MgmtFileShareLabel5.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]104,[System.Int32]13))
 $MgmtFileShareLabel5.TabIndex = [System.Int32]11
-$MgmtFileShareLabel5.Text = [System.String]'Insert user name:'
+$MgmtFileShareLabel5.Text = [System.String]'User or Group Name'
 #
 #MgmtFileShareFull
 #
@@ -150,6 +154,7 @@ $MgmtFileShareFull.Size = (New-Object -TypeName System.Drawing.Size -ArgumentLis
 $MgmtFileShareFull.TabIndex = [System.Int32]12
 $MgmtFileShareFull.Text = [System.String]'Full Control'
 $MgmtFileShareFull.UseVisualStyleBackColor = $true
+$MgmtFileShareFull.add_CheckedChanged({FullControl})
 #
 #MgmtFileShareChange
 #
@@ -160,6 +165,7 @@ $MgmtFileShareChange.Size = (New-Object -TypeName System.Drawing.Size -ArgumentL
 $MgmtFileShareChange.TabIndex = [System.Int32]13
 $MgmtFileShareChange.Text = [System.String]'Change'
 $MgmtFileShareChange.UseVisualStyleBackColor = $true
+$MgmtFileShareChange.add_CheckedChanged({ChangeAccessControl})
 #
 #MgmtFileShareRead
 #
@@ -170,19 +176,30 @@ $MgmtFileShareRead.Size = (New-Object -TypeName System.Drawing.Size -ArgumentLis
 $MgmtFileShareRead.TabIndex = [System.Int32]14
 $MgmtFileShareRead.Text = [System.String]'Read'
 $MgmtFileShareRead.UseVisualStyleBackColor = $true
+$MgmtFileShareRead.add_CheckedChanged({ReadAccessControl})
 #
 #label1
 #
 $label1.AutoSize = $true
-$label1.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]406,[System.Int32]231))
+$label1.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]409,[System.Int32]227))
 $label1.Name = [System.String]'label1'
-$label1.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]115,[System.Int32]13))
+$label1.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]92,[System.Int32]13))
 $label1.TabIndex = [System.Int32]15
-$label1.Text = [System.String]'Select user permission:'
+$label1.Text = [System.String]'Select permission:'
+#
+#MgmtChangePerm
+#
+$MgmtChangePerm.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]516,[System.Int32]336))
+$MgmtChangePerm.Name = [System.String]'MgmtChangePerm'
+$MgmtChangePerm.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]75,[System.Int32]23))
+$MgmtChangePerm.TabIndex = [System.Int32]16
+$MgmtChangePerm.Text = [System.String]'Change'
+$MgmtChangePerm.UseVisualStyleBackColor = $true
 #
 #MgmtFileShareForm
 #
 $MgmtFileShareForm.ClientSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]624,[System.Int32]441))
+$MgmtFileShareForm.Controls.Add($MgmtChangePerm)
 $MgmtFileShareForm.Controls.Add($label1)
 $MgmtFileShareForm.Controls.Add($MgmtFileShareRead)
 $MgmtFileShareForm.Controls.Add($MgmtFileShareChange)
@@ -221,6 +238,7 @@ Add-Member -InputObject $MgmtFileShareForm -Name MgmtFileShareFull -Value $MgmtF
 Add-Member -InputObject $MgmtFileShareForm -Name MgmtFileShareChange -Value $MgmtFileShareChange -MemberType NoteProperty
 Add-Member -InputObject $MgmtFileShareForm -Name MgmtFileShareRead -Value $MgmtFileShareRead -MemberType NoteProperty
 Add-Member -InputObject $MgmtFileShareForm -Name label1 -Value $label1 -MemberType NoteProperty
+Add-Member -InputObject $MgmtFileShareForm -Name MgmtChangePerm -Value $MgmtChangePerm -MemberType NoteProperty
 Add-Member -InputObject $MgmtFileShareForm -Name button1 -Value $button1 -MemberType NoteProperty
 }
 . InitializeComponent
