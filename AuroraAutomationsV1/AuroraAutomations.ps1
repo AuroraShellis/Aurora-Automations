@@ -569,7 +569,16 @@ Function MgmtFilePermissionBrowse {
 	$MgmtFilePermissionForm.MgmtFilePermInput.AppendText($FilePathFilePremPopup)
 }
 
-
+Function MgmtFolderSubmitCheck {
+	$MgmtFilePermissionForm.MgmtFilePermOutput.Clear()
+	$MgmtFilePathTmp = $MgmtFilePermInput.text
+	try{
+		$PermFormFolderQueryString = (Get-Acl -Path $MgmtFilePathTmp).Access | Sort-Object IsInherited, Identity-Reference | Select-Object IdentityReference, FileSystemRights, IsInherited| Format-List IdentityReference, FileSystemRights, IsInherited | Out-String
+		$MgmtFilePermissionForm.MgmtFilePermOutput.AppendText($PermFormFolderQueryString)
+	}catch{
+		$MgmtFilePermissionForm.MgmtFilePermOutput.AppendText("No Folder Selected. Select a folder.")
+	}
+}
 
 Function MgmtFilePremBack{
 	$MgmtFilePermissionForm.Hide()

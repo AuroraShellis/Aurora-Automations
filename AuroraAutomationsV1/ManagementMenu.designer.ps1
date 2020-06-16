@@ -29,7 +29,7 @@ $MgmtFilePermission.Location = (New-Object -TypeName System.Drawing.Point -Argum
 $MgmtFilePermission.Name = [System.String]'MgmtFilePermission'
 $MgmtFilePermission.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]200,[System.Int32]100))
 $MgmtFilePermission.TabIndex = [System.Int32]0
-$MgmtFilePermission.Text = [System.String]'Checking File Share Permissions'
+$MgmtFilePermission.Text = [System.String]'Checking Folder Permissions'
 $MgmtFilePermission.UseVisualStyleBackColor = $true
 $MgmtFilePermission.add_Click({FileSharePermission})
 #
@@ -39,7 +39,7 @@ $MgmtChangeIP.Location = (New-Object -TypeName System.Drawing.Point -ArgumentLis
 $MgmtChangeIP.Name = [System.String]'MgmtChangeIP'
 $MgmtChangeIP.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]200,[System.Int32]100))
 $MgmtChangeIP.TabIndex = [System.Int32]1
-$MgmtChangeIP.Text = [System.String]'Changing Local IP address'
+$MgmtChangeIP.Text = [System.String]'Changing Local IP Address'
 $MgmtChangeIP.UseVisualStyleBackColor = $true
 $MgmtChangeIP.add_Click({ChangingLocalIP})
 #
@@ -79,7 +79,7 @@ $MgmtCreateFileShare.Location = (New-Object -TypeName System.Drawing.Point -Argu
 $MgmtCreateFileShare.Name = [System.String]'MgmtCreateFileShare'
 $MgmtCreateFileShare.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]200,[System.Int32]100))
 $MgmtCreateFileShare.TabIndex = [System.Int32]5
-$MgmtCreateFileShare.Text = [System.String]'Creating File Share'
+$MgmtCreateFileShare.Text = [System.String]'File Share Management'
 $MgmtCreateFileShare.UseVisualStyleBackColor = $true
 $MgmtCreateFileShare.add_Click({CreationFileShare})
 #
