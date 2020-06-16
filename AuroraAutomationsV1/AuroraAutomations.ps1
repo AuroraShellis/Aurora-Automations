@@ -569,6 +569,13 @@ Function BackConnectionStatusForm {
 . (Join-Path $PSScriptRoot 'ADBulkUserCreation.designer.ps1')
 . (Join-Path $PSScriptRoot 'ADPasswordReset.designer.ps1')
 . (Join-Path $PSScriptRoot 'ADGroupMgmt.designer.ps1')
+## JOIN PATH MANAGEMENT DESIGNERS
+. (Join-Path $PSScriptRoot 'MgmtChangeIPForm.designer.ps1')
+. (Join-Path $PSScriptRoot 'MgmtChangePCForm.designer.ps1')
+. (Join-Path $PSScriptRoot 'MgmtDiskMgmtForm.designer.ps1')
+. (Join-Path $PSScriptRoot 'MgmtFilePermissionForm.designer.ps1')
+. (Join-Path $PSScriptRoot 'MgmtFileShareForm.designer.ps1')
+. (Join-Path $PSScriptRoot 'MgmtMACAddressForm.designer.ps1')
 ## JOIN PATH DIAGNOSTICS DESIGNERS
 . (Join-Path $PSScriptRoot 'DiagADDetails.designer.ps1')
 . (Join-Path $PSScriptRoot 'DiagCheckOS.designer.ps1')
@@ -576,6 +583,7 @@ Function BackConnectionStatusForm {
 . (Join-Path $PSScriptRoot 'DiagListADUsers.designer.ps1')
 . (Join-Path $PSScriptRoot 'DiagPortStatus.designer.ps1')
 . (Join-Path $PSScriptRoot 'DiagTraceroute.designer.ps1')
+
 
 # JOIN PATH FOR BASE POWERSHELL
 ## MAINMENU
@@ -590,6 +598,13 @@ Function BackConnectionStatusForm {
 . (Join-Path $PSScriptRoot 'ADBulkUserCreation.ps1')
 . (Join-Path $PSScriptRoot 'ADPasswordReset.ps1')
 . (Join-Path $PSScriptRoot 'ADGroupMgmt.ps1')
+## JOIN PATH MANAGEMENT MENU
+. (Join-Path $PSScriptRoot 'MgmtChangeIPForm.ps1')
+. (Join-Path $PSScriptRoot 'MgmtChangePCForm.ps1')
+. (Join-Path $PSScriptRoot 'MgmtDiskMgmtForm.ps1')
+. (Join-Path $PSScriptRoot 'MgmtFilePermissionForm.ps1')
+. (Join-Path $PSScriptRoot 'MgmtFileShareForm.ps1')
+. (Join-Path $PSScriptRoot 'MgmtMACAddressForm.ps1')
 ## JOIN PATH DIAGNOSTICS MENU
 . (Join-Path $PSScriptRoot 'DiagADDetails.ps1')
 . (Join-Path $PSScriptRoot 'DiagCheckOS.ps1')

@@ -91,6 +91,13 @@
       <HintPath>
       </HintPath>
     </Reference>
+    <Reference Include="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+      <Name>System.Drawing</Name>
+      <AssemblyName>
+      </AssemblyName>
+      <HintPath>
+      </HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
       <Name>System.Windows.Forms</Name>
       <AssemblyName>
@@ -180,6 +187,48 @@
     <Compile Include="DiagTraceroute.ps1">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="MgmtChangeIPForm.designer.ps1">
+      <SubType>Code</SubType>
+      <DependentUpon>MgmtChangeIPForm.ps1</DependentUpon>
+    </Compile>
+    <Compile Include="MgmtChangeIPForm.ps1">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MgmtChangePCForm.designer.ps1">
+      <SubType>Code</SubType>
+      <DependentUpon>MgmtChangePCForm.ps1</DependentUpon>
+    </Compile>
+    <Compile Include="MgmtChangePCForm.ps1">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MgmtDiskMgmtForm.designer.ps1">
+      <SubType>Code</SubType>
+      <DependentUpon>MgmtDiskMgmtForm.ps1</DependentUpon>
+    </Compile>
+    <Compile Include="MgmtDiskMgmtForm.ps1">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MgmtFilePermissionForm.designer.ps1">
+      <SubType>Code</SubType>
+      <DependentUpon>MgmtFilePermissionForm.ps1</DependentUpon>
+    </Compile>
+    <Compile Include="MgmtFilePermissionForm.ps1">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MgmtFileShareForm.designer.ps1">
+      <SubType>Code</SubType>
+      <DependentUpon>MgmtFileShareForm.ps1</DependentUpon>
+    </Compile>
+    <Compile Include="MgmtFileShareForm.ps1">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MgmtMACAddressForm.designer.ps1">
+      <SubType>Code</SubType>
+      <DependentUpon>MgmtMACAddressForm.ps1</DependentUpon>
+    </Compile>
+    <Compile Include="MgmtMACAddressForm.ps1">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="OUM.designer.ps1">
       <SubType>Code</SubType>
       <DependentUpon>OUM.ps1</DependentUpon>
@@ -250,6 +299,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DiagTraceroute.resx">
       <DependentUpon>DiagTraceroute.ps1</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MgmtChangeIPForm.resx">
+      <DependentUpon>MgmtChangeIPForm.ps1</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MgmtChangePCForm.resx">
+      <DependentUpon>MgmtChangePCForm.ps1</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MgmtDiskMgmtForm.resx">
+      <DependentUpon>MgmtDiskMgmtForm.ps1</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MgmtFilePermissionForm.resx">
+      <DependentUpon>MgmtFilePermissionForm.ps1</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MgmtFileShareForm.resx">
+      <DependentUpon>MgmtFileShareForm.ps1</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MgmtMACAddressForm.resx">
+      <DependentUpon>MgmtMACAddressForm.ps1</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OUM.resx">
       <DependentUpon>OUM.ps1</DependentUpon>

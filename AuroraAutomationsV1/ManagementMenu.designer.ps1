@@ -7,8 +7,8 @@ $ManagementMenu = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Button]$MgmtBack = $null
 [System.Windows.Forms.Button]$MgmtCreateFileShare = $null
 [System.Windows.Forms.Button]$MgmtDiskManagement = $null
-[System.Windows.Forms.Button]$MgmtInstallFeatures = $null
 [System.Windows.Forms.Label]$MgmtLabel = $null
+[System.Windows.Forms.Button]$MgmtMACAddress = $null
 [System.Windows.Forms.Button]$button1 = $null
 function InitializeComponent
 {
@@ -17,7 +17,7 @@ $MgmtFilePermission = (New-Object -TypeName System.Windows.Forms.Button)
 $MgmtChangeIP = (New-Object -TypeName System.Windows.Forms.Button)
 $MgmtChangePCName = (New-Object -TypeName System.Windows.Forms.Button)
 $MgmtDiskManagement = (New-Object -TypeName System.Windows.Forms.Button)
-$MgmtInstallFeatures = (New-Object -TypeName System.Windows.Forms.Button)
+$MgmtMACAddress = (New-Object -TypeName System.Windows.Forms.Button)
 $MgmtCreateFileShare = (New-Object -TypeName System.Windows.Forms.Button)
 $MgmtBack = (New-Object -TypeName System.Windows.Forms.Button)
 $MgmtLabel = (New-Object -TypeName System.Windows.Forms.Label)
@@ -44,7 +44,7 @@ $MgmtChangeIP.UseVisualStyleBackColor = $true
 #
 #MgmtChangePCName
 #
-$MgmtChangePCName.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]41,[System.Int32]304))
+$MgmtChangePCName.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]341,[System.Int32]179))
 $MgmtChangePCName.Name = [System.String]'MgmtChangePCName'
 $MgmtChangePCName.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]200,[System.Int32]100))
 $MgmtChangePCName.TabIndex = [System.Int32]2
@@ -60,14 +60,14 @@ $MgmtDiskManagement.TabIndex = [System.Int32]3
 $MgmtDiskManagement.Text = [System.String]'Remote Disk Management'
 $MgmtDiskManagement.UseVisualStyleBackColor = $true
 #
-#MgmtInstallFeatures
+#MgmtMACAddress
 #
-$MgmtInstallFeatures.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]341,[System.Int32]179))
-$MgmtInstallFeatures.Name = [System.String]'MgmtInstallFeatures'
-$MgmtInstallFeatures.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]200,[System.Int32]100))
-$MgmtInstallFeatures.TabIndex = [System.Int32]4
-$MgmtInstallFeatures.Text = [System.String]'Install Windows Server Features'
-$MgmtInstallFeatures.UseVisualStyleBackColor = $true
+$MgmtMACAddress.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]41,[System.Int32]304))
+$MgmtMACAddress.Name = [System.String]'MgmtMACAddress'
+$MgmtMACAddress.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]200,[System.Int32]100))
+$MgmtMACAddress.TabIndex = [System.Int32]4
+$MgmtMACAddress.Text = [System.String]'Generate Random MAC Address'
+$MgmtMACAddress.UseVisualStyleBackColor = $true
 #
 #MgmtCreateFileShare
 #
@@ -86,7 +86,7 @@ $MgmtBack.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([Syst
 $MgmtBack.TabIndex = [System.Int32]6
 $MgmtBack.Text = [System.String]'Back'
 $MgmtBack.UseVisualStyleBackColor = $true
-$MgmtBack.add_Click({ManagementBack})
+#
 #MgmtLabel
 #
 $MgmtLabel.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]12,[System.Int32]9))
@@ -101,7 +101,7 @@ $ManagementMenu.ClientSize = (New-Object -TypeName System.Drawing.Size -Argument
 $ManagementMenu.Controls.Add($MgmtLabel)
 $ManagementMenu.Controls.Add($MgmtBack)
 $ManagementMenu.Controls.Add($MgmtCreateFileShare)
-$ManagementMenu.Controls.Add($MgmtInstallFeatures)
+$ManagementMenu.Controls.Add($MgmtMACAddress)
 $ManagementMenu.Controls.Add($MgmtDiskManagement)
 $ManagementMenu.Controls.Add($MgmtChangePCName)
 $ManagementMenu.Controls.Add($MgmtChangeIP)
@@ -117,8 +117,8 @@ Add-Member -InputObject $ManagementMenu -Name MgmtChangePCName -Value $MgmtChang
 Add-Member -InputObject $ManagementMenu -Name MgmtBack -Value $MgmtBack -MemberType NoteProperty
 Add-Member -InputObject $ManagementMenu -Name MgmtCreateFileShare -Value $MgmtCreateFileShare -MemberType NoteProperty
 Add-Member -InputObject $ManagementMenu -Name MgmtDiskManagement -Value $MgmtDiskManagement -MemberType NoteProperty
-Add-Member -InputObject $ManagementMenu -Name MgmtInstallFeatures -Value $MgmtInstallFeatures -MemberType NoteProperty
 Add-Member -InputObject $ManagementMenu -Name MgmtLabel -Value $MgmtLabel -MemberType NoteProperty
+Add-Member -InputObject $ManagementMenu -Name MgmtMACAddress -Value $MgmtMACAddress -MemberType NoteProperty
 Add-Member -InputObject $ManagementMenu -Name button1 -Value $button1 -MemberType NoteProperty
 }
 . InitializeComponent
