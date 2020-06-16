@@ -41,6 +41,7 @@ $MgmtFilePermBack.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList
 $MgmtFilePermBack.TabIndex = [System.Int32]0
 $MgmtFilePermBack.Text = [System.String]'Back'
 $MgmtFilePermBack.UseVisualStyleBackColor = $true
+$MgmtFilePermBack.Add_Click({MgmtFilePremBack})
 #
 #MgmtFilePermSubmit
 #
@@ -128,6 +129,10 @@ $MgmtFilePermLabel5.Size = (New-Object -TypeName System.Drawing.Size -ArgumentLi
 $MgmtFilePermLabel5.TabIndex = [System.Int32]10
 $MgmtFilePermLabel5.Text = [System.String]'Insert password:'
 #
+#MgmtFilePermBrowseBox
+#
+$MgmtFilePermBrowseBox.RootFolder = [System.Environment+SpecialFolder]::UserProfile
+#
 #MgmtFilePermBrowse
 #
 $MgmtFilePermBrowse.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]537,[System.Int32]108))
@@ -135,7 +140,7 @@ $MgmtFilePermBrowse.Name = [System.String]'MgmtFilePermBrowse'
 $MgmtFilePermBrowse.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]75,[System.Int32]23))
 $MgmtFilePermBrowse.TabIndex = [System.Int32]11
 $MgmtFilePermBrowse.Text = [System.String]'Browse'
-$MgmtFilePermBrowse.UseVisualStyleBackColor = $true
+$MgmtFilePermBrowse.Add_Click({MgmtFilePermissionBrowse})
 #
 #MgmtFilePermissionForm
 #

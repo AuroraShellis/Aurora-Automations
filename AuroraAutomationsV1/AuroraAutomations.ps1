@@ -423,7 +423,8 @@ Function ADBulkCSVBrowse{
 	if($BulkBrowsePopup -eq "OK"){    
 		$FilePathCSVPopup = $ADOpenFileBrowse.filename
 	}else{
-		$FilePathCSVPopup = $ADOpenFileBrowse.AppendText("Invalid File (?)")
+		$ADBulkUserCreation.ADBulkCSVInput.Clear()
+		$ADBulkUserCreation.ADBulkOutput.AppendText("File not selected. Invalid File.")
 	}
 	$ADBulkUserCreation.ADBulkCSVInput.AppendText($FilePathCSVPopup)
 }
@@ -551,8 +552,32 @@ Function ReadAccessControl{
 	
 
 }
+### CHECK FILE PREMISSIONS FORM
+# $MgmtFilePermissionForm
+# $MgmtFilePermOutput
+# $MgmtFilePermInput
+# $MgmtFilePermBrowse
+Function MgmtFilePermissionBrowse {
+	$MgmtFilePermissionForm.MgmtFilePermInput.Clear()
+	$MgmtFilePremPopup = $MgmtFilePermissionForm.MgmtFilePermBrowseBox.ShowDialog()
+	if($MgmtFilePremPopup -eq "OK"){    
+		$FilePathFilePremPopup = $MgmtFilePermBrowseBox.SelectedPath
+	}else{
+		$MgmtFilePermissionForm.MgmtFilePermOutput.AppendText("`nInvalid Folder`n")
+		$MgmtFilePermissionForm.MgmtFilePermInput.Clear()
+	}
+	$MgmtFilePermissionForm.MgmtFilePermInput.AppendText($FilePathFilePremPopup)
+}
 
-	
+
+
+Function MgmtFilePremBack{
+	$MgmtFilePermissionForm.Hide()
+	$ManagementMenu.Show()
+	$MgmtFilePermissionForm.MgmtFilePermOutput.Clear()
+	$MgmtFilePermissionForm.MgmtFilePermInput.Clear()
+}
+
 ## DIAGNOSTIC MENU BUTTONS - 3RD LAYER
 ### CHECK ACTIVE DIRECTORY INFORMATION
 Function RefreshActiveDirectoryDetails{
