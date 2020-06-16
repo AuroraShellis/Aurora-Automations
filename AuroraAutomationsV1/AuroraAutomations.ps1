@@ -503,33 +503,48 @@ Function FilesShareCreationButton{
 	$UserorGroupShareName = $MgmtFileShareUser.Text
 
 	try{
-		if ($MgmtFileShareFull.Checked -eq $true)
-		{
+		if ($MgmtFileShareFull.Checked -eq $true){
 			New-SmbShare -Name $FileShareNameCreation -Path $FileSharePathCreation -FullAccess $UserorGroupShareName -ReadAccess Everyone -ErrorAction Stop
 			$MgmtFileShareForm.MgmtFileShareOutput.AppendText("File Share Successfully Created in " + $FileSharePathCreation + " With Full Access")		
-		
-		
 		}
-			elseif ($MgmtFileShareChange.Checked -eq $true)
-			{
-				New-SmbShare -Name $FileShareNameCreation -Path $FileSharePathCreation -ChangeAccess $UserorGroupShareName -ReadAccess Everyone -ErrorAction Stop
-					$MgmtFileShareForm.MgmtFileShareOutput.AppendText("File Share Successfully Created in " + $FileSharePathCreation + " With Change Access")
-			}
-				elseif ($MgmtFileShareRead.Checked -eq $true)
-					{
-					New-SmbShare -Name $FileShareNameCreation -Path $FileSharePathCreation -ReadAccess $UserorGroupShareName , Everyone -ErrorAction Stop
-						$MgmtFileShareForm.MgmtFileShareOutput.AppendText("File Share Successfully Created in " + $FileSharePathCreation + " With Read Access")
-					}
+		elseif ($MgmtFileShareChange.Checked -eq $true){
+			New-SmbShare -Name $FileShareNameCreation -Path $FileSharePathCreation -ChangeAccess $UserorGroupShareName -ReadAccess Everyone -ErrorAction Stop
+			$MgmtFileShareForm.MgmtFileShareOutput.AppendText("File Share Successfully Created in " + $FileSharePathCreation + " With Change Access")
+		}elseif ($MgmtFileShareRead.Checked -eq $true){
+			New-SmbShare -Name $FileShareNameCreation -Path $FileSharePathCreation -ReadAccess $UserorGroupShareName , Everyone -ErrorAction Stop
+			$MgmtFileShareForm.MgmtFileShareOutput.AppendText("File Share Successfully Created in " + $FileSharePathCreation + " With Read Access")
 		}
-
-			catch [Microsoft.Management.Infrastructure.CimException]{
-				$MgmtFileShareForm.MgmtFileShareOutput.AppendText("`nFolder not found")
-				$MgmtFileShareForm.MgmtFileShareOutput.AppendText("`nFolder was created at " + $FileSharePathCreation)
-				$MgmtFileShareForm.MgmtFileShareOutput.AppendText("`nTry Again")
-				mkdir $FileSharePathCreation
-			}
+	}catch [Microsoft.Management.Infrastructure.CimException]{
+		$MgmtFileShareForm.MgmtFileShareOutput.AppendText("`nFolder not found")
+		$MgmtFileShareForm.MgmtFileShareOutput.AppendText("`nFolder was created at " + $FileSharePathCreation)
+		$MgmtFileShareForm.MgmtFileShareOutput.AppendText("`nTry Again")
+		mkdir $FileSharePathCreation
+	}
 }
-
+Function MgmtFolderBrowseFuction{
+	$MgmtFileShareForm.MgmtFileShareOutput.Clear()
+	$MgmtFileShareForm.MgmtFileShareDir.Clear()
+	$MgmtFilePopupTmp = $MgmtFileShareForm.MgmtFileShareBrowse.ShowDialog()
+	if($MgmtFilePopupTmp -eq "OK"){    
+		$FilePathFilePremPopupTmp = $MgmtFileShareBrowse.SelectedPath
+	}else{
+		$MgmtFileShareForm.MgmtFileShareOutput.AppendText("`nInvalid Folder`n")
+		$MgmtFileShareForm.MgmtFileShareDir.Clear()
+	}
+	$MgmtFileShareForm.MgmtFileShareDir.AppendText($FilePathFilePremPopupTmp)
+}
+Function FileSharePermQuery {
+	$MgmtFileShareForm.MgmtFileShareOutput.Clear()
+	$MgmtFileShareFileShareTextQuery = $MgmtFileShareName.text
+	try{
+		$MgmtFileShareQueryList = Get-SmbShare -Name $MgmtFileShareFileShareTextQuery
+		$MgmtFileShareQueryListPerm = Get-SmbShareAccess -Name $MgmtFileShareFileShareTextQuery | Select-Object AccountName, AccessRight, AccessControlType | Sort-Object AccountName, AccessRight,AccessControlType | Out-String
+		$MgmtFileShareForm.MgmtFileShareOutput.AppendText($MgmtFileShareQueryList)
+		$MgmtFileShareForm.MgmtFileShareOutput.AppendText($MgmtFileShareQueryListPerm)
+	}catch{
+		$MgmtFileShareForm.MgmtFileShareOutput.AppendText("`nFile Share Name Available.")
+	}
+}
 Function FullControl {
 	if ($MgmtFileShareFull.Checked -eq $true){
 		$MgmtFileShareChange.Checked = $true
@@ -549,14 +564,19 @@ Function ReadAccessControl{
 		$MgmtFileShareFull.Checked =$false
 		$MgmtFileShareChange.Checked = $frue
 	}
-	
-
 }
-### CHECK FILE PREMISSIONS FORM
-# $MgmtFilePermissionForm
-# $MgmtFilePermOutput
-# $MgmtFilePermInput
-# $MgmtFilePermBrowse
+
+Function QueryAllFileShare {
+	$MgmtFileShareForm.MgmtFileShareOutput.Clear()
+	$SMBShareGetAll = Get-SmbShare -Name * | Select-Object Name, Path | Sort-Object Name, Path | Format-List | Out-String
+	$MgmtFileShareForm.MgmtFileShareOutput.AppendText("These are the All the Shares Available in the Machine:")
+	$MgmtFileShareForm.MgmtFileShareOutput.AppendText($SMBShareGetAll)
+}
+Function BackFileShareManagement{
+	$MgmtFileShareForm.Hide()
+	$DiagnosticsMenu.Show()
+}
+### CHECK FOLDER AND FILE(?) PREMISSIONS FORM
 Function MgmtFilePermissionBrowse {
 	$MgmtFilePermissionForm.MgmtFilePermInput.Clear()
 	$MgmtFilePremPopup = $MgmtFilePermissionForm.MgmtFilePermBrowseBox.ShowDialog()
@@ -596,7 +616,7 @@ Function RefreshActiveDirectoryDetails{
 }
 Function ActiveDirectortDetailsBack {
 	$DiagADDetails.DiagADDetailsOutputt.Clear()
-	$DiagADDetailss.Hide()
+	$DiagADDetails.Hide()
 	$DiagnosticsMenu.Show()
 }
 ### CHECK MACHINES FORMS
