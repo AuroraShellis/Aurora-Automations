@@ -53,6 +53,37 @@ Function ADMenuBack {
 	$ActiveDirectoryMenu.Hide()
 	$MainMenu.Show()
 }
+
+## MANAGEMENT MAIN MENU BUTTONS
+Function CreationFileShare {
+	$ManagementMenu.Hide()
+	$MgmtFileShareForm.ShowDialog()
+}
+Function FileSharePermission {
+	$ManagementMenu.Hide()
+	$MgmtFilePermissionForm.ShowDialog()
+}
+Function ChangingLocalIP {
+	$ManagementMenu.Hide()
+	$MgmtChangeIPForm.ShowDialog()
+}
+Function LocalComputerDomain {
+	$ManagementMenu.Hide()
+	$MgmtChangePCForm.ShowDialog()
+}
+Function MACAddressGenerator {
+	$ManagementMenu.Hide()
+	$MgmtMACAddressForm.ShowDialog()
+}
+Function RemoteDisk {
+	$ManagementMenu.Hide()
+	$MgmtDiskMgmtForm.ShowDialog()
+}
+Function ManagementBack {
+	$ManagementMenu.Hide()
+	$MainMenu.ShowDialog()
+}
+
 ## DIAGNOSTICS MAIN MENU BUTTONS
 Function DiagnosticsADDetails {
 	$DiagnosticsDetailsLoadingOutput = Get-ADDomain | Format-List | Out-String

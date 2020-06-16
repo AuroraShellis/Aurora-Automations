@@ -31,7 +31,7 @@ $MgmtFilePermission.Size = (New-Object -TypeName System.Drawing.Size -ArgumentLi
 $MgmtFilePermission.TabIndex = [System.Int32]0
 $MgmtFilePermission.Text = [System.String]'Checking File Share Permissions'
 $MgmtFilePermission.UseVisualStyleBackColor = $true
-$MgmtFilePermission.add_Click($button2_Click)
+$MgmtFilePermission.add_Click({FileSharePermission})
 #
 #MgmtChangeIP
 #
@@ -41,6 +41,7 @@ $MgmtChangeIP.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([
 $MgmtChangeIP.TabIndex = [System.Int32]1
 $MgmtChangeIP.Text = [System.String]'Changing Local IP address'
 $MgmtChangeIP.UseVisualStyleBackColor = $true
+$MgmtChangeIP.add_Click({ChangingLocalIP})
 #
 #MgmtChangePCName
 #
@@ -50,6 +51,7 @@ $MgmtChangePCName.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList
 $MgmtChangePCName.TabIndex = [System.Int32]2
 $MgmtChangePCName.Text = [System.String]'Changing Local Computer Name and Joining/Leaving Domain'
 $MgmtChangePCName.UseVisualStyleBackColor = $true
+$MgmtChangePCName.add_Click({LocalComputerDomain})
 #
 #MgmtDiskManagement
 #
@@ -59,6 +61,7 @@ $MgmtDiskManagement.Size = (New-Object -TypeName System.Drawing.Size -ArgumentLi
 $MgmtDiskManagement.TabIndex = [System.Int32]3
 $MgmtDiskManagement.Text = [System.String]'Remote Disk Management'
 $MgmtDiskManagement.UseVisualStyleBackColor = $true
+$MgmtDiskManagement.add_Click({RemoteDisk})
 #
 #MgmtMACAddress
 #
@@ -66,8 +69,9 @@ $MgmtMACAddress.Location = (New-Object -TypeName System.Drawing.Point -ArgumentL
 $MgmtMACAddress.Name = [System.String]'MgmtMACAddress'
 $MgmtMACAddress.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]200,[System.Int32]100))
 $MgmtMACAddress.TabIndex = [System.Int32]4
-$MgmtMACAddress.Text = [System.String]'Generate Random MAC Address'
+$MgmtMACAddress.Text = [System.String]'MAC Address Generator'
 $MgmtMACAddress.UseVisualStyleBackColor = $true
+$MgmtMACAddress.add_Click({MACAddressGenerator})
 #
 #MgmtCreateFileShare
 #
@@ -77,6 +81,7 @@ $MgmtCreateFileShare.Size = (New-Object -TypeName System.Drawing.Size -ArgumentL
 $MgmtCreateFileShare.TabIndex = [System.Int32]5
 $MgmtCreateFileShare.Text = [System.String]'Creating File Share'
 $MgmtCreateFileShare.UseVisualStyleBackColor = $true
+$MgmtCreateFileShare.add_Click({CreationFileShare})
 #
 #MgmtBack
 #
@@ -86,6 +91,7 @@ $MgmtBack.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([Syst
 $MgmtBack.TabIndex = [System.Int32]6
 $MgmtBack.Text = [System.String]'Back'
 $MgmtBack.UseVisualStyleBackColor = $true
+$MgmtBack.add_Click({ManagementBack})
 #
 #MgmtLabel
 #
