@@ -575,7 +575,7 @@ Function QueryAllFileShare {
 }
 Function BackFileShareManagement{
 	$MgmtFileShareForm.Hide()
-	$DiagnosticsMenu.Show()
+	$ManagementMenu.Show()
 }
 ### CHECK FOLDER AND FILE(?) PREMISSIONS FORM
 Function MgmtFilePermissionBrowse {
@@ -697,7 +697,6 @@ Function MACBack{
 	$MGmtMACAddressForm.Hide()
 	$ManagementMenu.Show()
 }
-$(1..12 | ForEach-Object {'{0:x}' -f (Get-Random -Minimum 0 -Maximum 15 )}) -join "" 
 
 ### REMOTE DISK MANAGEMENT
 Function RemoteDiskBack{
