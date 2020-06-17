@@ -688,10 +688,35 @@ Function AddComputerDomain {
 ### MAC ADDRESS GENERATION FORM
 Function MACFormSubmit {
 	$MgmtMACAddressForm.MgmtMACAddressOutput.Clear()
-	$numbersubmitted = $MgmtMACAddressInput.Text
-	$MgmtMACAddressForm.MgmtMACAddressOutput.AppendText("Here are the following Requested MAC Addresses`n")
-	$MacFormations = 1..$numbersubmitted | ForEach-Object {(1..12 | ForEach-Object {'{0:x}' -f (Get-Random -Minimum 0 -Maximum 15 )}) -join "" } | Format-Table | Out-String
-	$MgmtMACAddressForm.MgmtMACAddressOutput.AppendText($MacFormations)
+	$NumbersubmittedInput = $MgmtMACAddressInput.Text
+	$Numbersubmitted = 1
+
+While ($Numbersubmitted -le $NumberSubmittedInput){
+$MacFormations = (1..12 | ForEach-Object {'{0:x}' -f (Get-Random -Minimum 0 -Maximum 15 )}) -join "" 
+$Capitalize = $MacFormations.ToUpper() | Out-String
+$SpaceAppend = $Capitalize -replace '(..)','$1 '
+$HyphenAppend = $Capitalize -replace '(..)','$1-'
+$ColAppend = $Capitalize -replace '(..)','$1:'
+
+$RemoveExtra1 = $SpaceAppend.Substring(0,17)
+$RemoveExtra2 = $HyphenAppend.Substring(0,17)
+$RemoveExtra3 = $ColAppend.Substring(0,17)
+
+	if ($Numbersubmitted -eq 1){
+		$MgmtMACAddressForm.MgmtMACAddressOutput.AppendText("Here is the Requested Mac Address With Different Formats")
+		$MgmtMACAddressForm.MgmtMACAddressOutput.AppendText("`n____________________________")
+	}
+	$MgmtMACAddressForm.MgmtMACAddressOutput.AppendText("`n")
+	$MgmtMACAddressForm.MgmtMACAddressOutput.AppendText("`n"+$Capitalize)
+	$MgmtMACAddressForm.MgmtMACAddressOutput.AppendText($RemoveExtra1+"`n")
+	$MgmtMACAddressForm.MgmtMACAddressOutput.AppendText($RemoveExtra2+"`n")
+	$MgmtMACAddressForm.MgmtMACAddressOutput.AppendText($RemoveExtra3+"`n")
+	$MgmtMACAddressForm.MgmtMACAddressOutput.AppendText("`n____________________________")
+	
+$Numbersubmitted++
+}
+
+	
 }
 Function MACBack{
 	$MGmtMACAddressForm.Hide()
