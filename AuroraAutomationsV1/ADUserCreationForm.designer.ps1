@@ -1,6 +1,6 @@
 [void][System.Reflection.Assembly]::Load('System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a')
 [void][System.Reflection.Assembly]::Load('System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089')
-$UserCreationForm = New-Object -TypeName System.Windows.Forms.Form
+$ADUserCreationForm = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Label]$label1 = $null
 [System.Windows.Forms.Label]$label2 = $null
 [System.Windows.Forms.Label]$label3 = $null
@@ -13,7 +13,7 @@ $UserCreationForm = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Button]$button1 = $null
 function InitializeComponent
 {
-$resources = . (Join-Path $PSScriptRoot 'UserCreationForm.resources.ps1')
+$resources = . (Join-Path $PSScriptRoot 'ADUserCreationForm.resources.ps1')
 $label1 = (New-Object -TypeName System.Windows.Forms.Label)
 $label2 = (New-Object -TypeName System.Windows.Forms.Label)
 $label3 = (New-Object -TypeName System.Windows.Forms.Label)
@@ -23,7 +23,7 @@ $OutputTxtBox = (New-Object -TypeName System.Windows.Forms.RichTextBox)
 $BackButton = (New-Object -TypeName System.Windows.Forms.Button)
 $SubmitButton = (New-Object -TypeName System.Windows.Forms.Button)
 $label4 = (New-Object -TypeName System.Windows.Forms.Label)
-$UserCreationForm.SuspendLayout()
+$ADUserCreationForm.SuspendLayout()
 #
 #label1
 #
@@ -107,33 +107,33 @@ $label4.TabIndex = [System.Int32]8
 $label4.Text = [System.String]'Output:'
 $label4.add_Click($label4_Click)
 #
-#UserCreationForm
+#ADUserCreationForm
 #
-$UserCreationForm.ClientSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]624,[System.Int32]441))
-$UserCreationForm.Controls.Add($label4)
-$UserCreationForm.Controls.Add($SubmitButton)
-$UserCreationForm.Controls.Add($BackButton)
-$UserCreationForm.Controls.Add($OutputTxtBox)
-$UserCreationForm.Controls.Add($LastNameTxtBox)
-$UserCreationForm.Controls.Add($FirstNameTxtBox)
-$UserCreationForm.Controls.Add($label3)
-$UserCreationForm.Controls.Add($label2)
-$UserCreationForm.Controls.Add($label1)
-$UserCreationForm.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
-$UserCreationForm.Name = [System.String]'UserCreationForm'
-$UserCreationForm.Text = [System.String]'Active Directory User Creation - Aurora Automation'
-$UserCreationForm.ResumeLayout($false)
-$UserCreationForm.PerformLayout()
-Add-Member -InputObject $UserCreationForm -Name base -Value $base -MemberType NoteProperty
-Add-Member -InputObject $UserCreationForm -Name label1 -Value $label1 -MemberType NoteProperty
-Add-Member -InputObject $UserCreationForm -Name label2 -Value $label2 -MemberType NoteProperty
-Add-Member -InputObject $UserCreationForm -Name label3 -Value $label3 -MemberType NoteProperty
-Add-Member -InputObject $UserCreationForm -Name FirstNameTxtBox -Value $FirstNameTxtBox -MemberType NoteProperty
-Add-Member -InputObject $UserCreationForm -Name LastNameTxtBox -Value $LastNameTxtBox -MemberType NoteProperty
-Add-Member -InputObject $UserCreationForm -Name BackButton -Value $BackButton -MemberType NoteProperty
-Add-Member -InputObject $UserCreationForm -Name SubmitButton -Value $SubmitButton -MemberType NoteProperty
-Add-Member -InputObject $UserCreationForm -Name OutputTxtBox -Value $OutputTxtBox -MemberType NoteProperty
-Add-Member -InputObject $UserCreationForm -Name label4 -Value $label4 -MemberType NoteProperty
-Add-Member -InputObject $UserCreationForm -Name button1 -Value $button1 -MemberType NoteProperty
+$ADUserCreationForm.ClientSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]624,[System.Int32]441))
+$ADUserCreationForm.Controls.Add($label4)
+$ADUserCreationForm.Controls.Add($SubmitButton)
+$ADUserCreationForm.Controls.Add($BackButton)
+$ADUserCreationForm.Controls.Add($OutputTxtBox)
+$ADUserCreationForm.Controls.Add($LastNameTxtBox)
+$ADUserCreationForm.Controls.Add($FirstNameTxtBox)
+$ADUserCreationForm.Controls.Add($label3)
+$ADUserCreationForm.Controls.Add($label2)
+$ADUserCreationForm.Controls.Add($label1)
+$ADUserCreationForm.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
+$ADUserCreationForm.Name = [System.String]'ADUserCreationForm'
+$ADUserCreationForm.Text = [System.String]'Active Directory User Creation - Aurora Automation'
+$ADUserCreationForm.ResumeLayout($false)
+$ADUserCreationForm.PerformLayout()
+Add-Member -InputObject $ADUserCreationForm -Name base -Value $base -MemberType NoteProperty
+Add-Member -InputObject $ADUserCreationForm -Name label1 -Value $label1 -MemberType NoteProperty
+Add-Member -InputObject $ADUserCreationForm -Name label2 -Value $label2 -MemberType NoteProperty
+Add-Member -InputObject $ADUserCreationForm -Name label3 -Value $label3 -MemberType NoteProperty
+Add-Member -InputObject $ADUserCreationForm -Name FirstNameTxtBox -Value $FirstNameTxtBox -MemberType NoteProperty
+Add-Member -InputObject $ADUserCreationForm -Name LastNameTxtBox -Value $LastNameTxtBox -MemberType NoteProperty
+Add-Member -InputObject $ADUserCreationForm -Name BackButton -Value $BackButton -MemberType NoteProperty
+Add-Member -InputObject $ADUserCreationForm -Name SubmitButton -Value $SubmitButton -MemberType NoteProperty
+Add-Member -InputObject $ADUserCreationForm -Name OutputTxtBox -Value $OutputTxtBox -MemberType NoteProperty
+Add-Member -InputObject $ADUserCreationForm -Name label4 -Value $label4 -MemberType NoteProperty
+Add-Member -InputObject $ADUserCreationForm -Name button1 -Value $button1 -MemberType NoteProperty
 }
 . InitializeComponent

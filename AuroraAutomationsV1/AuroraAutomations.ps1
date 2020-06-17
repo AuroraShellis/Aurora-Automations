@@ -22,9 +22,9 @@ Function ADUserDeleteShowMenu {
 	$ActiveDirectoryMenu.Hide()
 	$ADUserDeletion.ShowDialog()
 }
-Function OUMShowMenu {
+Function ADOUMShowMenu {
 	$ActiveDirectoryMenu.Hide()
-	$OUM.ShowDialog()
+	$ADOUM.ShowDialog()
 }
 Function ManagmentShowMenu {
 	$ADGroupMgmt.ADGroupMgmtOutput.AppendText("WARNING: When the Delete or Move button is pressed. There will be NO Confirmation.")
@@ -33,7 +33,7 @@ Function ManagmentShowMenu {
 }
 Function Individual.User {
 	$ActiveDirectoryMenu.Hide()
-	$UserCreationForm.ShowDialog()
+	$ADUserCreationForm.ShowDialog()
 }
 Function PasswordShowMenu {
 	$ActiveDirectoryMenu.Hide()
@@ -136,7 +136,7 @@ Function DiagnosticsBack{
 ### ACTIVE DIRECTORY BUTTONS - 3RD LAYER
 ### USER CREATION FORM
 Function Individual.User.Submit {
-	$UserCreationForm.OutputTxtBox.Clear()
+	$ADUserCreationForm.OutputTxtBox.Clear()
 	$FirstName = $FirstNameTxtBox.Text
 	$LastName = $LastNameTxtBox.Text
 	$FirstNameSub = $FirstName.Substring(0,1)
@@ -160,14 +160,14 @@ Function Individual.User.Submit {
 Function UserCreation {
 	try {
 		New-ADUser -Name $FullName -GivenName $FirstName -Surname $LastName -SamAccountName $SamAccountName -UserPrincipalName $UserPrincipal -Path $UserContainer -AccountPassword (ConvertTo-SecureString -AsPlainText $DefaultPassword -Force) -Enabled $true -ChangePasswordAtLogon $true
-		$UserCreationForm.OutputTxtBox.AppendText("Your account has been created: `n")
-		$UserCreationForm.OutputTxtBox.AppendText("Account Full Name: " + (Get-ADUser $SamAccountName).Name)
-		$UserCreationForm.OutputTxtBox.AppendText("`nUser Principal Name: " + (Get-ADUser $SamAccountName).UserPrincipalName)
-		$UserCreationForm.OutputTxtBox.AppendText("`nSAM Account Name: " + (Get-ADDomain).NetBIOSName + "\" + (Get-ADUser $SamAccountName).SamAccountName)
-		$UserCreationForm.OutputTxtBox.AppendText("`nPassword is = " + $DefaultPassword)
-		$UserCreationForm.OutputTxtBox.AppendText("`nPassword will be reset on next login.")
+		$ADUserCreationForm.OutputTxtBox.AppendText("Your account has been created: `n")
+		$ADUserCreationForm.OutputTxtBox.AppendText("Account Full Name: " + (Get-ADUser $SamAccountName).Name)
+		$ADUserCreationForm.OutputTxtBox.AppendText("`nUser Principal Name: " + (Get-ADUser $SamAccountName).UserPrincipalName)
+		$ADUserCreationForm.OutputTxtBox.AppendText("`nSAM Account Name: " + (Get-ADDomain).NetBIOSName + "\" + (Get-ADUser $SamAccountName).SamAccountName)
+		$ADUserCreationForm.OutputTxtBox.AppendText("`nPassword is = " + $DefaultPassword)
+		$ADUserCreationForm.OutputTxtBox.AppendText("`nPassword will be reset on next login.")
 	}catch [Microsoft.ActiveDirectory.Management.ADIdentityAlreadyExistsException] {
-		$UserCreationForm.OutputTxtBox.AppendText("NOTE: Account Name Already Exists in the Active Directory Domain. `nTherefore you will get a different Account Name.`n")
+		$ADUserCreationForm.OutputTxtBox.AppendText("NOTE: Account Name Already Exists in the Active Directory Domain. `nTherefore you will get a different Account Name.`n")
 		$UserRandomVar = Get-Random -Minimum 1 -Maximum 999
 		$NewSamAccountName = $FirstNameSub + "." + $LastNameSub + "." + $UserRandomVar
 		$NewLastName = $LastName + "." + $UserRandomVar
@@ -175,53 +175,53 @@ Function UserCreation {
 		$NewUserPrincipal = $NewSamAccountName + "@" + $Domain
 		try{
 			New-ADUser -Name $NewFullName -GivenName $FirstName -Surname $NewLastName -SamAccountName $NewSamAccountName -UserPrincipalName $NewUserPrincipal -Path $UserContainer -AccountPassword (ConvertTo-SecureString -AsPlainText $DefaultPassword -Force) -Enabled $true -ChangePasswordAtLogon $true
-			$UserCreationForm.OutputTxtBox.AppendText("Your account has been created: `n")
-			$UserCreationForm.OutputTxtBox.AppendText("Account Full Name: " + (Get-ADUser $NewSamAccountName).Name)
-			$UserCreationForm.OutputTxtBox.AppendText("`nUser Principal Name: " + (Get-ADUser $NewSamAccountName).UserPrincipalName)
-			$UserCreationForm.OutputTxtBox.AppendText("`nSAM Account Name: " + (Get-ADDomain).NetBIOSName + "\" + (Get-ADUser $NewSamAccountName).SamAccountName)
-			$UserCreationForm.OutputTxtBox.AppendText("`nPassword is = " + $DefaultPassword)
-			$UserCreationForm.OutputTxtBox.AppendText("`nPassword will be reset on next login.")
+			$ADUserCreationForm.OutputTxtBox.AppendText("Your account has been created: `n")
+			$ADUserCreationForm.OutputTxtBox.AppendText("Account Full Name: " + (Get-ADUser $NewSamAccountName).Name)
+			$ADUserCreationForm.OutputTxtBox.AppendText("`nUser Principal Name: " + (Get-ADUser $NewSamAccountName).UserPrincipalName)
+			$ADUserCreationForm.OutputTxtBox.AppendText("`nSAM Account Name: " + (Get-ADDomain).NetBIOSName + "\" + (Get-ADUser $NewSamAccountName).SamAccountName)
+			$ADUserCreationForm.OutputTxtBox.AppendText("`nPassword is = " + $DefaultPassword)
+			$ADUserCreationForm.OutputTxtBox.AppendText("`nPassword will be reset on next login.")
 		}catch{
-			$UserCreationForm.OutputTxtBox.AppendText("Unexpected Error, Something went wrong. Please try again.")
+			$ADUserCreationForm.OutputTxtBox.AppendText("Unexpected Error, Something went wrong. Please try again.")
 		}
 	}catch {
-		$UserCreationForm.OutputTxtBox.AppendText("Something went wrong. Please try again.")
+		$ADUserCreationForm.OutputTxtBox.AppendText("Something went wrong. Please try again.")
 	}	
 }
 
 Function Individual.User.Back{
-	$UserCreationForm.OutputTxtBox.Clear()
-	$UserCreationForm.Hide()
+	$ADUserCreationForm.OutputTxtBox.Clear()
+	$ADUserCreationForm.Hide()
 	$ActiveDirectoryMenu.Show()
 }
 
-### ACTIVE DIRECTORY OUM FORM
-Function OUMCreation{
-	$OUM.OUOutput.Clear()
+### ACTIVE DIRECTORY ADOUM FORM
+Function ADOUMCreation{
+	$ADOUM.OUOutput.Clear()
 	$OUNameCreation = $OUCreateBox.Text
 	try {
 		New-ADOrganizationalUnit $OUNameCreation -ErrorAction Stop
 		Get-ADObject -Filter  {$OUNameCreation -eq 'organizationalunit' }
-		$OUM.OUOutput.AppendText("Creation of $OUNameCreation OU Sucessful.")
+		$ADOUM.OUOutput.AppendText("Creation of $OUNameCreation OU Sucessful.")
 	}
 	catch {
-		$OUM.OUOutput.AppendText("Error: The " + $OUNameCreation + " OU Already Exists in Active Directory Domain. Try Another Name.")
+		$ADOUM.OUOutput.AppendText("Error: The " + $OUNameCreation + " OU Already Exists in Active Directory Domain. Try Another Name.")
 	}
 }
 
-Function OUMDeletion{
-	$OUM.OUOutput.Clear()
+Function ADOUMDeletion{
+	$ADOUM.OUOutput.Clear()
 	$OUnaming = "OU=" + $DeleteOUBox.Text + "," + (Get-ADDomain).DistinguishedName
 	try{
 		Get-ADOrganizationalUnit -Identity $OUnaming | Set-ADObject -ProtectedFromAccidentalDeletion:$false -PassThru | Remove-ADOrganizationalUnit -Confirm:$false -Recursive
-		$OUM.OUOutput.AppendText("The " + $DeleteOUBox.Text + " OU has been removed from the Domain Successfully.")
+		$ADOUM.OUOutput.AppendText("The " + $DeleteOUBox.Text + " OU has been removed from the Domain Successfully.")
 	}catch{
-		$OUM.OUOutput.AppendText("The " + $DeleteOUBox.Text + " OU does not exist in the Domain anymore or never existed in the first place.")
+		$ADOUM.OUOutput.AppendText("The " + $DeleteOUBox.Text + " OU does not exist in the Domain anymore or never existed in the first place.")
 	}
 }
 
-Function OUMoveUser{
-	$OUM.OUOutput.Clear()
+Function ADOUMoveUser{
+	$ADOUM.OUOutput.Clear()
 	$MoveUserInput = $MoveOUUserTextBox.Text
 	$MoveOUInput = $MoveOUOUTextBox.Text
 	$UserDN  = (Get-ADUser $MoveUserInput).distinguishedName
@@ -229,34 +229,34 @@ Function OUMoveUser{
 	
 	try{
 		Move-ADObject -Identity $UserDN -TargetPath $TargetOU
-		$OUM.OUOutput.AppendText("The " + $MoveUserInput + " user was succesfully moved to the " + $MoveOUInput + " OU.")
+		$ADOUM.OUOutput.AppendText("The " + $MoveUserInput + " user was succesfully moved to the " + $MoveOUInput + " OU.")
 	}catch{
-		$OUM.OUOutput.AppendText("The " + $MoveUserInput + " user could not be moved to the " + $MoveOUInput + " OU. Check if the User or OU Exists.")
+		$ADOUM.OUOutput.AppendText("The " + $MoveUserInput + " user could not be moved to the " + $MoveOUInput + " OU. Check if the User or OU Exists.")
 	}
 }
 
 Function OUUserQuery{
-	$OUM.OUOutput.Clear()
+	$ADOUM.OUOutput.Clear()
 	$QueryOUInput = $QueryOUTextBox.Text
 	$TargetOUQuery = "OU=" + $QueryOUInput + "," + (Get-ADDomain).DistinguishedName
 
 	try{
     $OUSearchList =	Get-ADUser -Filter * -SearchBase $TargetOUQuery | Select-Object SamAccountName, Name, Enabled, ObjectClass | Format-List SamAccountName, Name, Enabled, ObjectClass | Out-String
-    $OUM.OUOutput.AppendText($OUSearchList)
+    $ADOUM.OUOutput.AppendText($OUSearchList)
 	}
 	catch{
-    $OUM.OUOutput.AppendText("Could not find any Users in the " + $QueryOUInput + " OU. Check if the OU exists beforehand.")
+    $ADOUM.OUOutput.AppendText("Could not find any Users in the " + $QueryOUInput + " OU. Check if the OU exists beforehand.")
 	}
 }
 
 Function OUGetList{
-	$OUM.OUOutput.Clear()
+	$ADOUM.OUOutput.Clear()
 	$OUObjectList = Get-ADObject -Filter { ObjectClass -eq 'organizationalunit' }
-	$OUM.OUOutput.AppendText($OUObjectList)
+	$ADOUM.OUOutput.AppendText($OUObjectList)
 }
 
-Function OUM.Back{
-	$OUM.Hide()
+Function ADOUM.Back{
+	$ADOUM.Hide()
 	$ActiveDirectoryMenu.Show()
 }
 
@@ -912,8 +912,8 @@ Function BackConnectionStatusForm {
 . (Join-Path $PSScriptRoot 'ManagementMenu.designer.ps1')
 . (Join-Path $PSScriptRoot 'DiagnosticsMenu.designer.ps1')
 ## JOIN PATH AD MENU DESIGNERS
-. (Join-Path $PSScriptRoot 'UserCreationForm.designer.ps1')
-. (Join-Path $PSScriptRoot 'OUM.designer.ps1')
+. (Join-Path $PSScriptRoot 'ADUserCreationForm.designer.ps1')
+. (Join-Path $PSScriptRoot 'ADOUM.designer.ps1')
 . (Join-Path $PSScriptRoot 'ADUserDeletion.designer.ps1')
 . (Join-Path $PSScriptRoot 'ADBulkUserCreation.designer.ps1')
 . (Join-Path $PSScriptRoot 'ADPasswordReset.designer.ps1')
@@ -941,8 +941,8 @@ Function BackConnectionStatusForm {
 . (Join-Path $PSScriptRoot 'ManagementMenu.ps1')
 . (Join-Path $PSScriptRoot 'DiagnosticsMenu.ps1')
 ## JOIN PATH AD MENU
-. (Join-Path $PSScriptRoot 'UserCreationForm.ps1')
-. (Join-Path $PSScriptRoot 'OUM.ps1')
+. (Join-Path $PSScriptRoot 'ADUserCreationForm.ps1')
+. (Join-Path $PSScriptRoot 'ADOUM.ps1')
 . (Join-Path $PSScriptRoot 'ADUserDeletion.ps1')
 . (Join-Path $PSScriptRoot 'ADBulkUserCreation.ps1')
 . (Join-Path $PSScriptRoot 'ADPasswordReset.ps1')

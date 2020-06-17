@@ -229,11 +229,11 @@
     <Compile Include="MgmtMACAddressForm.ps1">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OUM.designer.ps1">
+    <Compile Include="ADOUM.designer.ps1">
       <SubType>Code</SubType>
-      <DependentUpon>OUM.ps1</DependentUpon>
+      <DependentUpon>ADOUM.ps1</DependentUpon>
     </Compile>
-    <Compile Include="OUM.ps1">
+    <Compile Include="ADOUM.ps1">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AuroraAutomations.ps1" />
@@ -258,11 +258,11 @@
     <Compile Include="ManagementMenu.ps1">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UserCreationForm.designer.ps1">
+    <Compile Include="ADUserCreationForm.designer.ps1">
       <SubType>Code</SubType>
-      <DependentUpon>UserCreationForm.ps1</DependentUpon>
+      <DependentUpon>ADUserCreationForm.ps1</DependentUpon>
     </Compile>
-    <Compile Include="UserCreationForm.ps1">
+    <Compile Include="ADUserCreationForm.ps1">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
@@ -318,8 +318,8 @@
     <EmbeddedResource Include="MgmtMACAddressForm.resx">
       <DependentUpon>MgmtMACAddressForm.ps1</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OUM.resx">
-      <DependentUpon>OUM.ps1</DependentUpon>
+    <EmbeddedResource Include="ADOUM.resx">
+      <DependentUpon>ADOUM.ps1</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DiagnosticsMenu.resx">
       <DependentUpon>DiagnosticsMenu.ps1</DependentUpon>
@@ -330,8 +330,8 @@
     <EmbeddedResource Include="ManagementMenu.resx">
       <DependentUpon>ManagementMenu.ps1</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserCreationForm.resx">
-      <DependentUpon>UserCreationForm.ps1</DependentUpon>
+    <EmbeddedResource Include="ADUserCreationForm.resx">
+      <DependentUpon>ADUserCreationForm.ps1</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

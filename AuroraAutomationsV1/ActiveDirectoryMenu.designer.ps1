@@ -31,7 +31,7 @@ $ADInstall.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([Sys
 $ADInstall.TabIndex = [System.Int32]0
 $ADInstall.Text = [System.String]'Organzational Units Management'
 $ADInstall.UseVisualStyleBackColor = $true
-$ADInstall.add_Click({OUMShowMenu})
+$ADInstall.add_Click({ADOUMShowMenu})
 #ADDomainCreate
 #
 $ADDomainCreate.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]341,[System.Int32]54))
