@@ -81,7 +81,7 @@ Function RemoteDisk {
 }
 Function ManagementBack {
 	$ManagementMenu.Hide()
-	$MainMenu.ShowDialog()
+	$MainMenu.Show()
 }
 
 ## DIAGNOSTICS MAIN MENU BUTTONS
@@ -126,6 +126,7 @@ Function DiagnosticsPortStatus {
 }
 Function DiagnosticsConnectionTest {
 	$DiagnosticsMenu.Hide()
+	$DiagTraceroute.DiagTraceOutput.AppendText("Please note: The traceroute may take awhile to process. Be patience.")
 	$DiagTraceroute.ShowDialog()
 }
 Function DiagnosticsBack{
@@ -724,7 +725,7 @@ Function RefreshActiveDirectoryDetails{
 	$DiagADDetails.DiagADDetailsOutput.AppendText($DetailsRefreshActiveDirectory)
 }
 Function ActiveDirectortDetailsBack {
-	$DiagADDetails.DiagADDetailsOutputt.Clear()
+	$DiagADDetails.DiagADDetailsOutput.Clear()
 	$DiagADDetails.Hide()
 	$DiagnosticsMenu.Show()
 }
@@ -786,24 +787,105 @@ Function RefreshPortStatus {
 	$DiagPortStatus.DiagPortStatusOutput.AppendText($PortStatusOutputIn)
 
 }
-Funtion BackPortStatus{
+Function BackPortStatus{
 	$DiagPortStatus.DiagPortStatusOutput.Clear()
 	$DiagPortStatus.Hide()
 	$DiagnosticsMenu.Show()
 }
 
 ### CONNECTION STATUS FORM
+#### NOT OUR CODE. THANKS TO TREVOR SULLIVAN ####
+#### https://trevorsullivan.net/2012/07/23/powershell-tracert-or-trace-route/ ####
+function Trace-Route {
+    [CmdletBinding()]
+    param (
+          [int] $Timeout = 1000
+        , [Parameter(Mandatory = $true)]
+          [string] $TargetHost
+        , [int] $StartingTtl = 1
+        , [int] $EndingTtl = 128
+        , [switch] $ResolveDns
+    )
+    # Create Ping and PingOptions objects
+    $Ping = New-Object -TypeName System.Net.NetworkInformation.Ping;
+    $PingOptions = New-Object -TypeName System.Net.NetworkInformation.PingOptions;
+    #$DiagTraceroute.DiagTraceOutput.AppendText('Created Ping and PingOptions instances');
+    # Assign initial Time-to-Live (TTL) to the PingOptions instance
+    $PingOptions.Ttl = $StartingTtl;
+
+    # Assign starting TTL to the 
+    $Ttl = $StartingTtl;
+
+    # Assign a random array of bytes as data to send in the datagram's buffer
+    $DataBuffer = [byte[]][char[]]'aa';
+
+    # Loop from StartingTtl to EndingTtl
+    while ($Ttl -le $EndingTtl) {
+        # Set the TTL to the current
+        $PingOptions.Ttl = $Ttl;
+
+        # Ping the target host using this Send() override: http://msdn.microsoft.com/en-us/library/ms144956.aspx
+        $PingReply = $Ping.Send($TargetHost, $Timeout, $DataBuffer, $PingOptions);
+
+        # Get results of trace
+        $TraceHop = New-Object -TypeName PSObject -Property @{
+                TTL           = $PingOptions.Ttl;
+                Status        = $PingReply.Status;
+                Address       = $PingReply.Address;
+                RoundTripTime = $PingReply.RoundtripTime;
+                HostName      = '';
+            };
+
+        # If DNS resolution is enabled, and $TraceHop.Address is not null, then resolve DNS
+        # TraceHop.Address can be $null if 
+        if ($ResolveDns -and $TraceHop.Address) {
+            #$DiagTraceroute.DiagTraceOutput.AppendText('Resolving host entry for address: {0}' -f $TraceHop.Address); 
+            try {
+                # Resolve DNS and assign value to HostName property of $TraceHop instance
+                $TraceHop.HostName = [System.Net.Dns]::GetHostEntry($TraceHop.Address).HostName;
+            }
+            catch {
+                #$DiagTraceroute.DiagTraceOutput.AppendText('Failed to resolve host entry for address {0}' -f $TraceHop.Address);
+                #$DiagTraceroute.DiagTraceOutput.AppendText('Exception: {0}' -f $_.Exception.InnerException.Message);
+            }
+        }
+        # Once we get our first, succesful reply, we have hit the target host and 
+        # can break out of the while loop.
+        if ($PingReply.Status -eq [System.Net.NetworkInformation.IPStatus]::Success) {
+            #$DiagTraceroute.DiagTraceOutput.AppendText('Successfully pinged target host: {0}' -f $TargetHost);
+            $DiagTraceroute.DiagTraceOutput.AppendText($TraceHop);
+            $DiagTraceroute.DiagTraceOutput.AppendText("`n");
+			break;
+        }
+        # If we get a TtlExpired status, then ping the device directly and get response time
+        elseif ($PingReply.Status -eq [System.Net.NetworkInformation.IPStatus]::TtlExpired) {
+            $PingReply = $Ping.Send($TraceHop.Address, $Timeout, $DataBuffer, $PingOptions);
+            $TraceHop.RoundTripTime = $PingReply.RoundtripTime;
+            $DiagTraceroute.DiagTraceOutput.AppendText($TraceHop);
+			$DiagTraceroute.DiagTraceOutput.AppendText("`n");
+        }
+        else {
+            # $PingReply | select *;
+        }
+        # Increment the Time-to-Live (TTL) by one (1) 
+        $Ttl++;
+        #$DiagTraceroute.DiagTraceOutput.AppendText('Incremented TTL to {0}' -f $Ttl);
+    }
+}
+#### END OF TREVOR SULLIVAN SCRIPT ####
+
 Function CheckingIPStatus {
-	$DiagTraceroute.DiagTraceInput.Clear()
+	#$DiagTraceroute.DiagTraceInput.Clear()
+	$DiagTraceroute.DiagTraceOutput.Clear()
 	$IPaddressStatus = $DiagTraceInput.Text
-	$IPAddressStatusResult = Test-NetConnection $IPaddressStatus | Out-String
-	$DiagTraceroute.DiagTraceInput.AppendText($IPAddressStatusResult)
+	Trace-Route -TargetHost $IPaddressStatus -Timeout 500 -ResolveDns;
 }
 Function BackConnectionStatusForm {
 	$DiagTraceroute.DiagTraceInput.Clear()
 	$DiagTraceroute.Hide()
 	$DiagnosticsMenu.Show()
 }
+
 # JOIN PATH FOR ALL DESIGNERS
 ## MAINMENU
 . (Join-Path $PSScriptRoot 'MainMenu.designer.ps1')
