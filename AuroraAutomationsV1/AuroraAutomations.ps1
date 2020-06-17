@@ -15,7 +15,26 @@ Function DiagnosticsMenu {
 	$MainMenu.Hide()
 	$DiagnosticsMenu.ShowDialog()
 }
+Function CreditsMenu {
+	$CreditsForm.CreditsOutput.Clear()
+	$CreditsForm.CreditsOutput.AppendText("Hot Topic in Networking Q2 2020`n")
+	$CreditsForm.CreditsOutput.AppendText("This was made by Team Aurora Shellis and is composed of;`n`n")
+	$CreditsForm.CreditsOutput.AppendText("`nMatthew Westlake`nMicheal Chen`nPogai (David) Tuiala`nRyan Alpay`n`n")
+	$CreditsForm.CreditsOutput.AppendText("`n`nSpecial Thanks to Google and Trevor Sullivan for one of his scripts for enabling Tracerouting in a Windows form setting`n")
+	$CreditsForm.CreditsOutput.AppendText("`nFigure1: ")
+	$CreditsForm.CreditsOutput.AppendText("`nFigure2: ")
+	$CreditsForm.CreditsOutput.AppendText("`nFigure3: ")
+	$CreditsForm.CreditsOutput.AppendText("`nLink to Trevor Sullivan Script: " + "https://trevorsullivan.net/2012/07/23/powershell-tracert-or-trace-route")
+	$MainMenu.Hide()
+	$CreditsForm.ShowDialog()
+}
 
+##CREDITS MAIN MENU
+Function CreditsBack {
+	$CreditsForm.CreditsOutput.Clear()
+	$DiagnosticsMenu.Hide()
+	$MainMenu.Show()
+}
 ## ACTIVE DIRECTORY MAIN MENU
 Function ADUserDeleteShowMenu {
 	$ADUserDeletion.UserDeleteOutput.AppendText("WARNING: When the Delete button is pressed. There will be NO Confirmation.")
@@ -905,12 +924,14 @@ Function BackConnectionStatusForm {
 	$DiagnosticsMenu.Show()
 }
 
+
 # JOIN PATH FOR ALL DESIGNERS
 ## MAINMENU
 . (Join-Path $PSScriptRoot 'MainMenu.designer.ps1')
 . (Join-Path $PSScriptRoot 'ActiveDirectoryMenu.designer.ps1')
 . (Join-Path $PSScriptRoot 'ManagementMenu.designer.ps1')
 . (Join-Path $PSScriptRoot 'DiagnosticsMenu.designer.ps1')
+. (Join-Path $PSScriptRoot 'CreditsForm.designer.ps1')
 ## JOIN PATH AD MENU DESIGNERS
 . (Join-Path $PSScriptRoot 'ADUserCreationForm.designer.ps1')
 . (Join-Path $PSScriptRoot 'ADOUM.designer.ps1')
@@ -940,6 +961,7 @@ Function BackConnectionStatusForm {
 . (Join-Path $PSScriptRoot 'ActiveDirectoryMenu.ps1')
 . (Join-Path $PSScriptRoot 'ManagementMenu.ps1')
 . (Join-Path $PSScriptRoot 'DiagnosticsMenu.ps1')
+. (Join-Path $PSScriptRoot 'CreditsForm.ps1')
 ## JOIN PATH AD MENU
 . (Join-Path $PSScriptRoot 'ADUserCreationForm.ps1')
 . (Join-Path $PSScriptRoot 'ADOUM.ps1')
@@ -961,3 +983,4 @@ Function BackConnectionStatusForm {
 . (Join-Path $PSScriptRoot 'DiagListADUsers.ps1')
 . (Join-Path $PSScriptRoot 'DiagPortStatus.ps1')
 . (Join-Path $PSScriptRoot 'DiagTraceroute.ps1')
+. (Join-Path $PSScriptRoot 'MainMenu.resources.ps1')
