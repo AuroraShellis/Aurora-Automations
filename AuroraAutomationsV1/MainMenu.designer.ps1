@@ -95,6 +95,7 @@ $OpenDiag.add_Click({DiagnosticsMenu})
 #
 #ADPictureBox
 #
+$ADPictureBox.Cursor = [System.Windows.Forms.Cursors]::Hand
 $ADPictureBox.Image = ([System.Drawing.Image]$resources.'ADPictureBox.Image')
 $ADPictureBox.ImageLocation = [System.String]''
 $ADPictureBox.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]12,[System.Int32]52))
@@ -102,24 +103,29 @@ $ADPictureBox.Name = [System.String]'ADPictureBox'
 $ADPictureBox.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]180,[System.Int32]300))
 $ADPictureBox.TabIndex = [System.Int32]6
 $ADPictureBox.TabStop = $false
+$ADPictureBox.add_Click({ADMenu})
 #
 #MgmtPictureBox
 #
+$MgmtPictureBox.Cursor = [System.Windows.Forms.Cursors]::Hand
 $MgmtPictureBox.Image = ([System.Drawing.Image]$resources.'MgmtPictureBox.Image')
 $MgmtPictureBox.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]224,[System.Int32]52))
 $MgmtPictureBox.Name = [System.String]'MgmtPictureBox'
 $MgmtPictureBox.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]180,[System.Int32]300))
 $MgmtPictureBox.TabIndex = [System.Int32]7
 $MgmtPictureBox.TabStop = $false
+$MgmtPictureBox.add_Click({ManagementMenu})
 #
 #DiagPictureBox
 #
+$DiagPictureBox.Cursor = [System.Windows.Forms.Cursors]::Hand
 $DiagPictureBox.Image = ([System.Drawing.Image]$resources.'DiagPictureBox.Image')
 $DiagPictureBox.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]434,[System.Int32]52))
 $DiagPictureBox.Name = [System.String]'DiagPictureBox'
 $DiagPictureBox.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]180,[System.Int32]300))
 $DiagPictureBox.TabIndex = [System.Int32]8
 $DiagPictureBox.TabStop = $false
+$DiagPictureBox.add_Click({DiagnosticsMenu})
 #
 #ActiveDirectoryManagementOpen
 #

@@ -22,6 +22,7 @@ $CreditsBack.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([S
 $CreditsBack.TabIndex = [System.Int32]0
 $CreditsBack.Text = [System.String]'Back'
 $CreditsBack.UseVisualStyleBackColor = $true
+$CreditsBack.add_Click({CreditsBack})
 #
 #CreditsOutput
 #
@@ -34,9 +35,9 @@ $CreditsOutput.Text = [System.String]''
 #CreditsPictureBox
 #
 $CreditsPictureBox.Image = ([System.Drawing.Image]$resources.'CreditsPictureBox.Image')
-$CreditsPictureBox.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]374,[System.Int32]112))
+$CreditsPictureBox.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]385,[System.Int32]99))
 $CreditsPictureBox.Name = [System.String]'CreditsPictureBox'
-$CreditsPictureBox.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]238,[System.Int32]203))
+$CreditsPictureBox.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]238,[System.Int32]228))
 $CreditsPictureBox.TabIndex = [System.Int32]3
 $CreditsPictureBox.TabStop = $false
 #
