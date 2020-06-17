@@ -3,22 +3,20 @@
 $MgmtMACAddressForm = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Button]$MgmtMACAddressBack = $null
 [System.Windows.Forms.Button]$MgmtMACAddressSubmit = $null
-[System.Windows.Forms.TextBox]$MgmtMACAddressInput = $null
 [System.Windows.Forms.RichTextBox]$MgmtMACAddressOutput = $null
 [System.Windows.Forms.Label]$MgmtMACAddressLabel1 = $null
 [System.Windows.Forms.Label]$MgmtMACAddressLabel2 = $null
-[System.Windows.Forms.Label]$MgmtMACAddressLabel3 = $null
+[System.Windows.Forms.TextBox]$MgmtMACAddressInput = $null
 [System.Windows.Forms.Button]$button1 = $null
 function InitializeComponent
 {
 $resources = . (Join-Path $PSScriptRoot 'MgmtMACAddressForm.resources.ps1')
 $MgmtMACAddressBack = (New-Object -TypeName System.Windows.Forms.Button)
 $MgmtMACAddressSubmit = (New-Object -TypeName System.Windows.Forms.Button)
-$MgmtMACAddressInput = (New-Object -TypeName System.Windows.Forms.TextBox)
 $MgmtMACAddressOutput = (New-Object -TypeName System.Windows.Forms.RichTextBox)
 $MgmtMACAddressLabel1 = (New-Object -TypeName System.Windows.Forms.Label)
 $MgmtMACAddressLabel2 = (New-Object -TypeName System.Windows.Forms.Label)
-$MgmtMACAddressLabel3 = (New-Object -TypeName System.Windows.Forms.Label)
+$MgmtMACAddressInput = (New-Object -TypeName System.Windows.Forms.TextBox)
 $MgmtMACAddressForm.SuspendLayout()
 #
 #MgmtMACAddressBack
@@ -29,6 +27,7 @@ $MgmtMACAddressBack.Size = (New-Object -TypeName System.Drawing.Size -ArgumentLi
 $MgmtMACAddressBack.TabIndex = [System.Int32]0
 $MgmtMACAddressBack.Text = [System.String]'Back'
 $MgmtMACAddressBack.UseVisualStyleBackColor = $true
+$MgmtMACAddressBack.add_Click({MACBack})
 #
 #MgmtMACAddressSubmit
 #
@@ -38,13 +37,7 @@ $MgmtMACAddressSubmit.Size = (New-Object -TypeName System.Drawing.Size -Argument
 $MgmtMACAddressSubmit.TabIndex = [System.Int32]1
 $MgmtMACAddressSubmit.Text = [System.String]'Submit'
 $MgmtMACAddressSubmit.UseVisualStyleBackColor = $true
-#
-#MgmtMACAddressInput
-#
-$MgmtMACAddressInput.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]405,[System.Int32]87))
-$MgmtMACAddressInput.Name = [System.String]'MgmtMACAddressInput'
-$MgmtMACAddressInput.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]109,[System.Int32]20))
-$MgmtMACAddressInput.TabIndex = [System.Int32]2
+$MgmtMACAddressSubmit.add_Click({MACFormSubmit})
 #
 #MgmtMACAddressOutput
 #
@@ -73,19 +66,16 @@ $MgmtMACAddressLabel2.Size = (New-Object -TypeName System.Drawing.Size -Argument
 $MgmtMACAddressLabel2.TabIndex = [System.Int32]5
 $MgmtMACAddressLabel2.Text = [System.String]'Output:'
 #
-#MgmtMACAddressLabel3
+#MgmtMACAddressInput
 #
-$MgmtMACAddressLabel3.AutoSize = $true
-$MgmtMACAddressLabel3.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]402,[System.Int32]61))
-$MgmtMACAddressLabel3.Name = [System.String]'MgmtMACAddressLabel3'
-$MgmtMACAddressLabel3.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]210,[System.Int32]13))
-$MgmtMACAddressLabel3.TabIndex = [System.Int32]6
-$MgmtMACAddressLabel3.Text = [System.String]'Insert number of MAC Address to generate:'
+$MgmtMACAddressInput.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]405,[System.Int32]87))
+$MgmtMACAddressInput.Name = [System.String]'MgmtMACAddressInput'
+$MgmtMACAddressInput.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]109,[System.Int32]20))
+$MgmtMACAddressInput.TabIndex = [System.Int32]2
 #
 #MgmtMACAddressForm
 #
 $MgmtMACAddressForm.ClientSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]624,[System.Int32]441))
-$MgmtMACAddressForm.Controls.Add($MgmtMACAddressLabel3)
 $MgmtMACAddressForm.Controls.Add($MgmtMACAddressLabel2)
 $MgmtMACAddressForm.Controls.Add($MgmtMACAddressLabel1)
 $MgmtMACAddressForm.Controls.Add($MgmtMACAddressOutput)
@@ -100,11 +90,10 @@ $MgmtMACAddressForm.PerformLayout()
 Add-Member -InputObject $MgmtMACAddressForm -Name base -Value $base -MemberType NoteProperty
 Add-Member -InputObject $MgmtMACAddressForm -Name MgmtMACAddressBack -Value $MgmtMACAddressBack -MemberType NoteProperty
 Add-Member -InputObject $MgmtMACAddressForm -Name MgmtMACAddressSubmit -Value $MgmtMACAddressSubmit -MemberType NoteProperty
-Add-Member -InputObject $MgmtMACAddressForm -Name MgmtMACAddressInput -Value $MgmtMACAddressInput -MemberType NoteProperty
 Add-Member -InputObject $MgmtMACAddressForm -Name MgmtMACAddressOutput -Value $MgmtMACAddressOutput -MemberType NoteProperty
 Add-Member -InputObject $MgmtMACAddressForm -Name MgmtMACAddressLabel1 -Value $MgmtMACAddressLabel1 -MemberType NoteProperty
 Add-Member -InputObject $MgmtMACAddressForm -Name MgmtMACAddressLabel2 -Value $MgmtMACAddressLabel2 -MemberType NoteProperty
-Add-Member -InputObject $MgmtMACAddressForm -Name MgmtMACAddressLabel3 -Value $MgmtMACAddressLabel3 -MemberType NoteProperty
+Add-Member -InputObject $MgmtMACAddressForm -Name MgmtMACAddressInput -Value $MgmtMACAddressInput -MemberType NoteProperty
 Add-Member -InputObject $MgmtMACAddressForm -Name button1 -Value $button1 -MemberType NoteProperty
 }
 . InitializeComponent

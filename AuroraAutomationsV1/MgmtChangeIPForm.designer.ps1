@@ -17,6 +17,9 @@ $MgmtChangeIPForm = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Label]$MgmtChangeIPLabel5 = $null
 [System.Windows.Forms.Label]$MgmtChangeIPLabel6 = $null
 [System.Windows.Forms.Label]$MgmtChangeIPLabel7 = $null
+[System.Windows.Forms.Label]$MgmtChangeIPLabel69 = $null
+[System.Windows.Forms.TextBox]$MgmtChangeAdapterInput = $null
+[System.Windows.Forms.Button]$QueryNetworkAdaptorsSubmit = $null
 [System.Windows.Forms.Button]$button1 = $null
 function InitializeComponent
 {
@@ -37,6 +40,9 @@ $MgmtChangeIPLabel4 = (New-Object -TypeName System.Windows.Forms.Label)
 $MgmtChangeIPLabel5 = (New-Object -TypeName System.Windows.Forms.Label)
 $MgmtChangeIPLabel6 = (New-Object -TypeName System.Windows.Forms.Label)
 $MgmtChangeIPLabel7 = (New-Object -TypeName System.Windows.Forms.Label)
+$MgmtChangeIPLabel69 = (New-Object -TypeName System.Windows.Forms.Label)
+$MgmtChangeAdapterInput = (New-Object -TypeName System.Windows.Forms.TextBox)
+$QueryNetworkAdaptorsSubmit = (New-Object -TypeName System.Windows.Forms.Button)
 $MgmtChangeIPForm.SuspendLayout()
 #
 #MgmtChangeIPBack
@@ -47,56 +53,59 @@ $MgmtChangeIPBack.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList
 $MgmtChangeIPBack.TabIndex = [System.Int32]0
 $MgmtChangeIPBack.Text = [System.String]'Back'
 $MgmtChangeIPBack.UseVisualStyleBackColor = $true
+$MgmtChangeIPBack.add_Click({ChangeIPAddressBack})
 #
 #MgmtChangeIPQuery
 #
-$MgmtChangeIPQuery.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]310,[System.Int32]394))
+$MgmtChangeIPQuery.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]296,[System.Int32]394))
 $MgmtChangeIPQuery.Name = [System.String]'MgmtChangeIPQuery'
-$MgmtChangeIPQuery.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]106,[System.Int32]23))
+$MgmtChangeIPQuery.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]120,[System.Int32]23))
 $MgmtChangeIPQuery.TabIndex = [System.Int32]1
-$MgmtChangeIPQuery.Text = [System.String]'Query Computer IP'
+$MgmtChangeIPQuery.Text = [System.String]' Local Computer IP'
 $MgmtChangeIPQuery.UseVisualStyleBackColor = $true
+$MgmtChangeIPQuery.add_Click({QueryComputerIPAddress})
 #
 #MgmtChangeIPSubmit
 #
-$MgmtChangeIPSubmit.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]537,[System.Int32]346))
+$MgmtChangeIPSubmit.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]537,[System.Int32]394))
 $MgmtChangeIPSubmit.Name = [System.String]'MgmtChangeIPSubmit'
 $MgmtChangeIPSubmit.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]75,[System.Int32]23))
 $MgmtChangeIPSubmit.TabIndex = [System.Int32]2
 $MgmtChangeIPSubmit.Text = [System.String]'Submit'
 $MgmtChangeIPSubmit.UseVisualStyleBackColor = $true
+$MgmtChangeIPSubmit.add_Click({ChangeIPAddressSubmit})
 #
 #MgmtChangeIPInput
 #
-$MgmtChangeIPInput.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]445,[System.Int32]72))
+$MgmtChangeIPInput.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]442,[System.Int32]184))
 $MgmtChangeIPInput.Name = [System.String]'MgmtChangeIPInput'
 $MgmtChangeIPInput.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]167,[System.Int32]20))
 $MgmtChangeIPInput.TabIndex = [System.Int32]3
 #
 #MgmtChangeIPSubnet
 #
-$MgmtChangeIPSubnet.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]442,[System.Int32]129))
+$MgmtChangeIPSubnet.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]442,[System.Int32]232))
 $MgmtChangeIPSubnet.Name = [System.String]'MgmtChangeIPSubnet'
-$MgmtChangeIPSubnet.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]170,[System.Int32]20))
+$MgmtChangeIPSubnet.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]167,[System.Int32]20))
 $MgmtChangeIPSubnet.TabIndex = [System.Int32]4
 #
 #MgmtChangeIPGateway
 #
-$MgmtChangeIPGateway.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]442,[System.Int32]188))
+$MgmtChangeIPGateway.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]442,[System.Int32]281))
 $MgmtChangeIPGateway.Name = [System.String]'MgmtChangeIPGateway'
 $MgmtChangeIPGateway.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]170,[System.Int32]20))
 $MgmtChangeIPGateway.TabIndex = [System.Int32]5
 #
 #MgmtChangeIPPrefDNS
 #
-$MgmtChangeIPPrefDNS.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]442,[System.Int32]251))
+$MgmtChangeIPPrefDNS.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]442,[System.Int32]321))
 $MgmtChangeIPPrefDNS.Name = [System.String]'MgmtChangeIPPrefDNS'
 $MgmtChangeIPPrefDNS.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]170,[System.Int32]20))
 $MgmtChangeIPPrefDNS.TabIndex = [System.Int32]6
 #
 #MgmtChangeIPAltDNS
 #
-$MgmtChangeIPAltDNS.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]442,[System.Int32]314))
+$MgmtChangeIPAltDNS.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]442,[System.Int32]360))
 $MgmtChangeIPAltDNS.Name = [System.String]'MgmtChangeIPAltDNS'
 $MgmtChangeIPAltDNS.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]170,[System.Int32]20))
 $MgmtChangeIPAltDNS.TabIndex = [System.Int32]7
@@ -131,51 +140,80 @@ $MgmtChangeIPLabel2.Text = [System.String]'Output:'
 #MgmtChangeIPLabel3
 #
 $MgmtChangeIPLabel3.AutoSize = $true
-$MgmtChangeIPLabel3.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]442,[System.Int32]52))
+$MgmtChangeIPLabel3.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]439,[System.Int32]168))
 $MgmtChangeIPLabel3.Name = [System.String]'MgmtChangeIPLabel3'
-$MgmtChangeIPLabel3.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]90,[System.Int32]13))
+$MgmtChangeIPLabel3.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]61,[System.Int32]13))
 $MgmtChangeIPLabel3.TabIndex = [System.Int32]11
-$MgmtChangeIPLabel3.Text = [System.String]'Insert IP Address:'
+$MgmtChangeIPLabel3.Text = [System.String]'IP Address:'
 #
 #MgmtChangeIPLabel4
 #
 $MgmtChangeIPLabel4.AutoSize = $true
-$MgmtChangeIPLabel4.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]442,[System.Int32]108))
+$MgmtChangeIPLabel4.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]439,[System.Int32]216))
 $MgmtChangeIPLabel4.Name = [System.String]'MgmtChangeIPLabel4'
-$MgmtChangeIPLabel4.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]102,[System.Int32]13))
+$MgmtChangeIPLabel4.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]73,[System.Int32]13))
 $MgmtChangeIPLabel4.TabIndex = [System.Int32]12
-$MgmtChangeIPLabel4.Text = [System.String]'Insert Subnet Mask:'
+$MgmtChangeIPLabel4.Text = [System.String]'Subnet Mask:'
 #
 #MgmtChangeIPLabel5
 #
 $MgmtChangeIPLabel5.AutoSize = $true
-$MgmtChangeIPLabel5.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]442,[System.Int32]167))
+$MgmtChangeIPLabel5.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]439,[System.Int32]265))
 $MgmtChangeIPLabel5.Name = [System.String]'MgmtChangeIPLabel5'
-$MgmtChangeIPLabel5.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]118,[System.Int32]13))
+$MgmtChangeIPLabel5.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]89,[System.Int32]13))
 $MgmtChangeIPLabel5.TabIndex = [System.Int32]13
-$MgmtChangeIPLabel5.Text = [System.String]'Insert Default Gateway:'
+$MgmtChangeIPLabel5.Text = [System.String]'Default Gateway:'
 #
 #MgmtChangeIPLabel6
 #
 $MgmtChangeIPLabel6.AutoSize = $true
-$MgmtChangeIPLabel6.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]442,[System.Int32]227))
+$MgmtChangeIPLabel6.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]439,[System.Int32]304))
 $MgmtChangeIPLabel6.Name = [System.String]'MgmtChangeIPLabel6'
-$MgmtChangeIPLabel6.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]108,[System.Int32]13))
+$MgmtChangeIPLabel6.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]79,[System.Int32]13))
 $MgmtChangeIPLabel6.TabIndex = [System.Int32]14
-$MgmtChangeIPLabel6.Text = [System.String]'Insert Preferred DNS:'
+$MgmtChangeIPLabel6.Text = [System.String]'Preferred DNS:'
 #
 #MgmtChangeIPLabel7
 #
 $MgmtChangeIPLabel7.AutoSize = $true
-$MgmtChangeIPLabel7.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]442,[System.Int32]293))
+$MgmtChangeIPLabel7.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]439,[System.Int32]344))
 $MgmtChangeIPLabel7.Name = [System.String]'MgmtChangeIPLabel7'
-$MgmtChangeIPLabel7.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]115,[System.Int32]13))
+$MgmtChangeIPLabel7.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]86,[System.Int32]13))
 $MgmtChangeIPLabel7.TabIndex = [System.Int32]15
-$MgmtChangeIPLabel7.Text = [System.String]'Insert Alternative DNS:'
+$MgmtChangeIPLabel7.Text = [System.String]'Alternative DNS:'
+#
+#MgmtChangeIPLabel69
+#
+$MgmtChangeIPLabel69.AutoSize = $true
+$MgmtChangeIPLabel69.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]439,[System.Int32]129))
+$MgmtChangeIPLabel69.Name = [System.String]'MgmtChangeIPLabel69'
+$MgmtChangeIPLabel69.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]77,[System.Int32]13))
+$MgmtChangeIPLabel69.TabIndex = [System.Int32]17
+$MgmtChangeIPLabel69.Text = [System.String]'Interface Alias:'
+#
+#MgmtChangeAdapterInput
+#
+$MgmtChangeAdapterInput.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]442,[System.Int32]145))
+$MgmtChangeAdapterInput.Name = [System.String]'MgmtChangeAdapterInput'
+$MgmtChangeAdapterInput.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]167,[System.Int32]20))
+$MgmtChangeAdapterInput.TabIndex = [System.Int32]16
+#
+#QueryNetworkAdaptorsSubmit
+#
+$QueryNetworkAdaptorsSubmit.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]175,[System.Int32]394))
+$QueryNetworkAdaptorsSubmit.Name = [System.String]'QueryNetworkAdaptorsSubmit'
+$QueryNetworkAdaptorsSubmit.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]106,[System.Int32]23))
+$QueryNetworkAdaptorsSubmit.TabIndex = [System.Int32]18
+$QueryNetworkAdaptorsSubmit.Text = [System.String]'Query Adaptors'
+$QueryNetworkAdaptorsSubmit.UseVisualStyleBackColor = $true
+$QueryNetworkAdaptorsSubmit.add_Click({QueryAdaptors})
 #
 #MgmtChangeIPForm
 #
 $MgmtChangeIPForm.ClientSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]624,[System.Int32]441))
+$MgmtChangeIPForm.Controls.Add($QueryNetworkAdaptorsSubmit)
+$MgmtChangeIPForm.Controls.Add($MgmtChangeIPLabel69)
+$MgmtChangeIPForm.Controls.Add($MgmtChangeAdapterInput)
 $MgmtChangeIPForm.Controls.Add($MgmtChangeIPLabel7)
 $MgmtChangeIPForm.Controls.Add($MgmtChangeIPLabel6)
 $MgmtChangeIPForm.Controls.Add($MgmtChangeIPLabel5)
@@ -214,6 +252,9 @@ Add-Member -InputObject $MgmtChangeIPForm -Name MgmtChangeIPLabel4 -Value $MgmtC
 Add-Member -InputObject $MgmtChangeIPForm -Name MgmtChangeIPLabel5 -Value $MgmtChangeIPLabel5 -MemberType NoteProperty
 Add-Member -InputObject $MgmtChangeIPForm -Name MgmtChangeIPLabel6 -Value $MgmtChangeIPLabel6 -MemberType NoteProperty
 Add-Member -InputObject $MgmtChangeIPForm -Name MgmtChangeIPLabel7 -Value $MgmtChangeIPLabel7 -MemberType NoteProperty
+Add-Member -InputObject $MgmtChangeIPForm -Name MgmtChangeIPLabel69 -Value $MgmtChangeIPLabel69 -MemberType NoteProperty
+Add-Member -InputObject $MgmtChangeIPForm -Name MgmtChangeAdapterInput -Value $MgmtChangeAdapterInput -MemberType NoteProperty
+Add-Member -InputObject $MgmtChangeIPForm -Name QueryNetworkAdaptorsSubmit -Value $QueryNetworkAdaptorsSubmit -MemberType NoteProperty
 Add-Member -InputObject $MgmtChangeIPForm -Name button1 -Value $button1 -MemberType NoteProperty
 }
 . InitializeComponent

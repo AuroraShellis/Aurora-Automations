@@ -606,6 +606,115 @@ Function MgmtFilePremBack{
 	$MgmtFilePermissionForm.MgmtFilePermOutput.Clear()
 	$MgmtFilePermissionForm.MgmtFilePermInput.Clear()
 }
+### CHANGE IP LOCAL ADDRESS
+Function ChangeIPAddressBack {
+	$MgmtChangeIPForm.MgmtChangeIPOutput.Clear()
+	$MgmtChangeIPForm.Hide()
+	$ManagementMenu.Show()
+}
+Function QueryComputerIPAddress {
+	$MgmtChangeIPForm.MgmtChangeIPOutput.Clear()
+	$QueryComputerIP = Get-NetIPConfiguration -InterfaceAlias * | Out-String
+	$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText($QueryComputerIP)
+
+}
+Function ChangeIPAddressSubmit {
+	$MgmtChangeIPForm.MgmtChangeIPOutput.Clear()
+	$AdapterNameInput = $MgmtChangeAdapterInput.Text
+	$IPAddressInput = $MgmtChangeIPInput.Text
+
+	$SubnetMaskInput = [ipaddress] $MgmtChangeIPSubnet.Text
+	$binaryString=[String]::Empty
+		$Subnets.GetAddressBytes() | foreach {
+		$binaryString+=[Convert]::ToString($_,2)
+		}
+			$LengthSize = $binaryString.TrimEnd('0')
+			$PrefixLength = $LengthSize.Length
+
+	$DefaultGateawayInput = $MgmtChangeIPGateway.Text
+	$PreferredDNSInput = $MgmtChangeIPPrefDNS.Text
+	$AlternativeDNSInput = $MgmtChangeIPAltDNS.Text
+
+	$AdapterNameInputIfIndex = (Get-NetAdapter $AdapterNameInput).ifIndex
+
+	try{
+		New-NetIPAddress -InterfaceAlias $AdapterNameInput -Ipaddress $IPAddressInput -PrefixLength $PrefixLength -DefaultGateway $DefaultGateawayInput
+		Set-DnsClientServerAddress -InterfaceIndex $AdapterNameInputIfIndex -ServerAddresses ($PreferredDNSInput,$AlternativeDNSInput)
+		$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nSuccussfully Changed "+ $AdapterNameInput + " to the following;")
+		$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nIP:"+$IPAddressInput)
+		$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nSubnet Mask: "+$SubnetMaskInput)
+		$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nDefault Gateway: "+$DefaultGateawayInput)
+		$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nPreffered DNS: "+$PreferredDNSInput)
+		$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nAlternative DNS: "+ $AlternativeDNSInput)
+	}
+	catch{
+		$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("Error in IP configurations")
+	}
+	
+}
+Function QueryAdaptors {
+		$MgmtChangeIPForm.MgmtChangeIPOutput.Clear()
+		$AdapterNameInputIFFind =Get-NetAdapter | Select-Object Name , InterfaceDescription, ifIndex, MacAddress| Sort-Object Name| Format-List Name , InterfaceDescription, ifIndex, MacAddress | Out-String
+		$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText($AdapterNameInputIFFind)
+}
+
+### CHANGING LOCAL COMPUTER AND JOINING DOMAIN
+Function ChangeComputerDomainBack {
+	$MgmtChangePCForm.Hide()
+	$ManagementMenu.Show()
+}
+Function QueryComouterListJoinDomainForm {
+	$MgmtChangePCForm.MgmtChangePCOutput.Clear()
+	$QueryComputerList = Get-ADComputer -Filter * | Select-Object  Name, DNSHostName | Format-List Name, DNSHostName | Out-String
+	$MgmtChangePCForm.MgmtChangePCOutput.AppendText($QueryComputerList)
+}
+
+Function AddComputerDomain {
+	$MgmtChangePCForm.MgmtChangePCOutput.Clear()
+	$ComputerNameAdd = $MgmtChangePCInput.Text
+	try {Add-Computer -DomainName $ComputerNameAdd -Force
+	}
+	catch {
+		$MgmtChangePCForm.MgmtChangePCOutput.AppendText("Computer Name Already Exists")
+	}
+}Function RemoveComputerDomain{
+	$ComputerNameDelete = $MgmtChangePCInput.Text
+	try{Remove-Computer $ComputerNameDelete -Force}
+	catch{$MgmtChangePCForm.MgmtChangePCOutput.AppendText("Computer Does Not Exist")
+		}
+}
+
+### MAC ADDRESS GENERATION FORM
+Function MACFormSubmit {
+	$MgmtMACAddressForm.MgmtMACAddressOutput.Clear()
+	$numbersubmitted = $MgmtMACAddressInput.Text
+	$MgmtMACAddressForm.MgmtMACAddressOutput.AppendText("Here are the following Requested MAC Addresses`n")
+	$MacFormations = 1..$numbersubmitted | ForEach-Object {(1..12 | ForEach-Object {'{0:x}' -f (Get-Random -Minimum 0 -Maximum 15 )}) -join "" } | Format-Table | Out-String
+	$MgmtMACAddressForm.MgmtMACAddressOutput.AppendText($MacFormations)
+}
+Function MACBack{
+	$MGmtMACAddressForm.Hide()
+	$ManagementMenu.Show()
+}
+$(1..12 | ForEach-Object {'{0:x}' -f (Get-Random -Minimum 0 -Maximum 15 )}) -join "" 
+
+### REMOTE DISK MANAGEMENT
+Function RemoteDiskBack{
+	$MgmtDiskMgmtForm.Hide()
+	$ManagementMenu.Show()
+}
+Function QueryDiskLocal {
+	$MgmtDiskMgmtForm.MgmtDiskMgmtOutput.CLear
+	$DiskQueryLocalPress = Get-PSDrive | Where {$_.Free -gt 1} | Out-String
+	$MgmtDiskMgmtForm.MgmtDiskMgmtOutput.AppendText($DiskQueryLocalPress)
+
+Function RemoteDiskCheck {
+	$MgmtDiskMgmtForm.MgmtDiskMgmtOutput.CLear
+	$RemoteComputer = $MgmtDiskMgmtInput.Text
+	$disk = Get-WmiObject Win31_LogicalDisk -ComputerName $RemoteComputer -Filter "DeviceID='C:'" | Select-Object Size,FreeSpace
+}
+
+}
 
 ## DIAGNOSTIC MENU BUTTONS - 3RD LAYER
 ### CHECK ACTIVE DIRECTORY INFORMATION

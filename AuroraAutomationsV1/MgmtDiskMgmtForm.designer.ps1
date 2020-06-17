@@ -31,6 +31,7 @@ $MgmtDiskMgmtBack.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList
 $MgmtDiskMgmtBack.TabIndex = [System.Int32]0
 $MgmtDiskMgmtBack.Text = [System.String]'Back'
 $MgmtDiskMgmtBack.UseVisualStyleBackColor = $true
+$MgmtDiskMgmtBack.add_Click({RemoteDiskBack})
 #
 #MgmtDiskMgmtQuery
 #
@@ -40,6 +41,7 @@ $MgmtDiskMgmtQuery.Size = (New-Object -TypeName System.Drawing.Size -ArgumentLis
 $MgmtDiskMgmtQuery.TabIndex = [System.Int32]1
 $MgmtDiskMgmtQuery.Text = [System.String]'Query Local Computer'
 $MgmtDiskMgmtQuery.UseVisualStyleBackColor = $true
+$MgmtDiskMgmtQuery.add_Click({QueryDiskLocal})
 #
 #MgmtDiskMgmtSubmit
 #
@@ -49,6 +51,7 @@ $MgmtDiskMgmtSubmit.Size = (New-Object -TypeName System.Drawing.Size -ArgumentLi
 $MgmtDiskMgmtSubmit.TabIndex = [System.Int32]2
 $MgmtDiskMgmtSubmit.Text = [System.String]'Submit'
 $MgmtDiskMgmtSubmit.UseVisualStyleBackColor = $true
+$MgmtDiskMgmtSubmit.add_Click({RemoteDiskCheck})
 #
 #MgmtDiskMgmtInput
 #
@@ -56,6 +59,7 @@ $MgmtDiskMgmtInput.Location = (New-Object -TypeName System.Drawing.Point -Argume
 $MgmtDiskMgmtInput.Name = [System.String]'MgmtDiskMgmtInput'
 $MgmtDiskMgmtInput.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]176,[System.Int32]20))
 $MgmtDiskMgmtInput.TabIndex = [System.Int32]3
+$MgmtDiskMgmtInput.add_TextChanged($MgmtDiskMgmtInput_TextChanged)
 #
 #MgmtDiskMgmtOutput
 #
