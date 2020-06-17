@@ -4,15 +4,15 @@ $MainMenu = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Label]$label1 = $null
 [System.Windows.Forms.Label]$label2 = $null
 [System.Windows.Forms.Label]$label3 = $null
-[System.Windows.Forms.PictureBox]$pictureBox1 = $null
-[System.Windows.Forms.PictureBox]$pictureBox2 = $null
-[System.Windows.Forms.PictureBox]$pictureBox3 = $null
 [System.Windows.Forms.Label]$label4 = $null
 [System.Windows.Forms.Label]$label5 = $null
 [System.Windows.Forms.Label]$label6 = $null
 [System.Windows.Forms.Button]$OpenAD = $null
 [System.Windows.Forms.Button]$OpenMgmt = $null
 [System.Windows.Forms.Button]$OpenDiag = $null
+[System.Windows.Forms.PictureBox]$ADPictureBox = $null
+[System.Windows.Forms.PictureBox]$MgmtPictureBox = $null
+[System.Windows.Forms.PictureBox]$DiagPictureBox = $null
 [System.Windows.Forms.Button]$button1 = $null
 function InitializeComponent
 {
@@ -23,15 +23,15 @@ $label3 = (New-Object -TypeName System.Windows.Forms.Label)
 $OpenAD = (New-Object -TypeName System.Windows.Forms.Button)
 $OpenMgmt = (New-Object -TypeName System.Windows.Forms.Button)
 $OpenDiag = (New-Object -TypeName System.Windows.Forms.Button)
-$pictureBox1 = (New-Object -TypeName System.Windows.Forms.PictureBox)
-$pictureBox2 = (New-Object -TypeName System.Windows.Forms.PictureBox)
-$pictureBox3 = (New-Object -TypeName System.Windows.Forms.PictureBox)
+$ADPictureBox = (New-Object -TypeName System.Windows.Forms.PictureBox)
+$MgmtPictureBox = (New-Object -TypeName System.Windows.Forms.PictureBox)
+$DiagPictureBox = (New-Object -TypeName System.Windows.Forms.PictureBox)
 $label4 = (New-Object -TypeName System.Windows.Forms.Label)
 $label5 = (New-Object -TypeName System.Windows.Forms.Label)
 $label6 = (New-Object -TypeName System.Windows.Forms.Label)
-([System.ComponentModel.ISupportInitialize]$pictureBox1).BeginInit()
-([System.ComponentModel.ISupportInitialize]$pictureBox2).BeginInit()
-([System.ComponentModel.ISupportInitialize]$pictureBox3).BeginInit()
+([System.ComponentModel.ISupportInitialize]$ADPictureBox).BeginInit()
+([System.ComponentModel.ISupportInitialize]$MgmtPictureBox).BeginInit()
+([System.ComponentModel.ISupportInitialize]$DiagPictureBox).BeginInit()
 $MainMenu.SuspendLayout()
 #
 #label1
@@ -69,7 +69,6 @@ $OpenAD.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System
 $OpenAD.TabIndex = [System.Int32]3
 $OpenAD.Text = [System.String]'Open'
 $OpenAD.UseVisualStyleBackColor = $true
-$OpenAD.add_Click({ADMenu})
 #
 #OpenMgmt
 #
@@ -79,7 +78,6 @@ $OpenMgmt.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([Syst
 $OpenMgmt.TabIndex = [System.Int32]4
 $OpenMgmt.Text = [System.String]'Open'
 $OpenMgmt.UseVisualStyleBackColor = $true
-$OpenMgmt.add_Click({ManagementMenu})
 #
 #OpenDiag
 #
@@ -89,31 +87,34 @@ $OpenDiag.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([Syst
 $OpenDiag.TabIndex = [System.Int32]5
 $OpenDiag.Text = [System.String]'Open'
 $OpenDiag.UseVisualStyleBackColor = $true
-$OpenDiag.add_Click({DiagnosticsMenu})
 #
-#pictureBox1
+#ADPictureBox
 #
-$pictureBox1.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]12,[System.Int32]52))
-$pictureBox1.Name = [System.String]'pictureBox1'
-$pictureBox1.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]160,[System.Int32]300))
-$pictureBox1.TabIndex = [System.Int32]6
-$pictureBox1.TabStop = $false
+$ADPictureBox.Image = ([System.Drawing.Image]$resources.'ADPictureBox.Image')
+$ADPictureBox.ImageLocation = [System.String]''
+$ADPictureBox.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]12,[System.Int32]52))
+$ADPictureBox.Name = [System.String]'ADPictureBox'
+$ADPictureBox.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]180,[System.Int32]300))
+$ADPictureBox.TabIndex = [System.Int32]6
+$ADPictureBox.TabStop = $false
 #
-#pictureBox2
+#MgmtPictureBox
 #
-$pictureBox2.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]224,[System.Int32]52))
-$pictureBox2.Name = [System.String]'pictureBox2'
-$pictureBox2.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]160,[System.Int32]300))
-$pictureBox2.TabIndex = [System.Int32]7
-$pictureBox2.TabStop = $false
+$MgmtPictureBox.Image = ([System.Drawing.Image]$resources.'MgmtPictureBox.Image')
+$MgmtPictureBox.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]224,[System.Int32]52))
+$MgmtPictureBox.Name = [System.String]'MgmtPictureBox'
+$MgmtPictureBox.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]180,[System.Int32]300))
+$MgmtPictureBox.TabIndex = [System.Int32]7
+$MgmtPictureBox.TabStop = $false
 #
-#pictureBox3
+#DiagPictureBox
 #
-$pictureBox3.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]434,[System.Int32]52))
-$pictureBox3.Name = [System.String]'pictureBox3'
-$pictureBox3.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]160,[System.Int32]300))
-$pictureBox3.TabIndex = [System.Int32]8
-$pictureBox3.TabStop = $false
+$DiagPictureBox.Image = ([System.Drawing.Image]$resources.'DiagPictureBox.Image')
+$DiagPictureBox.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]434,[System.Int32]52))
+$DiagPictureBox.Name = [System.String]'DiagPictureBox'
+$DiagPictureBox.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]180,[System.Int32]300))
+$DiagPictureBox.TabIndex = [System.Int32]8
+$DiagPictureBox.TabStop = $false
 #
 #label4
 #
@@ -148,9 +149,9 @@ $MainMenu.ClientSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @
 $MainMenu.Controls.Add($label6)
 $MainMenu.Controls.Add($label5)
 $MainMenu.Controls.Add($label4)
-$MainMenu.Controls.Add($pictureBox3)
-$MainMenu.Controls.Add($pictureBox2)
-$MainMenu.Controls.Add($pictureBox1)
+$MainMenu.Controls.Add($DiagPictureBox)
+$MainMenu.Controls.Add($MgmtPictureBox)
+$MainMenu.Controls.Add($ADPictureBox)
 $MainMenu.Controls.Add($OpenDiag)
 $MainMenu.Controls.Add($OpenMgmt)
 $MainMenu.Controls.Add($OpenAD)
@@ -160,24 +161,24 @@ $MainMenu.Controls.Add($label1)
 $MainMenu.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $MainMenu.Name = [System.String]'MainMenu'
 $MainMenu.Text = [System.String]'Main Menu - Aurora Automations'
-([System.ComponentModel.ISupportInitialize]$pictureBox1).EndInit()
-([System.ComponentModel.ISupportInitialize]$pictureBox2).EndInit()
-([System.ComponentModel.ISupportInitialize]$pictureBox3).EndInit()
+([System.ComponentModel.ISupportInitialize]$ADPictureBox).EndInit()
+([System.ComponentModel.ISupportInitialize]$MgmtPictureBox).EndInit()
+([System.ComponentModel.ISupportInitialize]$DiagPictureBox).EndInit()
 $MainMenu.ResumeLayout($false)
 $MainMenu.PerformLayout()
 Add-Member -InputObject $MainMenu -Name base -Value $base -MemberType NoteProperty
 Add-Member -InputObject $MainMenu -Name label1 -Value $label1 -MemberType NoteProperty
 Add-Member -InputObject $MainMenu -Name label2 -Value $label2 -MemberType NoteProperty
 Add-Member -InputObject $MainMenu -Name label3 -Value $label3 -MemberType NoteProperty
-Add-Member -InputObject $MainMenu -Name pictureBox1 -Value $pictureBox1 -MemberType NoteProperty
-Add-Member -InputObject $MainMenu -Name pictureBox2 -Value $pictureBox2 -MemberType NoteProperty
-Add-Member -InputObject $MainMenu -Name pictureBox3 -Value $pictureBox3 -MemberType NoteProperty
 Add-Member -InputObject $MainMenu -Name label4 -Value $label4 -MemberType NoteProperty
 Add-Member -InputObject $MainMenu -Name label5 -Value $label5 -MemberType NoteProperty
 Add-Member -InputObject $MainMenu -Name label6 -Value $label6 -MemberType NoteProperty
 Add-Member -InputObject $MainMenu -Name OpenAD -Value $OpenAD -MemberType NoteProperty
 Add-Member -InputObject $MainMenu -Name OpenMgmt -Value $OpenMgmt -MemberType NoteProperty
 Add-Member -InputObject $MainMenu -Name OpenDiag -Value $OpenDiag -MemberType NoteProperty
+Add-Member -InputObject $MainMenu -Name ADPictureBox -Value $ADPictureBox -MemberType NoteProperty
+Add-Member -InputObject $MainMenu -Name MgmtPictureBox -Value $MgmtPictureBox -MemberType NoteProperty
+Add-Member -InputObject $MainMenu -Name DiagPictureBox -Value $DiagPictureBox -MemberType NoteProperty
 Add-Member -InputObject $MainMenu -Name button1 -Value $button1 -MemberType NoteProperty
 }
 . InitializeComponent
