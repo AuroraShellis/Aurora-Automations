@@ -1,92 +1,97 @@
 [void][System.Reflection.Assembly]::Load('System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a')
 [void][System.Reflection.Assembly]::Load('System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089')
 $MainMenu = New-Object -TypeName System.Windows.Forms.Form
-[System.Windows.Forms.Label]$label1 = $null
-[System.Windows.Forms.Label]$label2 = $null
-[System.Windows.Forms.Label]$label3 = $null
-[System.Windows.Forms.Label]$label4 = $null
-[System.Windows.Forms.Label]$label5 = $null
-[System.Windows.Forms.Label]$label6 = $null
 [System.Windows.Forms.Button]$OpenAD = $null
 [System.Windows.Forms.Button]$OpenMgmt = $null
 [System.Windows.Forms.Button]$OpenDiag = $null
 [System.Windows.Forms.PictureBox]$ADPictureBox = $null
 [System.Windows.Forms.PictureBox]$MgmtPictureBox = $null
 [System.Windows.Forms.PictureBox]$DiagPictureBox = $null
+[System.Windows.Forms.Label]$ActiveDirectoryLabel = $null
+[System.Windows.Forms.Label]$ManagementLabel = $null
+[System.Windows.Forms.Label]$DiagnosticMenuLabel = $null
+[System.Windows.Forms.Label]$ActiveDirectoryManagementOpen = $null
+[System.Windows.Forms.Label]$ManagementOpenLabel = $null
+[System.Windows.Forms.Label]$DiagnosticLabelOpen = $null
+[System.Windows.Forms.Button]$Credits = $null
 [System.Windows.Forms.Button]$button1 = $null
 function InitializeComponent
 {
 $resources = . (Join-Path $PSScriptRoot 'MainMenu.resources.ps1')
-$label1 = (New-Object -TypeName System.Windows.Forms.Label)
-$label2 = (New-Object -TypeName System.Windows.Forms.Label)
-$label3 = (New-Object -TypeName System.Windows.Forms.Label)
+$ActiveDirectoryLabel = (New-Object -TypeName System.Windows.Forms.Label)
+$ManagementLabel = (New-Object -TypeName System.Windows.Forms.Label)
+$DiagnosticMenuLabel = (New-Object -TypeName System.Windows.Forms.Label)
 $OpenAD = (New-Object -TypeName System.Windows.Forms.Button)
 $OpenMgmt = (New-Object -TypeName System.Windows.Forms.Button)
 $OpenDiag = (New-Object -TypeName System.Windows.Forms.Button)
 $ADPictureBox = (New-Object -TypeName System.Windows.Forms.PictureBox)
 $MgmtPictureBox = (New-Object -TypeName System.Windows.Forms.PictureBox)
 $DiagPictureBox = (New-Object -TypeName System.Windows.Forms.PictureBox)
-$label4 = (New-Object -TypeName System.Windows.Forms.Label)
-$label5 = (New-Object -TypeName System.Windows.Forms.Label)
-$label6 = (New-Object -TypeName System.Windows.Forms.Label)
+$ActiveDirectoryManagementOpen = (New-Object -TypeName System.Windows.Forms.Label)
+$ManagementOpenLabel = (New-Object -TypeName System.Windows.Forms.Label)
+$DiagnosticLabelOpen = (New-Object -TypeName System.Windows.Forms.Label)
+$Credits = (New-Object -TypeName System.Windows.Forms.Button)
 ([System.ComponentModel.ISupportInitialize]$ADPictureBox).BeginInit()
 ([System.ComponentModel.ISupportInitialize]$MgmtPictureBox).BeginInit()
 ([System.ComponentModel.ISupportInitialize]$DiagPictureBox).BeginInit()
 $MainMenu.SuspendLayout()
 #
-#label1
+#ActiveDirectoryLabel
 #
-$label1.AutoSize = $true
-$label1.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]29,[System.Int32]12))
-$label1.Name = [System.String]'label1'
-$label1.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]117,[System.Int32]13))
-$label1.TabIndex = [System.Int32]0
-$label1.Text = [System.String]'Active Directory Scripts'
+$ActiveDirectoryLabel.AutoSize = $true
+$ActiveDirectoryLabel.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]36))
+$ActiveDirectoryLabel.Name = [System.String]'ActiveDirectoryLabel'
+$ActiveDirectoryLabel.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]117,[System.Int32]13))
+$ActiveDirectoryLabel.TabIndex = [System.Int32]0
+$ActiveDirectoryLabel.Text = [System.String]'Active Directory Scripts'
 #
-#label2
+#ManagementLabel
 #
-$label2.AutoSize = $true
-$label2.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]253,[System.Int32]12))
-$label2.Name = [System.String]'label2'
-$label2.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]104,[System.Int32]13))
-$label2.TabIndex = [System.Int32]1
-$label2.Text = [System.String]'Management Scripts'
+$ManagementLabel.AutoSize = $true
+$ManagementLabel.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]267,[System.Int32]36))
+$ManagementLabel.Name = [System.String]'ManagementLabel'
+$ManagementLabel.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]104,[System.Int32]13))
+$ManagementLabel.TabIndex = [System.Int32]1
+$ManagementLabel.Text = [System.String]'Management Scripts'
 #
-#label3
+#DiagnosticMenuLabel
 #
-$label3.AutoSize = $true
-$label3.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]464,[System.Int32]12))
-$label3.Name = [System.String]'label3'
-$label3.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]92,[System.Int32]13))
-$label3.TabIndex = [System.Int32]2
-$label3.Text = [System.String]'Diagnostic Scripts'
+$DiagnosticMenuLabel.AutoSize = $true
+$DiagnosticMenuLabel.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]481,[System.Int32]36))
+$DiagnosticMenuLabel.Name = [System.String]'DiagnosticMenuLabel'
+$DiagnosticMenuLabel.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]92,[System.Int32]13))
+$DiagnosticMenuLabel.TabIndex = [System.Int32]2
+$DiagnosticMenuLabel.Text = [System.String]'Diagnostic Scripts'
 #
 #OpenAD
 #
-$OpenAD.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]47,[System.Int32]385))
+$OpenAD.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]67,[System.Int32]358))
 $OpenAD.Name = [System.String]'OpenAD'
 $OpenAD.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]75,[System.Int32]23))
 $OpenAD.TabIndex = [System.Int32]3
 $OpenAD.Text = [System.String]'Open'
 $OpenAD.UseVisualStyleBackColor = $true
+$OpenAD.add_Click({ADMenu})
 #
 #OpenMgmt
 #
-$OpenMgmt.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]256,[System.Int32]385))
+$OpenMgmt.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]278,[System.Int32]358))
 $OpenMgmt.Name = [System.String]'OpenMgmt'
 $OpenMgmt.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]75,[System.Int32]23))
 $OpenMgmt.TabIndex = [System.Int32]4
 $OpenMgmt.Text = [System.String]'Open'
 $OpenMgmt.UseVisualStyleBackColor = $true
+$OpenMgmt.add_Click({ManagementMenu})
 #
 #OpenDiag
 #
-$OpenDiag.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]481,[System.Int32]385))
+$OpenDiag.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]488,[System.Int32]358))
 $OpenDiag.Name = [System.String]'OpenDiag'
 $OpenDiag.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]75,[System.Int32]23))
 $OpenDiag.TabIndex = [System.Int32]5
 $OpenDiag.Text = [System.String]'Open'
 $OpenDiag.UseVisualStyleBackColor = $true
+$OpenDiag.add_Click({DiagnosticsMenu})
 #
 #ADPictureBox
 #
@@ -116,48 +121,59 @@ $DiagPictureBox.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @
 $DiagPictureBox.TabIndex = [System.Int32]8
 $DiagPictureBox.TabStop = $false
 #
-#label4
+#ActiveDirectoryManagementOpen
 #
-$label4.AutoSize = $true
-$label4.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]13,[System.Int32]359))
-$label4.Name = [System.String]'label4'
-$label4.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]28,[System.Int32]13))
-$label4.TabIndex = [System.Int32]9
-$label4.Text = [System.String]'APA'
+$ActiveDirectoryManagementOpen.AutoSize = $true
+$ActiveDirectoryManagementOpen.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]147,[System.Int32]358))
+$ActiveDirectoryManagementOpen.Name = [System.String]'ActiveDirectoryManagementOpen'
+$ActiveDirectoryManagementOpen.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]45,[System.Int32]13))
+$ActiveDirectoryManagementOpen.TabIndex = [System.Int32]9
+$ActiveDirectoryManagementOpen.Text = [System.String]'Figure 1'
 #
-#label5
+#ManagementOpenLabel
 #
-$label5.AutoSize = $true
-$label5.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]221,[System.Int32]359))
-$label5.Name = [System.String]'label5'
-$label5.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]28,[System.Int32]13))
-$label5.TabIndex = [System.Int32]10
-$label5.Text = [System.String]'APA'
+$ManagementOpenLabel.AutoSize = $true
+$ManagementOpenLabel.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]359,[System.Int32]358))
+$ManagementOpenLabel.Name = [System.String]'ManagementOpenLabel'
+$ManagementOpenLabel.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]45,[System.Int32]13))
+$ManagementOpenLabel.TabIndex = [System.Int32]10
+$ManagementOpenLabel.Text = [System.String]'Figure 2'
 #
-#label6
+#DiagnosticLabelOpen
 #
-$label6.AutoSize = $true
-$label6.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]431,[System.Int32]359))
-$label6.Name = [System.String]'label6'
-$label6.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]28,[System.Int32]13))
-$label6.TabIndex = [System.Int32]11
-$label6.Text = [System.String]'APA'
+$DiagnosticLabelOpen.AutoSize = $true
+$DiagnosticLabelOpen.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]569,[System.Int32]358))
+$DiagnosticLabelOpen.Name = [System.String]'DiagnosticLabelOpen'
+$DiagnosticLabelOpen.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]45,[System.Int32]13))
+$DiagnosticLabelOpen.TabIndex = [System.Int32]11
+$DiagnosticLabelOpen.Text = [System.String]'Figure 3'
+#
+#Credits
+#
+$Credits.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]278,[System.Int32]406))
+$Credits.Name = [System.String]'Credits'
+$Credits.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]75,[System.Int32]23))
+$Credits.TabIndex = [System.Int32]12
+$Credits.Text = [System.String]'Credits'
+$Credits.UseVisualStyleBackColor = $true
+$Credits.add_Click({CreditsMenu})
 #
 #MainMenu
 #
 $MainMenu.ClientSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]624,[System.Int32]441))
-$MainMenu.Controls.Add($label6)
-$MainMenu.Controls.Add($label5)
-$MainMenu.Controls.Add($label4)
+$MainMenu.Controls.Add($Credits)
+$MainMenu.Controls.Add($DiagnosticLabelOpen)
+$MainMenu.Controls.Add($ManagementOpenLabel)
+$MainMenu.Controls.Add($ActiveDirectoryManagementOpen)
 $MainMenu.Controls.Add($DiagPictureBox)
 $MainMenu.Controls.Add($MgmtPictureBox)
 $MainMenu.Controls.Add($ADPictureBox)
 $MainMenu.Controls.Add($OpenDiag)
 $MainMenu.Controls.Add($OpenMgmt)
 $MainMenu.Controls.Add($OpenAD)
-$MainMenu.Controls.Add($label3)
-$MainMenu.Controls.Add($label2)
-$MainMenu.Controls.Add($label1)
+$MainMenu.Controls.Add($DiagnosticMenuLabel)
+$MainMenu.Controls.Add($ManagementLabel)
+$MainMenu.Controls.Add($ActiveDirectoryLabel)
 $MainMenu.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $MainMenu.Name = [System.String]'MainMenu'
 $MainMenu.Text = [System.String]'Main Menu - Aurora Automations'
@@ -167,18 +183,19 @@ $MainMenu.Text = [System.String]'Main Menu - Aurora Automations'
 $MainMenu.ResumeLayout($false)
 $MainMenu.PerformLayout()
 Add-Member -InputObject $MainMenu -Name base -Value $base -MemberType NoteProperty
-Add-Member -InputObject $MainMenu -Name label1 -Value $label1 -MemberType NoteProperty
-Add-Member -InputObject $MainMenu -Name label2 -Value $label2 -MemberType NoteProperty
-Add-Member -InputObject $MainMenu -Name label3 -Value $label3 -MemberType NoteProperty
-Add-Member -InputObject $MainMenu -Name label4 -Value $label4 -MemberType NoteProperty
-Add-Member -InputObject $MainMenu -Name label5 -Value $label5 -MemberType NoteProperty
-Add-Member -InputObject $MainMenu -Name label6 -Value $label6 -MemberType NoteProperty
 Add-Member -InputObject $MainMenu -Name OpenAD -Value $OpenAD -MemberType NoteProperty
 Add-Member -InputObject $MainMenu -Name OpenMgmt -Value $OpenMgmt -MemberType NoteProperty
 Add-Member -InputObject $MainMenu -Name OpenDiag -Value $OpenDiag -MemberType NoteProperty
 Add-Member -InputObject $MainMenu -Name ADPictureBox -Value $ADPictureBox -MemberType NoteProperty
 Add-Member -InputObject $MainMenu -Name MgmtPictureBox -Value $MgmtPictureBox -MemberType NoteProperty
 Add-Member -InputObject $MainMenu -Name DiagPictureBox -Value $DiagPictureBox -MemberType NoteProperty
+Add-Member -InputObject $MainMenu -Name ActiveDirectoryLabel -Value $ActiveDirectoryLabel -MemberType NoteProperty
+Add-Member -InputObject $MainMenu -Name ManagementLabel -Value $ManagementLabel -MemberType NoteProperty
+Add-Member -InputObject $MainMenu -Name DiagnosticMenuLabel -Value $DiagnosticMenuLabel -MemberType NoteProperty
+Add-Member -InputObject $MainMenu -Name ActiveDirectoryManagementOpen -Value $ActiveDirectoryManagementOpen -MemberType NoteProperty
+Add-Member -InputObject $MainMenu -Name ManagementOpenLabel -Value $ManagementOpenLabel -MemberType NoteProperty
+Add-Member -InputObject $MainMenu -Name DiagnosticLabelOpen -Value $DiagnosticLabelOpen -MemberType NoteProperty
+Add-Member -InputObject $MainMenu -Name Credits -Value $Credits -MemberType NoteProperty
 Add-Member -InputObject $MainMenu -Name button1 -Value $button1 -MemberType NoteProperty
 }
 . InitializeComponent

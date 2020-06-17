@@ -20,11 +20,12 @@ Function CreditsMenu {
 	$CreditsForm.CreditsOutput.AppendText("Hot Topic in Networking Q2 2020`n")
 	$CreditsForm.CreditsOutput.AppendText("This was made by Team Aurora Shellis and is composed of;`n`n")
 	$CreditsForm.CreditsOutput.AppendText("`nMatthew Westlake`nMicheal Chen`nPogai (David) Tuiala`nRyan Alpay`n`n")
-	$CreditsForm.CreditsOutput.AppendText("`n`nSpecial Thanks to Google and Trevor Sullivan for one of his scripts for enabling Tracerouting in a Windows form setting`n")
-	$CreditsForm.CreditsOutput.AppendText("`nFigure1: ")
-	$CreditsForm.CreditsOutput.AppendText("`nFigure2: ")
-	$CreditsForm.CreditsOutput.AppendText("`nFigure3: ")
-	$CreditsForm.CreditsOutput.AppendText("`nLink to Trevor Sullivan Script: " + "https://trevorsullivan.net/2012/07/23/powershell-tracert-or-trace-route")
+	$CreditsForm.CreditsOutput.AppendText("`n`nSpecial Thanks to Google and Trevor Sullivan for one of his scripts for enabling Tracerouting in a Windows form setting. (Sullivan, 2012)`n")
+	$CreditsForm.CreditsOutput.AppendText("`nFigure 1: (Netwrix, n.d.). What is Active Directory? Retrieved from Netwrix:"+" https://www.netwrix.com/what_is_active_directory_e-book.html `n")
+	$CreditsForm.CreditsOutput.AppendText("`nFigure 2: `n"+"Interpol. (2016, August 02). Twitter. Retrieved from ARRESTED: Head of global criminal network behind 60m in online scams.:" + " https://twitter.com/interpol_hq/status/760 `n")
+	$CreditsForm.CreditsOutput.AppendText("`nFigure 3:"+ " XCentrex Computer Systems. (2012, July 07). Laptop Diagnostics. Retrieved from XCentrex Computer Systems:" +" https://xcentrex.com/wp-content/uploads/Duplicator/laptop-diagnostics-xcentrex-computer-systems-llc/ `n")
+	$CreditsForm.CreditsOutput.AppendText("`nSullivan, T. (2012, July 23). PowerShell: Tracert or Trace-Route? Retrieved from Trevor Sullivan's Tech Room:" +" https://trevorsullivan.net/2012/07/23/powershell-tracert-or-trace-route/ `n")
+	
 	$MainMenu.Hide()
 	$CreditsForm.ShowDialog()
 }
@@ -32,7 +33,7 @@ Function CreditsMenu {
 ##CREDITS MAIN MENU
 Function CreditsBack {
 	$CreditsForm.CreditsOutput.Clear()
-	$DiagnosticsMenu.Hide()
+	$CreditsForm.Hide()
 	$MainMenu.Show()
 }
 ## ACTIVE DIRECTORY MAIN MENU
@@ -832,7 +833,7 @@ Function BackPortStatus{
 }
 
 ### CONNECTION STATUS FORM
-#### NOT OUR CODE. THANKS TO TREVOR SULLIVAN ####
+#### NOT OUR CODE. THANKS TO TREVOR SULLIVAN. (Sullivan, 2012) ####
 #### https://trevorsullivan.net/2012/07/23/powershell-tracert-or-trace-route/ ####
 function Trace-Route {
     [CmdletBinding()]
