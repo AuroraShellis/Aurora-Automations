@@ -752,10 +752,12 @@ Function QueryDiskLocal{
 Function RemoteDiskCheck{
 	$MgmtDiskMgmtForm.MgmtDiskMgmtOutput.Clear()
 	$RemoteComputer = $MgmtDiskMgmtInput.Text
-	$DiskTextOutputTmp = Get-WmiObject Win32_LogicalDisk -ComputerName $RemoteComputer | Select-Object DeviceID,VolumeName,Size,FreeSpace | Out-String
-	#$DiskTextOutputTmp = Get-WmiObject Win32_LogicalDisk -ComputerName $RemoteComputer | Select-Object VolumeName,Size,FreeSpace
-	#-Filter "DeviceID='C:'"
-	$MgmtDiskMgmtForm.MgmtDiskMgmtOutput.AppendText($DiskTextOutputTmp)
+	try{
+		$DiskTextOutputTmp = Get-WmiObject Win32_LogicalDisk -ComputerName $RemoteComputer | Select-Object DeviceID, VolumeName, @{'Name'='Size (GB)'; 'Expression'={[math]::truncate($_.size / 1GB)}}, @{'Name'='Freespace (GB)'; 'Expression'={[math]::truncate($_.freespace / 1GB)}} | Format-List | Out-String 
+		$MgmtDiskMgmtForm.MgmtDiskMgmtOutput.AppendText($DiskTextOutputTmp)
+	}catch{
+		$MgmtDiskMgmtForm.MgmtDiskMgmtOutput.AppendText("Invalid Computer Name or No Connection was Established.")
+	}
 }
 Function OpenDiskMangementLocal{
 	try{
