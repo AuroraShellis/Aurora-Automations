@@ -9,6 +9,7 @@ $MgmtDiskMgmtForm = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Label]$MgmtDiskMgmtLabel1 = $null
 [System.Windows.Forms.Label]$MgmtDiskMgmtLabel2 = $null
 [System.Windows.Forms.Label]$MgmtDiskMgmtLabel3 = $null
+[System.Windows.Forms.Button]$MgmtDiskMgmtOpen = $null
 [System.Windows.Forms.Button]$button1 = $null
 function InitializeComponent
 {
@@ -21,6 +22,7 @@ $MgmtDiskMgmtOutput = (New-Object -TypeName System.Windows.Forms.RichTextBox)
 $MgmtDiskMgmtLabel1 = (New-Object -TypeName System.Windows.Forms.Label)
 $MgmtDiskMgmtLabel2 = (New-Object -TypeName System.Windows.Forms.Label)
 $MgmtDiskMgmtLabel3 = (New-Object -TypeName System.Windows.Forms.Label)
+$MgmtDiskMgmtOpen = (New-Object -TypeName System.Windows.Forms.Button)
 $MgmtDiskMgmtForm.SuspendLayout()
 #
 #MgmtDiskMgmtBack
@@ -97,9 +99,20 @@ $MgmtDiskMgmtLabel3.Size = (New-Object -TypeName System.Drawing.Size -ArgumentLi
 $MgmtDiskMgmtLabel3.TabIndex = [System.Int32]7
 $MgmtDiskMgmtLabel3.Text = [System.String]'Insert FQDN of remote computer:'
 #
+#MgmtDiskMgmtOpen
+#
+$MgmtDiskMgmtOpen.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]426,[System.Int32]389))
+$MgmtDiskMgmtOpen.Name = [System.String]'MgmtDiskMgmtOpen'
+$MgmtDiskMgmtOpen.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]176,[System.Int32]23))
+$MgmtDiskMgmtOpen.TabIndex = [System.Int32]8
+$MgmtDiskMgmtOpen.Text = [System.String]'Open Disk Management'
+$MgmtDiskMgmtOpen.UseVisualStyleBackColor = $true
+$MgmtDiskMgmtOpen.Add_Click({OpenDiskMangementLocal})
+#
 #MgmtDiskMgmtForm
 #
 $MgmtDiskMgmtForm.ClientSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]624,[System.Int32]441))
+$MgmtDiskMgmtForm.Controls.Add($MgmtDiskMgmtOpen)
 $MgmtDiskMgmtForm.Controls.Add($MgmtDiskMgmtLabel3)
 $MgmtDiskMgmtForm.Controls.Add($MgmtDiskMgmtLabel2)
 $MgmtDiskMgmtForm.Controls.Add($MgmtDiskMgmtLabel1)
@@ -122,6 +135,7 @@ Add-Member -InputObject $MgmtDiskMgmtForm -Name MgmtDiskMgmtOutput -Value $MgmtD
 Add-Member -InputObject $MgmtDiskMgmtForm -Name MgmtDiskMgmtLabel1 -Value $MgmtDiskMgmtLabel1 -MemberType NoteProperty
 Add-Member -InputObject $MgmtDiskMgmtForm -Name MgmtDiskMgmtLabel2 -Value $MgmtDiskMgmtLabel2 -MemberType NoteProperty
 Add-Member -InputObject $MgmtDiskMgmtForm -Name MgmtDiskMgmtLabel3 -Value $MgmtDiskMgmtLabel3 -MemberType NoteProperty
+Add-Member -InputObject $MgmtDiskMgmtForm -Name MgmtDiskMgmtOpen -Value $MgmtDiskMgmtOpen -MemberType NoteProperty
 Add-Member -InputObject $MgmtDiskMgmtForm -Name button1 -Value $button1 -MemberType NoteProperty
 }
 . InitializeComponent

@@ -36,6 +36,7 @@ Function CreditsBack {
 	$CreditsForm.Hide()
 	$MainMenu.Show()
 }
+
 ## ACTIVE DIRECTORY MAIN MENU
 Function ADUserDeleteShowMenu {
 	$ADUserDeletion.UserDeleteOutput.AppendText("WARNING: When the Delete button is pressed. There will be NO Confirmation.")
@@ -743,17 +744,25 @@ Function RemoteDiskBack{
 	$MgmtDiskMgmtForm.Hide()
 	$ManagementMenu.Show()
 }
-Function QueryDiskLocal {
-	$MgmtDiskMgmtForm.MgmtDiskMgmtOutput.CLear
+Function QueryDiskLocal{
+	$MgmtDiskMgmtForm.MgmtDiskMgmtOutput.Clear()
 	$DiskQueryLocalPress = Get-PSDrive | Where {$_.Free -gt 1} | Out-String
 	$MgmtDiskMgmtForm.MgmtDiskMgmtOutput.AppendText($DiskQueryLocalPress)
-
-Function RemoteDiskCheck {
-	$MgmtDiskMgmtForm.MgmtDiskMgmtOutput.CLear
-	$RemoteComputer = $MgmtDiskMgmtInput.Text
-	$disk = Get-WmiObject Win31_LogicalDisk -ComputerName $RemoteComputer -Filter "DeviceID='C:'" | Select-Object Size,FreeSpace
 }
-
+Function RemoteDiskCheck{
+	$MgmtDiskMgmtForm.MgmtDiskMgmtOutput.Clear()
+	$RemoteComputer = $MgmtDiskMgmtInput.Text
+	$DiskTextOutputTmp = Get-WmiObject Win32_LogicalDisk -ComputerName $RemoteComputer | Select-Object DeviceID,VolumeName,Size,FreeSpace | Out-String
+	#$DiskTextOutputTmp = Get-WmiObject Win32_LogicalDisk -ComputerName $RemoteComputer | Select-Object VolumeName,Size,FreeSpace
+	#-Filter "DeviceID='C:'"
+	$MgmtDiskMgmtForm.MgmtDiskMgmtOutput.AppendText($DiskTextOutputTmp)
+}
+Function OpenDiskMangementLocal{
+	try{
+		diskmgmt.msc
+	}catch{
+		$MgmtDiskMgmtForm.MgmtDiskMgmtOutput.AppendText("Failed to open Disk Management.")
+	}
 }
 
 ## DIAGNOSTIC MENU BUTTONS - 3RD LAYER

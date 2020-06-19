@@ -40,6 +40,8 @@ $CreditsPictureBox.Name = [System.String]'CreditsPictureBox'
 $CreditsPictureBox.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]238,[System.Int32]228))
 $CreditsPictureBox.TabIndex = [System.Int32]3
 $CreditsPictureBox.TabStop = $false
+$CreditsPictureBox.Cursor = [System.Windows.Forms.Cursors]::Hand
+$CreditsPictureBox.add_Click({[System.Diagnostics.Process]::start("https://youtu.be/dQw4w9WgXcQ?autoplay=1")}) 
 #
 #CreditsForm
 #
