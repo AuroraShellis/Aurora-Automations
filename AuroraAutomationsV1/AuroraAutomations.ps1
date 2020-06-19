@@ -995,4 +995,3 @@ Function BackConnectionStatusForm {
 . (Join-Path $PSScriptRoot 'DiagListADUsers.ps1')
 . (Join-Path $PSScriptRoot 'DiagPortStatus.ps1')
 . (Join-Path $PSScriptRoot 'DiagTraceroute.ps1')
-. (Join-Path $PSScriptRoot 'MainMenu.resources.ps1')
