@@ -536,12 +536,16 @@ Function FilesShareCreationButton{
 		}elseif ($MgmtFileShareRead.Checked -eq $true){
 			New-SmbShare -Name $FileShareNameCreation -Path $FileSharePathCreation -ReadAccess $UserorGroupShareName , Everyone -ErrorAction Stop
 			$MgmtFileShareForm.MgmtFileShareOutput.AppendText("File Share Successfully Created in " + $FileSharePathCreation + " With Read Access")
+		}else{
+			$MgmtFileShareForm.MgmtFileShareOutput.AppendText("Fields must not be Empty. Try Again with all fields populated")
 		}
 	}catch [Microsoft.Management.Infrastructure.CimException]{
 		$MgmtFileShareForm.MgmtFileShareOutput.AppendText("`nFolder not found")
 		$MgmtFileShareForm.MgmtFileShareOutput.AppendText("`nFolder was created at " + $FileSharePathCreation)
 		$MgmtFileShareForm.MgmtFileShareOutput.AppendText("`nTry Again")
 		mkdir $FileSharePathCreation
+	}catch{
+		$MgmtFileShareForm.MgmtFileShareOutput.AppendText("Something Happened. Try Again")
 	}
 }
 Function MgmtFolderBrowseFuction{
@@ -564,8 +568,12 @@ Function FileSharePermQuery {
 		$MgmtFileShareQueryListPerm = Get-SmbShareAccess -Name $MgmtFileShareFileShareTextQuery | Select-Object AccountName, AccessRight, AccessControlType | Sort-Object AccountName, AccessRight,AccessControlType | Out-String
 		$MgmtFileShareForm.MgmtFileShareOutput.AppendText($MgmtFileShareQueryList)
 		$MgmtFileShareForm.MgmtFileShareOutput.AppendText($MgmtFileShareQueryListPerm)
-	}catch{
-		$MgmtFileShareForm.MgmtFileShareOutput.AppendText("`nFile Share Name Available.")
+	}catch {
+		if ((-not ([string]::IsNullOrEmpty($MgmtFileShareFileShareTextQuery))) -or ((-not [string]::IsNullOrWhiteSpace($MgmtFileShareFileShareTextQuery)))){
+			$MgmtFileShareForm.MgmtFileShareOutput.AppendText("`nFile Share Name: "+ $MgmtFileShareFileShareTextQuery + " Available.")
+		}else{
+			$MgmtFileShareForm.MgmtFileShareOutput.AppendText("`nFile Share Name Field must not be Empty. Try Again.")
+		}
 	}
 }
 Function FullControl {
