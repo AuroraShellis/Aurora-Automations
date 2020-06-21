@@ -833,11 +833,19 @@ Function RefreshUserListAD {
 Function RemoteQueryOSArchitecture {
 	$DiagCheckOS.DiagRemoteOSOutput.Clear()
 	$DiagRemoteComputer = $DiagRemoteOSInput.Text
-	$DiagRemoteInfo1 = (Get-WmiObject -ComputerName $DiagRemoteComputer win32_operatingsystem).name
-	$DiagRemoteInfo2 = (Get-WmiObject -ComputerName $DiagRemoteComputer Win32_OperatingSystem).OSArchitecture
-	$DiagRemoteJoin = $DiagRemoteInfo1.Split("|")[0]
-	$DiagCheckOS.DiagRemoteOSOutput.AppendText("This remote computer is running: " + $DiagRemoteJoin)
-	$DiagCheckOS.DiagRemoteOSOutput.AppendText("`nThis remote computer's architecture is " + $DiagRemoteInfo2)
+	$TestDiagRemoteComputer = Test-Connection -BufferSize 32 -Count 1 -ComputerName $DiagRemoteComputer -Quiet
+	if([string]::IsNullOrEmpty($DiagRemoteComputer)){
+	$DiagCheckOS.DiagRemoteOSOutput.AppendText("Input field must not be empty.")
+	}
+	elseif($TestDiagRemoteComputer -eq $true){
+		$DiagRemoteInfo1 = (Get-WmiObject -ComputerName $DiagRemoteComputer win32_operatingsystem).name
+		$DiagRemoteInfo2 = (Get-WmiObject -ComputerName $DiagRemoteComputer Win32_OperatingSystem).OSArchitecture
+		$DiagRemoteJoin = $DiagRemoteInfo1.Split("|")[0]
+		$DiagCheckOS.DiagRemoteOSOutput.AppendText("This remote computer is running: " + $DiagRemoteJoin)
+		$DiagCheckOS.DiagRemoteOSOutput.AppendText("`nThis remote computer's architecture is " + $DiagRemoteInfo2)
+	}else{
+		$DiagCheckOS.DiagRemoteOSOutput.AppendText("Error: No Connection was Established to the Remote Computer. Check if the input is valid.")
+	}
 }
 Function RefreshCheckLocalMachinesOS {
 	$DiagCheckOS.DiagRemoteOSOutput.Clear()
