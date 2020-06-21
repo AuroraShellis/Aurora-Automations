@@ -97,6 +97,7 @@ Function MACAddressGenerator {
 	$MgmtMACAddressForm.ShowDialog()
 }
 Function RemoteDisk {
+	$MgmtDiskMgmtForm.MgmtDiskMgmtOutput.Clear()
 	$ManagementMenu.Hide()
 	$MgmtDiskMgmtForm.ShowDialog()
 }
@@ -766,11 +767,16 @@ Function QueryDiskLocal{
 Function RemoteDiskCheck{
 	$MgmtDiskMgmtForm.MgmtDiskMgmtOutput.Clear()
 	$RemoteComputer = $MgmtDiskMgmtInput.Text
-	try{
-		$DiskTextOutputTmp = Get-WmiObject Win32_LogicalDisk -ComputerName $RemoteComputer | Select-Object DeviceID, VolumeName, @{'Name'='Size (GB)'; 'Expression'={[math]::truncate($_.size / 1GB)}}, @{'Name'='Freespace (GB)'; 'Expression'={[math]::truncate($_.freespace / 1GB)}} | Format-List | Out-String 
-		$MgmtDiskMgmtForm.MgmtDiskMgmtOutput.AppendText($DiskTextOutputTmp)
-	}catch{
-		$MgmtDiskMgmtForm.MgmtDiskMgmtOutput.AppendText("Invalid Computer Name or No Connection was Established.")
+	$TestRemoteComputer = Test-Connection -BufferSize 32 -Count 1 -ComputerName $RemoteComputer -Quiet
+	if($TestRemoteComputer -eq $true){
+		try{
+			$DiskTextOutputTmp = Get-WmiObject Win32_LogicalDisk -ComputerName $RemoteComputer | Select-Object DeviceID, VolumeName, @{'Name'='Size (GB)'; 'Expression'={[math]::truncate($_.size / 1GB)}}, @{'Name'='Freespace (GB)'; 'Expression'={[math]::truncate($_.freespace / 1GB)}} | Format-List | Out-String 
+			$MgmtDiskMgmtForm.MgmtDiskMgmtOutput.AppendText($DiskTextOutputTmp)
+		}catch{
+			$MgmtDiskMgmtForm.MgmtDiskMgmtOutput.AppendText("Invalid Computer Name or No Connection was Established.")
+		}
+	}else{
+		$MgmtDiskMgmtForm.MgmtDiskMgmtOutput.AppendText("Error: No Connection was Established to the Remote Computer.`n Note: Due to time constraints, the remoute computer needs to have a disabled firewall.")
 	}
 }
 Function OpenDiskMangementLocal{
