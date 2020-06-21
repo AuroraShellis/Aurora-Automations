@@ -147,7 +147,8 @@ Function DiagnosticsPortStatus {
 }
 Function DiagnosticsConnectionTest {
 	$DiagnosticsMenu.Hide()
-	$DiagTraceroute.DiagTraceOutput.AppendText("Please note: The traceroute may take awhile to process. Be patience.")
+	$DiagTraceroute.DiagTraceOutput.AppendText("Please note: The traceroute may take awhile to process. Be patience.`n")
+	$DiagTraceroute.DiagTraceOutput.AppendText("Due to limitations the program will stop responding during a traceroute.`n This is expected behavior.")
 	$DiagTraceroute.ShowDialog()
 }
 Function DiagnosticsBack{
@@ -711,28 +712,33 @@ Function MACFormSubmit {
 	$MgmtMACAddressForm.MgmtMACAddressOutput.Clear()
 	$NumbersubmittedInput = $MgmtMACAddressInput.Text
 	$Numbersubmitted = 1
-
-	While ($Numbersubmitted -le $NumberSubmittedInput){
-		$MacFormations = (1..12 | ForEach-Object {'{0:x}' -f (Get-Random -Minimum 0 -Maximum 15 )}) -join "" 
-		$Capitalize = $MacFormations.ToUpper() | Out-String
-		$SpaceAppend = $Capitalize -replace '(..)','$1 '
-		$HyphenAppend = $Capitalize -replace '(..)','$1-'
-		$ColAppend = $Capitalize -replace '(..)','$1:'
-		$RemoveExtra1 = $SpaceAppend.Substring(0,17)
-		$RemoveExtra2 = $HyphenAppend.Substring(0,17)
-		$RemoveExtra3 = $ColAppend.Substring(0,17)
-		if ($Numbersubmitted -eq 1){
-			$MgmtMACAddressForm.MgmtMACAddressOutput.AppendText("Here is the Requested Mac Address With Different Formats")
-			$MgmtMACAddressForm.MgmtMACAddressOutput.AppendText("`n____________________________")
+	$InputStringTest = $NumbersubmittedInput -as [Double]
+	$testvarok = $InputStringTest -ne $NULL
+	if( -not $testvarok){
+		$MgmtMACAddressForm.MgmtMACAddressOutput.AppendText("Please enter a vaild number.")
+	}else{
+		While ($Numbersubmitted -le $NumberSubmittedInput){
+				$MacFormations = (1..12 | ForEach-Object {'{0:x}' -f (Get-Random -Minimum 0 -Maximum 15 )}) -join "" 
+				$Capitalize = $MacFormations.ToUpper() | Out-String
+				$SpaceAppend = $Capitalize -replace '(..)','$1 '
+				$HyphenAppend = $Capitalize -replace '(..)','$1-'
+				$ColAppend = $Capitalize -replace '(..)','$1:'
+				$RemoveExtra1 = $SpaceAppend.Substring(0,17)
+				$RemoveExtra2 = $HyphenAppend.Substring(0,17)
+				$RemoveExtra3 = $ColAppend.Substring(0,17)
+				if ($Numbersubmitted -eq 1){
+					$MgmtMACAddressForm.MgmtMACAddressOutput.AppendText("Here is the Requested Mac Address With Different Formats")
+					$MgmtMACAddressForm.MgmtMACAddressOutput.AppendText("`n____________________________")
+				}
+				$MgmtMACAddressForm.MgmtMACAddressOutput.AppendText("`n")
+				$MgmtMACAddressForm.MgmtMACAddressOutput.AppendText("`n"+$Capitalize)
+				$MgmtMACAddressForm.MgmtMACAddressOutput.AppendText($RemoveExtra1+"`n")
+				$MgmtMACAddressForm.MgmtMACAddressOutput.AppendText($RemoveExtra2+"`n")
+				$MgmtMACAddressForm.MgmtMACAddressOutput.AppendText($RemoveExtra3+"`n")
+				$MgmtMACAddressForm.MgmtMACAddressOutput.AppendText("`n____________________________")
+				$Numbersubmitted++
 		}
-		$MgmtMACAddressForm.MgmtMACAddressOutput.AppendText("`n")
-		$MgmtMACAddressForm.MgmtMACAddressOutput.AppendText("`n"+$Capitalize)
-		$MgmtMACAddressForm.MgmtMACAddressOutput.AppendText($RemoveExtra1+"`n")
-		$MgmtMACAddressForm.MgmtMACAddressOutput.AppendText($RemoveExtra2+"`n")
-		$MgmtMACAddressForm.MgmtMACAddressOutput.AppendText($RemoveExtra3+"`n")
-		$MgmtMACAddressForm.MgmtMACAddressOutput.AppendText("`n____________________________")
-		$Numbersubmitted++
-	}	
+	}
 }
 Function MACBack{
 	$MGmtMACAddressForm.Hide()
@@ -925,7 +931,6 @@ function Trace-Route {
 #### END OF TREVOR SULLIVAN SCRIPT ####
 
 Function CheckingIPStatus {
-	#$DiagTraceroute.DiagTraceInput.Clear()
 	$DiagTraceroute.DiagTraceOutput.Clear()
 	$IPaddressStatus = $DiagTraceInput.Text
 	Trace-Route -TargetHost $IPaddressStatus -Timeout 500 -ResolveDns;
