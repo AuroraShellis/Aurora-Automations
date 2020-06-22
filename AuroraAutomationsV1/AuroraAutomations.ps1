@@ -223,25 +223,34 @@ Function Individual.User.Back{
 ### ACTIVE DIRECTORY OUM FORM
 Function ADOUMCreation{
 	$ADOUM.OUOutput.Clear()
-	$OUNameCreation = $OUCreateBox.Text
-	try {
-		New-ADOrganizationalUnit $OUNameCreation -ErrorAction Stop
-		Get-ADObject -Filter  {$OUNameCreation -eq 'organizationalunit' }
-		$ADOUM.OUOutput.AppendText("Creation of $OUNameCreation OU Sucessful.")
-	}
-	catch {
-		$ADOUM.OUOutput.AppendText("Error: The " + $OUNameCreation + " OU Already Exists in Active Directory Domain. Try Another Name.")
+	$OUNameCreation = $OUCreateBox.$OUNameCreation
+	if([string]::IsNullOrEmpty($OUNameCreation)){
+		$ADOUM.OUOutput.AppendText("Input can not be empty.")
+	}else{
+		try {
+			New-ADOrganizationalUnit $OUNameCreation -ErrorAction Stop
+			Get-ADObject -Filter  {$OUNameCreation -eq 'organizationalunit' }
+			$ADOUM.OUOutput.AppendText("Creation of $OUNameCreation OU Sucessful.")
+		}
+		catch {
+			$ADOUM.OUOutput.AppendText("Error: The " + $OUNameCreation + " OU Already Exists in Active Directory Domain. Try Another Name.")
+		}
 	}
 }
 
 Function ADOUMDeletion{
 	$ADOUM.OUOutput.Clear()
-	$OUnaming = "OU=" + $DeleteOUBox.Text + "," + (Get-ADDomain).DistinguishedName
-	try{
-		Get-ADOrganizationalUnit -Identity $OUnaming | Set-ADObject -ProtectedFromAccidentalDeletion:$false -PassThru | Remove-ADOrganizationalUnit -Confirm:$false -Recursive
-		$ADOUM.OUOutput.AppendText("The " + $DeleteOUBox.Text + " OU has been removed from the Domain Successfully.")
-	}catch{
-		$ADOUM.OUOutput.AppendText("The " + $DeleteOUBox.Text + " OU does not exist in the Domain anymore or never existed in the first place.")
+	$ADOUMDeleteBoxInput = $DeleteOUBox.Text
+	if([string]::IsNullOrEmpty($ADOUMDeleteBoxInput)){
+		$ADOUM.OUOutput.AppendText("Input can not be empty.")
+	}else{
+		$OUnaming = "OU=" + $DeleteOUBox.Text + "," + (Get-ADDomain).DistinguishedName
+		try{
+			Get-ADOrganizationalUnit -Identity $OUnaming | Set-ADObject -ProtectedFromAccidentalDeletion:$false -PassThru | Remove-ADOrganizationalUnit -Confirm:$false -Recursive
+			$ADOUM.OUOutput.AppendText("The " + $DeleteOUBox.Text + " OU has been removed from the Domain Successfully.")
+		}catch{
+			$ADOUM.OUOutput.AppendText("The " + $DeleteOUBox.Text + " OU does not exist in the Domain anymore or never existed in the first place.")
+		}
 	}
 }
 
@@ -249,13 +258,17 @@ Function ADOUMoveUser{
 	$ADOUM.OUOutput.Clear()
 	$MoveUserInput = $MoveOUUserTextBox.Text
 	$MoveOUInput = $MoveOUOUTextBox.Text
-	$UserDN  = (Get-ADUser $MoveUserInput).distinguishedName
-	$TargetOU = "OU=" + $MoveOUInput + "," + (Get-ADDomain).DistinguishedName
-	try{
-		Move-ADObject -Identity $UserDN -TargetPath $TargetOU
-		$ADOUM.OUOutput.AppendText("The " + $MoveUserInput + " user was succesfully moved to the " + $MoveOUInput + " OU.")
-	}catch{
-		$ADOUM.OUOutput.AppendText("The " + $MoveUserInput + " user could not be moved to the " + $MoveOUInput + " OU. Check if the User or OU Exists.")
+	if(([string]::IsNullOrEmpty($MoveUserInput)) -or ([string]::IsNullOrEmpty($MoveOUInput))){
+		$ADOUM.OUOutput.AppendText("Input can not be empty.")
+	}else{
+		$UserDN  = (Get-ADUser $MoveUserInput).distinguishedName
+		$TargetOU = "OU=" + $MoveOUInput + "," + (Get-ADDomain).DistinguishedName
+		try{
+			Move-ADObject -Identity $UserDN -TargetPath $TargetOU
+			$ADOUM.OUOutput.AppendText("The " + $MoveUserInput + " user was succesfully moved to the " + $MoveOUInput + " OU.")
+		}catch{
+			$ADOUM.OUOutput.AppendText("The " + $MoveUserInput + " user could not be moved to the " + $MoveOUInput + " OU. Check if the User or OU Exists.")
+		}
 	}
 }
 
@@ -263,17 +276,20 @@ Function OUUserQuery{
 	$ADOUM.OUOutput.Clear()
 	$QueryOUInput = $QueryOUTextBox.Text
 	$TargetOUQuery = "OU=" + $QueryOUInput + "," + (Get-ADDomain).DistinguishedName
-
-	try{
-    $OUSearchList =	Get-ADUser -Filter * -SearchBase $TargetOUQuery | Select-Object SamAccountName, Name, Enabled, ObjectClass | Format-List SamAccountName, Name, Enabled, ObjectClass | Out-String
-		if(-not [string]::IsNullOrEmpty($OUSearchList)){
-			$ADOUM.OUOutput.AppendText($OUSearchList)
-		}else{
-			$ADOUM.OUOutput.AppendText("Could not find any Users in the " + $QueryOUInput + " OU.")
+	if([string]::IsNullOrEmpty($QueryOUInput)){
+		$ADOUM.OUOutput.AppendText("Input can not be empty.")
+	}else{
+		try{
+		$OUSearchList =	Get-ADUser -Filter * -SearchBase $TargetOUQuery | Select-Object SamAccountName, Name, Enabled, ObjectClass | Format-List SamAccountName, Name, Enabled, ObjectClass | Out-String
+			if(-not [string]::IsNullOrEmpty($OUSearchList)){
+				$ADOUM.OUOutput.AppendText($OUSearchList)
+			}else{
+				$ADOUM.OUOutput.AppendText("Could not find any Users in the " + $QueryOUInput + " OU.")
+			}
 		}
-	}
-	catch{
-    $ADOUM.OUOutput.AppendText("Could not find any Users in the " + $QueryOUInput + " OU. Check if the OU exists beforehand.")
+		catch{
+		$ADOUM.OUOutput.AppendText("Could not find any Users in the " + $QueryOUInput + " OU. Check if the OU exists beforehand.")
+		}
 	}
 }
 
@@ -285,6 +301,7 @@ Function OUGetList{
 
 Function ADOUM.Back{
 	$ADOUM.Hide()
+	$ADOUM.OUOutput.Clear()
 	$ActiveDirectoryMenu.Show()
 }
 
