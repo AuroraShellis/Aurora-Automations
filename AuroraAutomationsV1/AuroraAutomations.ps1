@@ -460,7 +460,7 @@ Function ADBulkCSVAddUsers{
 	$ADFilePathName = $ADBulkCSVInput.Text
 	if([string]::IsNullOrEmpty($ADFilePathName)){
 		$ADBulkUserCreation.ADBulkOutput.AppendText("Input field must not be empty.")
-	}elseif(-not ($ADFilePathName -Like "*.xml")){
+	}elseif(-not ($ADFilePathName -Like "*.csv")){
 		$ADBulkUserCreation.ADBulkOutput.AppendText("File must be a CSV only.")
 	}
 	else{
@@ -963,10 +963,19 @@ function Trace-Route {
 Function CheckingIPStatus {
 	$DiagTraceroute.DiagTraceOutput.Clear()
 	$IPaddressStatus = $DiagTraceInput.Text
-	Trace-Route -TargetHost $IPaddressStatus -Timeout 500 -ResolveDns;
+	$TestPingRequestRemoteIP = Test-Connection -BufferSize 32 -Count 1 -ComputerName $IPaddressStatus -Quiet
+	if([string]::IsNullOrEmpty($IPaddressStatus)){
+		$DiagTraceroute.DiagTraceOutput.AppendText("Input field must not be empty.")
+	}
+	elseif($TestPingRequestRemoteIP -eq $true){
+		Trace-Route -TargetHost $IPaddressStatus -Timeout 500 -ResolveDns;
+	}else{
+		$DiagTraceroute.DiagTraceOutput.AppendText("Error: No Connection was Established to the Remote IP. Check if the input is valid.")
+	}
 }
 Function BackConnectionStatusForm {
 	$DiagTraceroute.DiagTraceInput.Clear()
+	$DiagTraceroute.DiagTraceOutput.Clear()
 	$DiagTraceroute.Hide()
 	$DiagnosticsMenu.Show()
 }
