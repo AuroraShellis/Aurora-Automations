@@ -274,7 +274,7 @@ Function OUUserQuery{
 
 Function OUGetList{
 	$ADOUM.OUOutput.Clear()
-	$OUObjectList = Get-ADObject -Filter { ObjectClass -eq 'organizationalunit' }
+	$OUObjectList = Get-ADObject -Filter {ObjectClass -eq 'organizationalunit'} | Select-Object DistinguishedName, Name | Format-List DistinguishedName, Name | Out-String
 	$ADOUM.OUOutput.AppendText($OUObjectList)
 }
 
@@ -324,12 +324,13 @@ Function ADDeleteFormUserDeletion{
 
 Function UDGetList{
 	$ADUserDeletion.UserDeleteOutput.Clear()
-	$UDOUObjectList = Get-ADObject -Filter { ObjectClass -eq 'organizationalunit' }
+	$UDOUObjectList = Get-ADObject -Filter {ObjectClass -eq 'organizationalunit'} | Select-Object DistinguishedName, Name | Format-List DistinguishedName, Name | Out-String
 	$ADUserDeletion.UserDeleteOutput.AppendText($UDOUObjectList)
 }
 
 Function ADUD.Back{
 	$ADUserDeletion.Hide()
+	$ADUserDeletion.UserDeleteOutput.Clear()
 	$ActiveDirectoryMenu.Show()
 }
 ### GROUP MANAGEMENT FORM 
@@ -390,7 +391,7 @@ Function GroupMovementOU {
 }
 Function ListOUGroupManagement {
 	$ADGroupMgmt.ADGroupMgmtOutput.Clear()
-	$GroupManagmentListOU = Get-ADObject -Filter { ObjectClass -eq 'organizationalunit' }
+	$GroupManagmentListOU = Get-ADObject -Filter {ObjectClass -eq 'organizationalunit'} | Select-Object DistinguishedName, Name | Format-List DistinguishedName, Name | Out-String
 	$ADGroupMgmt.ADGroupMgmtOutput.AppendText($GroupManagmentListOU)
 }
 
@@ -432,7 +433,7 @@ Function PasswordResetInputs{
 }
 Function PasswordListOU{
 	$ADPasswordReset.ADPasswordOutput.Clear()
-	$PWOLObjectList = Get-ADObject -Filter { ObjectClass -eq 'organizationalunit' }
+	Get-ADObject -Filter {ObjectClass -eq 'organizationalunit'} | Select-Object DistinguishedName, Name | Format-List DistinguishedName, Name | Out-String
 	$ADPasswordReset.ADPasswordOutput.AppendText($PWOLObjectList)
 }
 Function PasswordResetBack{
@@ -852,7 +853,7 @@ Function RemoteQueryOSArchitecture {
 		$DiagCheckOS.DiagRemoteOSOutput.AppendText("This remote computer is running: " + $DiagRemoteJoin)
 		$DiagCheckOS.DiagRemoteOSOutput.AppendText("`nThis remote computer's architecture is " + $DiagRemoteInfo2)
 	}else{
-		$DiagCheckOS.DiagRemoteOSOutput.AppendText("Error: No Connection was Established to the Remote Computer. Check if the input is valid.")
+		$DiagCheckOS.DiagRemoteOSOutput.AppendText("Error: No Connection was Established to the Remote Computer. Check if the input is valid. `n Warning: This requires the remote firewall to be turned off due to limitations.")
 	}
 }
 Function RefreshCheckLocalMachinesOS {
