@@ -448,6 +448,7 @@ Function ADBulkCSVBrowse{
 		$FilePathCSVPopup = $ADOpenFileBrowse.filename
 	}else{
 		$ADBulkUserCreation.ADBulkCSVInput.Clear()
+		$ADBulkUserCreation.ADBulkOutput.Clear()
 		$ADBulkUserCreation.ADBulkOutput.AppendText("File not selected. Invalid File.")
 	}
 	$ADBulkUserCreation.ADBulkCSVInput.AppendText($FilePathCSVPopup)
@@ -459,7 +460,10 @@ Function ADBulkCSVAddUsers{
 	$ADFilePathName = $ADBulkCSVInput.Text
 	if([string]::IsNullOrEmpty($ADFilePathName)){
 		$ADBulkUserCreation.ADBulkOutput.AppendText("Input field must not be empty.")
-	}else{
+	}elseif(-not ($ADFilePathName -Like "*.xml")){
+		$ADBulkUserCreation.ADBulkOutput.AppendText("File must be a CSV only.")
+	}
+	else{
 		$ImportedCSVADUsers = Import-CSV -Path $ADFilePathName
 		foreach ($BulkUser in $ImportedCSVADUsers){       
 			$BulkUserFirstName = $BulkUser.FirstName 
