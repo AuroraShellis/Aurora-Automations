@@ -310,19 +310,25 @@ Function ADDeleteFormOUQuery{
 	$ADUserDeletion.UserDeleteOutput.Clear()
 	$UserDeleteQueryOUInput = $UserDeleteQueryTextBox.Text
 	$TargetUserDeleteOUQuery = "OU=" + $UserDeleteQueryOUInput + "," + (Get-ADDomain).DistinguishedName
-
-	try{
-		$UserDeleteOUSearchList = Get-ADUser -Filter * -SearchBase $TargetUserDeleteOUQuery | Select-Object SamAccountName, Name, Enabled, ObjectClass | Format-List SamAccountName, Name, Enabled, ObjectClass | Out-String
-		$ADUserDeletion.UserDeleteOutput.AppendText($UserDeleteOUSearchList)
-	}
-	catch{
-	 $ADUserDeletion.UserDeleteOutput.AppendText("Could not find any Users in the " + $UserDeleteQueryOUInput + " OU. Check if the OU exists beforehand.")
+	if([string]::IsNullOrEmpty($UserDeleteQueryOUInput)){
+		$ADUserDeletion.UserDeleteOutput.AppendText("Input can not be empty.")
+	}else{
+		try{
+			$UserDeleteOUSearchList = Get-ADUser -Filter * -SearchBase $TargetUserDeleteOUQuery | Select-Object SamAccountName, Name, Enabled, ObjectClass | Format-List SamAccountName, Name, Enabled, ObjectClass | Out-String
+			if(-not [string]::IsNullOrEmpty($UserDeleteOUSearchList)){
+				$ADUserDeletion.UserDeleteOutput.AppendText($UserDeleteOUSearchList)
+			}else{
+				$ADUserDeletion.UserDeleteOutput.AppendText("Could not find any Users in the " + $UserDeleteQueryOUInput + " OU.")
+			}
+		}
+		catch{
+			$ADUserDeletion.UserDeleteOutput.AppendText("Could not find any Users in the " + $UserDeleteQueryOUInput + " OU. Check if the OU exists beforehand.")
+		}
 	}
 }
 Function ADDeleteFormUsersCNQuery{
 	$ADUserDeletion.UserDeleteOutput.Clear()
 	$TargetUserDeleteUsersCNQuery = "CN=Users," + (Get-ADDomain).DistinguishedName
-
 	try{
 		$UserDeleteCNUserSearchList = Get-ADUser -Filter * -SearchBase $TargetUserDeleteUsersCNQuery | Select-Object SamAccountName, Name, Enabled, ObjectClass | Format-List SamAccountName, Name, Enabled, ObjectClass | Out-String
 		$ADUserDeletion.UserDeleteOutput.AppendText($UserDeleteCNUserSearchList)
@@ -335,12 +341,15 @@ Function ADDeleteFormUsersCNQuery{
 Function ADDeleteFormUserDeletion{
 	$ADUserDeletion.UserDeleteOutput.Clear()
 	$UserDeleteSamNameInput = $UserDeleteUserTextBox.Text
-
-	try{
-		Remove-ADUser -Identity $UserDeleteSamNameInput -Confirm:$False
-		$ADUserDeletion.UserDeleteOutput.AppendText("The " + $UserDeleteSamNameInput + " User has been removed from the Domain Successfully.")
-	}catch{
-		$ADUserDeletion.UserDeleteOutput.AppendText("The " + $UserDeleteSamNameInput + " User does not exist in the Domain anymore or never existed in the first place. Check your spelling.")
+	if([string]::IsNullOrEmpty($UserDeleteSamNameInput)){
+		$ADUserDeletion.UserDeleteOutput.AppendText("Input can not be empty.")
+	}else{
+		try{
+			Remove-ADUser -Identity $UserDeleteSamNameInput -Confirm:$False
+			$ADUserDeletion.UserDeleteOutput.AppendText("The " + $UserDeleteSamNameInput + " User has been removed from the Domain Successfully.")
+		}catch{
+			$ADUserDeletion.UserDeleteOutput.AppendText("The " + $UserDeleteSamNameInput + " User does not exist in the Domain anymore or never existed in the first place. Check your spelling.")
+		}
 	}
 }
 
@@ -355,18 +364,26 @@ Function ADUD.Back{
 	$ADUserDeletion.UserDeleteOutput.Clear()
 	$ActiveDirectoryMenu.Show()
 }
+
 ### GROUP MANAGEMENT FORM 
 Function GroupQuery {
 	$ADGroupMgmt.ADGroupMgmtOutput.Clear()
 	$QueryGMInput = $ADGroupQueryTextBox.Text
 	$TargetGMQuery = "OU=" + $QueryGMInput + "," + (Get-ADDomain).DistinguishedName
-
-	try{
-    $GroupSearchList =	Get-ADGroup -Filter * -SearchBase $TargetGMQuery | Select-Object Name , GroupCategory, GroupScope | Format-List  Name , GroupCategory, GroupScope | Out-string
-    $ADGroupMgmt.ADGroupMgmtOutput.AppendText($GroupSearchList)
-	}
-	catch{
-    $ADGroupMgmt.ADGroupMgmtOutput.AppendText("Could not find any Users in the " + $QueryGMInput + " OU. Check if the OU exists beforehand.")
+	if([string]::IsNullOrEmpty($QueryGMInput)){
+		$ADGroupMgmt.ADGroupMgmtOutput.AppendText("Input can not be empty.")
+	}else{
+		try{
+			$GroupSearchList =	Get-ADGroup -Filter * -SearchBase $TargetGMQuery | Select-Object Name , GroupCategory, GroupScope | Format-List  Name , GroupCategory, GroupScope | Out-string
+			if(-not [string]::IsNullOrEmpty($GroupSearchList)){
+				$ADGroupMgmt.ADGroupMgmtOutput.AppendText($GroupSearchList)
+			}else{
+				$ADGroupMgmt.ADGroupMgmtOutput.AppendText("Could not find any Groups in the " + $QueryGMInput + " OU.")
+			}
+		}
+		catch{
+			$ADGroupMgmt.ADGroupMgmtOutput.AppendText("Could not find any Users in the " + $QueryGMInput + " OU. Check if the OU exists beforehand.")
+		}
 	}
 }
 
@@ -428,12 +445,20 @@ Function PasswordOUQuery{
 	$ADPasswordReset.ADPasswordOutput.Clear()
 	$QueryPWInput = $PassResetQueryTextBox.Text
 	$TargetPWQuery = "OU=" + $QueryPWInput + "," + (Get-ADDomain).DistinguishedName
-	try{
-		$PasswordSearchList = Get-ADUser -Filter * -SearchBase $TargetPWQuery | Select-Object SamAccountName, Name, Enabled, ObjectClass | Format-List SamAccountName, Name, Enabled, ObjectClass | Out-String
-		$ADPasswordReset.ADPasswordOutput.AppendText($PasswordSearchList)
-	}
-	catch{
-		$ADPasswordReset.ADPasswordOutput.AppendText("Could not find any Users in the " + $QueryPWInput + " OU. Check if the OU exists beforehand.")
+	if([string]::IsNullOrEmpty($QueryPWInput)){
+		$ADPasswordReset.ADPasswordOutput.AppendText("Input can not be empty.")
+	}else{
+		try{
+			$PasswordSearchList = Get-ADUser -Filter * -SearchBase $TargetPWQuery | Select-Object SamAccountName, Name, Enabled, ObjectClass | Format-List SamAccountName, Name, Enabled, ObjectClass | Out-String
+			if(-not [string]::IsNullOrEmpty($PasswordSearchList)){
+				$ADPasswordReset.ADPasswordOutput.AppendText($PasswordSearchList)
+			}else{
+				$ADPasswordReset.ADPasswordOutput.AppendText("Could not find any Users in the " + $QueryPWInput + " OU.")
+			}	
+		}
+		catch{
+			$ADPasswordReset.ADPasswordOutput.AppendText("Could not find any Users in the " + $QueryPWInput + " OU. Check if the OU exists beforehand.")
+		}
 	}
 }
 Function PasswordResetInputs{
@@ -455,7 +480,7 @@ Function PasswordResetInputs{
 }
 Function PasswordListOU{
 	$ADPasswordReset.ADPasswordOutput.Clear()
-	Get-ADObject -Filter {ObjectClass -eq 'organizationalunit'} | Select-Object DistinguishedName, Name | Format-List DistinguishedName, Name | Out-String
+	$PWOLObjectList = Get-ADObject -Filter {ObjectClass -eq 'organizationalunit'} | Select-Object DistinguishedName, Name | Format-List DistinguishedName, Name | Out-String
 	$ADPasswordReset.ADPasswordOutput.AppendText($PWOLObjectList)
 }
 Function PasswordResetBack{
@@ -463,6 +488,7 @@ Function PasswordResetBack{
 	$ADPasswordReset.Hide()
 	$ActiveDirectoryMenu.Show()
 }
+
 ### CSV BULK USER CREATION FORM 
 Function ADBulkCSVBrowse{
 	$ADBulkUserCreation.ADBulkCSVInput.Clear()
@@ -479,7 +505,6 @@ Function ADBulkCSVBrowse{
 
 Function ADBulkCSVAddUsers{
 	$ADBulkUserCreation.ADBulkOutput.Clear()
-	#$ADBulkUserCreation.ADBulkOutput.AppendText($FilePathCSVPopup)
 	$ADFilePathName = $ADBulkCSVInput.Text
 	if([string]::IsNullOrEmpty($ADFilePathName)){
 		$ADBulkUserCreation.ADBulkOutput.AppendText("Input field must not be empty.")
