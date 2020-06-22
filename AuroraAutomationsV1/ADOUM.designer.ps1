@@ -83,6 +83,7 @@ $OUOutput.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([Syst
 $OUOutput.TabIndex = [System.Int32]3
 $OUOutput.Text = [System.String]''
 $OUOutput.add_TextChanged($ADPrereqOutput_TextChanged)
+$OUOutput.ReadOnly = $true
 #
 #OUCreateLabel
 #

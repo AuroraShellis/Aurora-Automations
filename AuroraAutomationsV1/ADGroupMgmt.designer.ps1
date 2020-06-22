@@ -81,6 +81,7 @@ $ADGroupMgmtOutput.Name = [System.String]'ADGroupMgmtOutput'
 $ADGroupMgmtOutput.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]298,[System.Int32]280))
 $ADGroupMgmtOutput.TabIndex = [System.Int32]3
 $ADGroupMgmtOutput.Text = [System.String]''
+$ADGroupMgmtOutput.ReadOnly = $true
 #
 #ADGroupLabel2
 #

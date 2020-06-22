@@ -76,6 +76,7 @@ $UserDeleteOutput.Name = [System.String]'UserDeleteOutput'
 $UserDeleteOutput.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]298,[System.Int32]280))
 $UserDeleteOutput.TabIndex = [System.Int32]4
 $UserDeleteOutput.Text = [System.String]''
+$UserDeleteOutput.ReadOnly = $true
 #
 #UserDeleteLabel2
 #
