@@ -156,6 +156,8 @@ Function DiagnosticsBack{
 	$DiagnosticsMenu.Hide()
 	$MainMenu.Show()
 }
+
+
 ### ACTIVE DIRECTORY BUTTONS - 3RD LAYER
 ### USER CREATION FORM
 Function Individual.User.Submit {
@@ -249,7 +251,6 @@ Function ADOUMoveUser{
 	$MoveOUInput = $MoveOUOUTextBox.Text
 	$UserDN  = (Get-ADUser $MoveUserInput).distinguishedName
 	$TargetOU = "OU=" + $MoveOUInput + "," + (Get-ADDomain).DistinguishedName
-	
 	try{
 		Move-ADObject -Identity $UserDN -TargetPath $TargetOU
 		$ADOUM.OUOutput.AppendText("The " + $MoveUserInput + " user was succesfully moved to the " + $MoveOUInput + " OU.")
@@ -265,7 +266,11 @@ Function OUUserQuery{
 
 	try{
     $OUSearchList =	Get-ADUser -Filter * -SearchBase $TargetOUQuery | Select-Object SamAccountName, Name, Enabled, ObjectClass | Format-List SamAccountName, Name, Enabled, ObjectClass | Out-String
-    $ADOUM.OUOutput.AppendText($OUSearchList)
+		if(-not [string]::IsNullOrEmpty($OUSearchList)){
+			$ADOUM.OUOutput.AppendText($OUSearchList)
+		}else{
+			$ADOUM.OUOutput.AppendText("Could not find any Users in the " + $QueryOUInput + " OU.")
+		}
 	}
 	catch{
     $ADOUM.OUOutput.AppendText("Could not find any Users in the " + $QueryOUInput + " OU. Check if the OU exists beforehand.")
@@ -527,7 +532,8 @@ Function CSVBulkBack{
 	$ActiveDirectoryMenu.Show()
 }
 
-## Manage MENU BUTTONS 3RD LAYER
+
+## MANAGEMENT MENU BUTTONS 3RD LAYER
 ### FILE SHARE PERMISSION CHECK 
 Function FilesShareCreationButton{
 	$MgmtFileShareForm.MgmtFileShareOutput.Clear()
@@ -796,7 +802,8 @@ Function OpenDiskMangementLocal{
 	}
 }
 
-## DIAGNOSTIC MENU BUTTONS - 3RD LAYER
+
+## DIAGNOSTICS MENU BUTTONS - 3RD LAYER
 ### CHECK ACTIVE DIRECTORY INFORMATION
 Function RefreshActiveDirectoryDetails{
 	$DiagADDetails.DiagADDetailsOutput.Clear()
