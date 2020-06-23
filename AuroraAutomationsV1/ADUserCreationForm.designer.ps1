@@ -119,6 +119,9 @@ $ADUserCreationForm.Controls.Add($FirstNameTxtBox)
 $ADUserCreationForm.Controls.Add($label3)
 $ADUserCreationForm.Controls.Add($label2)
 $ADUserCreationForm.Controls.Add($label1)
+$ADUserCreationForm.MaximizeBox = $false
+$ADUserCreationForm.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
+$ADUserCreationForm.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
 $ADUserCreationForm.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $ADUserCreationForm.Name = [System.String]'ADUserCreationForm'
 $ADUserCreationForm.Text = [System.String]'Active Directory User Creation - Aurora Automation'

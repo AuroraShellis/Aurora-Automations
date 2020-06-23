@@ -250,6 +250,9 @@ $ADOUM.Controls.Add($OUOutput)
 $ADOUM.Controls.Add($OuDesc)
 $ADOUM.Controls.Add($OUCreateButton)
 $ADOUM.Controls.Add($OUBackButton)
+$ADOUM.MaximizeBox = $false
+$ADOUM.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
+$ADOUM.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
 $ADOUM.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $ADOUM.Name = [System.String]'ADOUM'
 $ADOUM.Text = [System.String]'Organizational Unit Management - Aurora Automations'

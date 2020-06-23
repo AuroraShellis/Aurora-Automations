@@ -235,6 +235,9 @@ $ADGroupMgmt.Controls.Add($ADGroupMgmtOutput)
 $ADGroupMgmt.Controls.Add($ADGroupLabel1)
 $ADGroupMgmt.Controls.Add($ADGroupSubmit)
 $ADGroupMgmt.Controls.Add($ADGroupBack)
+$ADGroupMgmt.MaximizeBox = $false
+$ADGroupMgmt.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
+$ADGroupMgmt.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
 $ADGroupMgmt.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $ADGroupMgmt.Name = [System.String]'ADGroupMgmt'
 $ADGroupMgmt.Text = [System.String]'Active Directory Group Management - Aurora Automations'

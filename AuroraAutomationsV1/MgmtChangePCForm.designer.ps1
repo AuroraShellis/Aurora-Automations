@@ -121,6 +121,9 @@ $MgmtChangePCForm.Controls.Add($MgmtChangePCInput)
 $MgmtChangePCForm.Controls.Add($MgmtChangePCRemove)
 $MgmtChangePCForm.Controls.Add($MgmtChangePCQuery)
 $MgmtChangePCForm.Controls.Add($MgmtChangePCBack)
+$MgmtChangePCForm.MaximizeBox = $false
+$MgmtChangePCForm.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
+$MgmtChangePCForm.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
 $MgmtChangePCForm.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $MgmtChangePCForm.Name = [System.String]'MgmtChangePCForm'
 $MgmtChangePCForm.Text = [System.String]'Change Computer Name and Domain/Workgroup settings - Aurora Automations'

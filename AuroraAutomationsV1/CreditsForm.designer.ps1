@@ -49,6 +49,9 @@ $CreditsForm.ClientSize = (New-Object -TypeName System.Drawing.Size -ArgumentLis
 $CreditsForm.Controls.Add($CreditsPictureBox)
 $CreditsForm.Controls.Add($CreditsOutput)
 $CreditsForm.Controls.Add($CreditsBack)
+$CreditsForm.MaximizeBox = $false
+$CreditsForm.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
+$CreditsForm.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
 $CreditsForm.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $CreditsForm.Name = [System.String]'CreditsForm'
 $CreditsForm.Text = [System.String]'Credits - Aurora Automations'

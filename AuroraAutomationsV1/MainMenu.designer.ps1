@@ -180,6 +180,9 @@ $MainMenu.Controls.Add($OpenAD)
 $MainMenu.Controls.Add($DiagnosticMenuLabel)
 $MainMenu.Controls.Add($ManagementLabel)
 $MainMenu.Controls.Add($ActiveDirectoryLabel)
+$MainMenu.MaximizeBox = $false
+$MainMenu.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
+$MainMenu.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
 $MainMenu.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $MainMenu.Name = [System.String]'MainMenu'
 $MainMenu.Text = [System.String]'Main Menu - Aurora Automations'

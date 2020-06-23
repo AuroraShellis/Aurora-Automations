@@ -107,6 +107,9 @@ $DiagCheckOS.Controls.Add($DiagRemoteOSInput)
 $DiagCheckOS.Controls.Add($DiagRemoteOSLocal)
 $DiagCheckOS.Controls.Add($DiagRemoteOSSubmit)
 $DiagCheckOS.Controls.Add($DiagRemoteOSBack)
+$DiagCheckOS.MaximizeBox = $false
+$DiagCheckOS.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
+$DiagCheckOS.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
 $DiagCheckOS.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $DiagCheckOS.Name = [System.String]'DiagCheckOS'
 $DiagCheckOS.Text = [System.String]'Check Remote Operating System Architecture - Aurora Automations'

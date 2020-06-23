@@ -111,6 +111,9 @@ $MgmtFilePermissionForm.Controls.Add($MgmtFilePermLabel1)
 $MgmtFilePermissionForm.Controls.Add($MgmtFilePermOutput)
 $MgmtFilePermissionForm.Controls.Add($MgmtFilePermInput)
 $MgmtFilePermissionForm.Controls.Add($MgmtFilePermBack)
+$MgmtFilePermissionForm.MaximizeBox = $false
+$MgmtFilePermissionForm.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
+$MgmtFilePermissionForm.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
 $MgmtFilePermissionForm.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $MgmtFilePermissionForm.Name = [System.String]'MgmtFilePermissionForm'
 $MgmtFilePermissionForm.Text = [System.String]'Check Folder Permissions - Aurora Automations'

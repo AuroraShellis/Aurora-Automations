@@ -1030,6 +1030,20 @@ Function BackConnectionStatusForm {
 	$DiagnosticsMenu.Show()
 }
 
+# CENTER FIX FOR FORMS
+#$MainMenu.MaximizeBox = $false
+#$MainMenu.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
+#$MainMenu.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
+
+#$ActiveDirectoryMenu.MaximizeBox = $false
+#$ActiveDirectoryMenu.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
+#$ActiveDirectoryMenu.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterParent
+
+#$ADBulkUserCreation.MaximizeBox = $false
+#$ADBulkUserCreation.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
+#$ADBulkUserCreation.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterParent
+
+
 
 # JOIN PATH FOR ALL DESIGNERS
 ## MAINMENU

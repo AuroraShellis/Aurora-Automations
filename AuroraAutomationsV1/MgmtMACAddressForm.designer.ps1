@@ -94,6 +94,9 @@ $MgmtMACAddressForm.Controls.Add($MgmtMACAddressOutput)
 $MgmtMACAddressForm.Controls.Add($MgmtMACAddressInput)
 $MgmtMACAddressForm.Controls.Add($MgmtMACAddressSubmit)
 $MgmtMACAddressForm.Controls.Add($MgmtMACAddressBack)
+$MgmtMACAddressForm.MaximizeBox = $false
+$MgmtMACAddressForm.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
+$MgmtMACAddressForm.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
 $MgmtMACAddressForm.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $MgmtMACAddressForm.Name = [System.String]'MgmtMACAddressForm'
 $MgmtMACAddressForm.Text = [System.String]'Generate MAC Addresses - Aurora Automations'

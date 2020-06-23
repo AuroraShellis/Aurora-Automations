@@ -230,6 +230,9 @@ $MgmtChangeIPForm.Controls.Add($MgmtChangeIPInput)
 $MgmtChangeIPForm.Controls.Add($MgmtChangeIPSubmit)
 $MgmtChangeIPForm.Controls.Add($MgmtChangeIPQuery)
 $MgmtChangeIPForm.Controls.Add($MgmtChangeIPBack)
+$MgmtChangeIPForm.MaximizeBox = $false
+$MgmtChangeIPForm.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
+$MgmtChangeIPForm.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
 $MgmtChangeIPForm.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $MgmtChangeIPForm.Name = [System.String]'MgmtChangeIPForm'
 $MgmtChangeIPForm.Text = [System.String]' Change IP Address - Aurora Automations'

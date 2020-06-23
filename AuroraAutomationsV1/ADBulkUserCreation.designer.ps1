@@ -115,6 +115,9 @@ $ADBulkUserCreation.Controls.Add($ADBulkLabel2)
 $ADBulkUserCreation.Controls.Add($ADBulkLabel1)
 $ADBulkUserCreation.Controls.Add($ADBulkSubmit)
 $ADBulkUserCreation.Controls.Add($ADBulkBack)
+$ADBulkUserCreation.MaximizeBox = $false
+$ADBulkUserCreation.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
+$ADBulkUserCreation.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
 $ADBulkUserCreation.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $ADBulkUserCreation.Name = [System.String]'ADBulkUserCreation'
 $ADBulkUserCreation.Text = [System.String]'Bulk User Creation - Aurora Automations'

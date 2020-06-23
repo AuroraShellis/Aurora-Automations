@@ -112,6 +112,10 @@ $ActiveDirectoryMenu.Controls.Add($ADUserDelete)
 $ActiveDirectoryMenu.Controls.Add($ADUserCreate)
 $ActiveDirectoryMenu.Controls.Add($ADDomainCreate)
 $ActiveDirectoryMenu.Controls.Add($ADInstall)
+$ActiveDirectoryMenu.MaximizeBox = $false
+$ActiveDirectoryMenu.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
+$ActiveDirectoryMenu.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
+
 $ActiveDirectoryMenu.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $ActiveDirectoryMenu.Name = [System.String]'ActiveDirectoryMenu'
 $ActiveDirectoryMenu.Text = [System.String]'Active Directory Menu - Aurora Automations'

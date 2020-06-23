@@ -166,6 +166,9 @@ $ADUserDeletion.Controls.Add($UserDeleteQueryTextBox)
 $ADUserDeletion.Controls.Add($UserDeleteLabel)
 $ADUserDeletion.Controls.Add($UserDeleteSubmit)
 $ADUserDeletion.Controls.Add($UserDeleteBack)
+$ADUserDeletion.MaximizeBox = $false
+$ADUserDeletion.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
+$ADUserDeletion.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
 $ADUserDeletion.HelpButton = $true
 $ADUserDeletion.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $ADUserDeletion.Name = [System.String]'ADUserDeletion'
