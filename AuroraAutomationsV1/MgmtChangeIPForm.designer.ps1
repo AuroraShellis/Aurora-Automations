@@ -20,6 +20,7 @@ $MgmtChangeIPForm = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Label]$MgmtChangeIPLabel69 = $null
 [System.Windows.Forms.TextBox]$MgmtChangeAdapterInput = $null
 [System.Windows.Forms.Button]$QueryNetworkAdaptorsSubmit = $null
+[System.Windows.Forms.Button]$MgmtResetIpButton = $null
 [System.Windows.Forms.Button]$button1 = $null
 function InitializeComponent
 {
@@ -43,6 +44,7 @@ $MgmtChangeIPLabel7 = (New-Object -TypeName System.Windows.Forms.Label)
 $MgmtChangeIPLabel69 = (New-Object -TypeName System.Windows.Forms.Label)
 $MgmtChangeAdapterInput = (New-Object -TypeName System.Windows.Forms.TextBox)
 $QueryNetworkAdaptorsSubmit = (New-Object -TypeName System.Windows.Forms.Button)
+$MgmtResetIpButton = (New-Object -TypeName System.Windows.Forms.Button)
 $MgmtChangeIPForm.SuspendLayout()
 #
 #MgmtChangeIPBack
@@ -187,9 +189,9 @@ $MgmtChangeIPLabel7.Text = [System.String]'Alternative DNS:'
 $MgmtChangeIPLabel69.AutoSize = $true
 $MgmtChangeIPLabel69.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]439,[System.Int32]129))
 $MgmtChangeIPLabel69.Name = [System.String]'MgmtChangeIPLabel69'
-$MgmtChangeIPLabel69.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]77,[System.Int32]13))
+$MgmtChangeIPLabel69.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]81,[System.Int32]13))
 $MgmtChangeIPLabel69.TabIndex = [System.Int32]17
-$MgmtChangeIPLabel69.Text = [System.String]'Interface Alias:'
+$MgmtChangeIPLabel69.Text = [System.String]'Interface Index:'
 #
 #MgmtChangeAdapterInput
 #
@@ -208,9 +210,20 @@ $QueryNetworkAdaptorsSubmit.Text = [System.String]'Query Adaptors'
 $QueryNetworkAdaptorsSubmit.UseVisualStyleBackColor = $true
 $QueryNetworkAdaptorsSubmit.add_Click({QueryAdaptors})
 #
+#MgmtResetIpButton
+#
+$MgmtResetIpButton.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]442,[System.Int32]394))
+$MgmtResetIpButton.Name = [System.String]'MgmtResetIpButton'
+$MgmtResetIpButton.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]75,[System.Int32]23))
+$MgmtResetIpButton.TabIndex = [System.Int32]19
+$MgmtResetIpButton.Text = [System.String]'Reset'
+$MgmtResetIpButton.UseVisualStyleBackColor = $true
+$MgmtResetIpButton.add_Click({ResetAdaptorIP})
+#
 #MgmtChangeIPForm
 #
 $MgmtChangeIPForm.ClientSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]624,[System.Int32]441))
+$MgmtChangeIPForm.Controls.Add($MgmtResetIpButton)
 $MgmtChangeIPForm.Controls.Add($QueryNetworkAdaptorsSubmit)
 $MgmtChangeIPForm.Controls.Add($MgmtChangeIPLabel69)
 $MgmtChangeIPForm.Controls.Add($MgmtChangeAdapterInput)
@@ -230,11 +243,11 @@ $MgmtChangeIPForm.Controls.Add($MgmtChangeIPInput)
 $MgmtChangeIPForm.Controls.Add($MgmtChangeIPSubmit)
 $MgmtChangeIPForm.Controls.Add($MgmtChangeIPQuery)
 $MgmtChangeIPForm.Controls.Add($MgmtChangeIPBack)
-$MgmtChangeIPForm.MaximizeBox = $false
 $MgmtChangeIPForm.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
-$MgmtChangeIPForm.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
 $MgmtChangeIPForm.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
+$MgmtChangeIPForm.MaximizeBox = $false
 $MgmtChangeIPForm.Name = [System.String]'MgmtChangeIPForm'
+$MgmtChangeIPForm.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
 $MgmtChangeIPForm.Text = [System.String]' Change IP Address - Aurora Automations'
 $MgmtChangeIPForm.ResumeLayout($false)
 $MgmtChangeIPForm.PerformLayout()
@@ -258,6 +271,7 @@ Add-Member -InputObject $MgmtChangeIPForm -Name MgmtChangeIPLabel7 -Value $MgmtC
 Add-Member -InputObject $MgmtChangeIPForm -Name MgmtChangeIPLabel69 -Value $MgmtChangeIPLabel69 -MemberType NoteProperty
 Add-Member -InputObject $MgmtChangeIPForm -Name MgmtChangeAdapterInput -Value $MgmtChangeAdapterInput -MemberType NoteProperty
 Add-Member -InputObject $MgmtChangeIPForm -Name QueryNetworkAdaptorsSubmit -Value $QueryNetworkAdaptorsSubmit -MemberType NoteProperty
+Add-Member -InputObject $MgmtChangeIPForm -Name MgmtResetIpButton -Value $MgmtResetIpButton -MemberType NoteProperty
 Add-Member -InputObject $MgmtChangeIPForm -Name button1 -Value $button1 -MemberType NoteProperty
 }
 . InitializeComponent

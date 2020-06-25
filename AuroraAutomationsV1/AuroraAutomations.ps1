@@ -64,7 +64,8 @@ Function PasswordShowMenu {
 Function BulkImportsShowMenu {
 	$ActiveDirectoryMenu.Hide()
 	$ADBulkUserCreation.ADBulkOutput.AppendText("Browse to a CSV using the Text Box above. The CSV should follow this structure from Left to Right:")
-	$ADBulkUserCreation.ADBulkOutput.AppendText("`nFirst Name | Last Name | OU `n")
+	$ADBulkUserCreation.ADBulkOutput.AppendText("`nFirst Name,Last Name,OU `n")
+	$ADBulkUserCreation.ADBulkOutput.AppendText("`nThe CSV should also include these headings in the first row of data.")
 	$ADBulkUserCreation.ADBulkOutput.AppendText("`nThe SAM Account Name will be generated based on our User Naming Convention.`nThis may shortern long names. Check the Results after running the Command.")
 	$ADBulkUserCreation.ADBulkOutput.AppendText("`nAll Users will have our default preassigned password.`nThe user will be prompted to change their password on the first login.")
 	$ADBulkUserCreation.ADBulkOutput.AppendText("`nOUs will not be created. Please ensure the OUs are existing before trying to Import users.")
@@ -86,6 +87,13 @@ Function FileSharePermission {
 }
 Function ChangingLocalIP {
 	$ManagementMenu.Hide()
+	$MgmtChangeIPForm.MgmtChangeIPOutput.Clear()
+	$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("Query the Current IP Addresses, Find the Right Adaptor and Set your new IP Address or Reset the IP Configuration.`n")
+	$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nNOTE: We Support the following Configurations:")
+	$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nInterface Index, IP Address, Subnet Mask and One DNS Server.")
+	$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nInterface Index, IP Address, Subnet Mask and Two DNS Servers.")
+	$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nInterface Index, IP Address, Subnet Mask, One DNS Server and Gateway.")
+	$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nInterface Index, IP Address, Subnet Mask, Two DNS Servers and Gateway.")
 	$MgmtChangeIPForm.ShowDialog()
 }
 Function LocalComputerDomain {
@@ -223,7 +231,7 @@ Function Individual.User.Back{
 ### ACTIVE DIRECTORY OUM FORM
 Function ADOUMCreation{
 	$ADOUM.OUOutput.Clear()
-	$OUNameCreation = $OUCreateBox.$OUNameCreation
+	$OUNameCreation = $OUCreateBox.Text
 	if([string]::IsNullOrEmpty($OUNameCreation)){
 		$ADOUM.OUOutput.AppendText("Input can not be empty.")
 	}else{
@@ -606,6 +614,7 @@ Function FilesShareCreationButton{
 		$MgmtFileShareForm.MgmtFileShareOutput.AppendText("Something Happened. Try Again")
 	}
 }
+
 Function MgmtFolderBrowseFuction{
 	$MgmtFileShareForm.MgmtFileShareOutput.Clear()
 	$MgmtFileShareForm.MgmtFileShareDir.Clear()
@@ -618,6 +627,7 @@ Function MgmtFolderBrowseFuction{
 	}
 	$MgmtFileShareForm.MgmtFileShareDir.AppendText($FilePathFilePremPopupTmp)
 }
+
 Function FileSharePermQuery {
 	$MgmtFileShareForm.MgmtFileShareOutput.Clear()
 	$MgmtFileShareFileShareTextQuery = $MgmtFileShareName.text
@@ -634,20 +644,23 @@ Function FileSharePermQuery {
 		}
 	}
 }
+
 Function FullControl {
 	if ($MgmtFileShareFull.Checked -eq $true){
 		$MgmtFileShareChange.Checked = $true
 		$MgmtFileShareRead.Checked = $true
 	}
 }
+
 Function ChangeAccessControl {
 	if ($MgmtFileShareChange.Checked -eq $true ){
 		$MgmtFileShareRead.Checked = $true
-		}
+	}
 	if ($MgmtFileShareChange.Checked -eq $false){
 		$MgmtFileShareFull.Checked =$false
-		}
 	}
+}
+
 Function ReadAccessControl{
 	if ($MgmtFileShareRead.Checked -eq $false){
 		$MgmtFileShareFull.Checked =$false
@@ -695,26 +708,46 @@ Function MgmtFilePremBack{
 	$MgmtFilePermissionForm.MgmtFilePermOutput.Clear()
 	$MgmtFilePermissionForm.MgmtFilePermInput.Clear()
 }
+
 ### CHANGE IP LOCAL ADDRESS
 Function ChangeIPAddressBack {
 	$MgmtChangeIPForm.MgmtChangeIPOutput.Clear()
 	$MgmtChangeIPForm.Hide()
 	$ManagementMenu.Show()
 }
+
 Function QueryComputerIPAddress {
 	$MgmtChangeIPForm.MgmtChangeIPOutput.Clear()
 	$QueryComputerIP = Get-NetIPConfiguration -InterfaceAlias * | Out-String
 	$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText($QueryComputerIP)
 
 }
+
+Function ResetAdaptorIP {
+	$MgmtChangeIPForm.MgmtChangeIPOutput.Clear()
+	$AdapterIndexInput2 = $MgmtChangeAdapterInput.Text
+	if(-not [string]::IsNullOrEmpty($AdapterIndexInput2)){
+		try{
+			Remove-NetRoute -InterfaceIndex $AdapterIndexInput2 -AddressFamily IPv4 -Confirm:$False
+			Set-NetIPInterface -InterfaceIndex $AdapterIndexInput2 -Dhcp Enabled -AddressFamily IPv4
+			Set-DnsClientServerAddress -InterfaceIndex $AdapterIndexInput2 -ResetServerAddresses
+			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nSuccussfully Resetted Adapter Configuration. DHCP is Enabled.")
+		}catch{
+			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("Error trying to reset IP configurations.")
+		}
+	}else{
+		$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("Adaptor Index Input is Empty or Invaild. Try Again.")
+	}
+}
+
 Function ChangeIPAddressSubmit {
 	$MgmtChangeIPForm.MgmtChangeIPOutput.Clear()
-	$AdapterNameInput = $MgmtChangeAdapterInput.Text
+	$AdapterIndexInput = $MgmtChangeAdapterInput.Text
 	$IPAddressInput = $MgmtChangeIPInput.Text
 
 	$SubnetMaskInput = [ipaddress] $MgmtChangeIPSubnet.Text
 	$binaryString=[String]::Empty
-		$Subnets.GetAddressBytes() | foreach {
+		$SubnetMaskInput.GetAddressBytes() | foreach {
 		$binaryString+=[Convert]::ToString($_,2)
 		}
 			$LengthSize = $binaryString.TrimEnd('0')
@@ -724,23 +757,80 @@ Function ChangeIPAddressSubmit {
 	$PreferredDNSInput = $MgmtChangeIPPrefDNS.Text
 	$AlternativeDNSInput = $MgmtChangeIPAltDNS.Text
 
-	$AdapterNameInputIfIndex = (Get-NetAdapter $AdapterNameInput).ifIndex
-
-	try{
-		New-NetIPAddress -InterfaceAlias $AdapterNameInput -Ipaddress $IPAddressInput -PrefixLength $PrefixLength -DefaultGateway $DefaultGateawayInput
-		Set-DnsClientServerAddress -InterfaceIndex $AdapterNameInputIfIndex -ServerAddresses ($PreferredDNSInput,$AlternativeDNSInput)
-		$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nSuccussfully Changed "+ $AdapterNameInput + " to the following;")
-		$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nIP:"+$IPAddressInput)
-		$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nSubnet Mask: "+$SubnetMaskInput)
-		$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nDefault Gateway: "+$DefaultGateawayInput)
-		$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nPreffered DNS: "+$PreferredDNSInput)
-		$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nAlternative DNS: "+ $AlternativeDNSInput)
+	# Interface Index, IP Address, Subnet Mask and One DNS Server (4)
+	if((-not [string]::IsNullOrEmpty($AdapterIndexInput)) -and (-not [string]::IsNullOrEmpty($IPAddressInput)) -and (-not [string]::IsNullOrEmpty($PrefixLength)) -and (-not [string]::IsNullOrEmpty($PreferredDNSInput)) -and ([string]::IsNullOrEmpty($AlternativeDNSInput)) -and ([string]::IsNullOrEmpty($DefaultGateawayInput))){
+		try{
+			Remove-NetRoute -InterfaceIndex $AdapterIndexInput -AddressFamily IPv4 -Confirm:$False
+			Set-NetIPInterface -InterfaceIndex $AdapterIndexInput -Dhcp Enabled -AddressFamily IPv4
+			Set-DnsClientServerAddress -InterfaceIndex $AdapterIndexInput -ResetServerAddresses
+			
+			New-NetIPAddress -InterfaceIndex $AdapterIndexInput -Ipaddress $IPAddressInput -PrefixLength $PrefixLength -AddressFamily IPv4 -SkipAsSource $True
+			Set-DnsClientServerAddress -InterfaceIndex $AdapterIndexInput -ServerAddresses $PreferredDNSInput
+			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nSuccussfully Changed Adapter Index: "+ $AdapterIndexInput + " to the following;")
+			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nIP:"+$IPAddressInput)
+			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nSubnet Mask: "+$SubnetMaskInput)
+			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nPreffered DNS: "+$PreferredDNSInput)
+		}
+		catch{
+			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("Error in IP Configurations. (Debug Code: 1)")
+		}
+	#Interface Index, IP Address, Subnet Mask and Two DNS Servers (5)
+	}elseif((-not [string]::IsNullOrEmpty($AdapterIndexInput)) -and (-not [string]::IsNullOrEmpty($IPAddressInput)) -and (-not [string]::IsNullOrEmpty($PrefixLength)) -and (-not [string]::IsNullOrEmpty($PreferredDNSInput)) -and (-not [string]::IsNullOrEmpty($AlternativeDNSInput)) -and ([string]::IsNullOrEmpty($DefaultGateawayInput))){
+		try{
+			Remove-NetRoute -InterfaceIndex $AdapterIndexInput -AddressFamily IPv4 -Confirm:$False
+			Set-NetIPInterface -InterfaceIndex $AdapterIndexInput -Dhcp Enabled -AddressFamily IPv4
+			Set-DnsClientServerAddress -InterfaceIndex $AdapterIndexInput -ResetServerAddresses
+			
+			New-NetIPAddress -InterfaceIndex $AdapterIndexInput -Ipaddress $IPAddressInput -PrefixLength $PrefixLength -AddressFamily IPv4 -SkipAsSource $True
+			Set-DnsClientServerAddress -InterfaceIndex $AdapterIndexInput -ServerAddresses ($PreferredDNSInput,$AlternativeDNSInput)
+			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nSuccussfully Changed Adapter Index: "+ $AdapterIndexInput + " to the following;")
+			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nIP:"+$IPAddressInput)
+			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nSubnet Mask: "+$SubnetMaskInput)
+			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nPreffered DNS: "+$PreferredDNSInput)
+			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nAlternative DNS: "+ $AlternativeDNSInput)
+		}catch{
+			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("Error in IP configurations. (Debug Code: 2)")
+		}
+	#Interface Index, IP Address, Subnet Mask and One DNS Server and Gateway (5)
+	}elseif((-not [string]::IsNullOrEmpty($AdapterIndexInput)) -and (-not [string]::IsNullOrEmpty($IPAddressInput)) -and (-not [string]::IsNullOrEmpty($PrefixLength)) -and (-not [string]::IsNullOrEmpty($PreferredDNSInput)) -and (-not [string]::IsNullOrEmpty($DefaultGateawayInput)) -and ([string]::IsNullOrEmpty($AlternativeDNSInput))){
+		try{
+			Remove-NetRoute -InterfaceIndex $AdapterIndexInput -AddressFamily IPv4 -Confirm:$False
+			Set-NetIPInterface -InterfaceIndex $AdapterIndexInput -Dhcp Enabled -AddressFamily IPv4
+			Set-DnsClientServerAddress -InterfaceIndex $AdapterIndexInput -ResetServerAddresses
+			
+			New-NetIPAddress -InterfaceIndex $AdapterIndexInput -Ipaddress $IPAddressInput -PrefixLength $PrefixLength -DefaultGateway $DefaultGateawayInput -AddressFamily IPv4 -SkipAsSource $True
+			Set-DnsClientServerAddress -InterfaceIndex $AdapterIndexInput -ServerAddresses $PreferredDNSInput
+			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nSuccussfully Changed Adapter Index: "+ $AdapterIndexInput + " to the following;")
+			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nIP:"+$IPAddressInput)
+			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nSubnet Mask: "+$SubnetMaskInput)
+			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nDefault Gateway: "+$DefaultGateawayInput)
+			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nPreffered DNS: "+$PreferredDNSInput)
+		}catch{
+			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("Error in IP configurations. (Debug Code: 3)")
+		}
+	#Interface Index, IP Address, Subnet Mask and Two DNS Servers and Gateway (All Fields/6)
+	}elseif((-not [string]::IsNullOrEmpty($AdapterIndexInput)) -and (-not [string]::IsNullOrEmpty($IPAddressInput)) -and (-not [string]::IsNullOrEmpty($PrefixLength)) -and (-not [string]::IsNullOrEmpty($PreferredDNSInput)) -and (-not [string]::IsNullOrEmpty($AlternativeDNSInput)) -and (-not [string]::IsNullOrEmpty($DefaultGateawayInput))){
+		try{
+			Remove-NetRoute -InterfaceIndex $AdapterIndexInput -AddressFamily IPv4 -Confirm:$False
+			Set-NetIPInterface -InterfaceIndex $AdapterIndexInput -Dhcp Enabled -AddressFamily IPv4
+			Set-DnsClientServerAddress -InterfaceIndex $AdapterIndexInput -ResetServerAddresses
+			
+			New-NetIPAddress -InterfaceIndex $AdapterIndexInput -Ipaddress $IPAddressInput -PrefixLength $PrefixLength -DefaultGateway $DefaultGateawayInput -AddressFamily IPv4 -SkipAsSource $True
+			Set-DnsClientServerAddress -InterfaceIndex $AdapterIndexInput -ServerAddresses ($PreferredDNSInput,$AlternativeDNSInput)
+			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nSuccussfully Changed Adapter Index: "+ $AdapterIndexInput + " to the following;")
+			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nIP:"+$IPAddressInput)
+			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nSubnet Mask: "+$SubnetMaskInput)
+			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nDefault Gateway: "+$DefaultGateawayInput)
+			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nPreffered DNS: "+$PreferredDNSInput)
+			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nAlternative DNS: "+ $AlternativeDNSInput)
+		}catch{
+			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("Error in IP configurations. (Debug Code: 4)")
+		}
+	}else{
+		$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("Fill in IP Address only via our supported IP configurations. Make sure fields aren't Empty.")
 	}
-	catch{
-		$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("Error in IP configurations")
-	}
-	
 }
+
 Function QueryAdaptors {
 		$MgmtChangeIPForm.MgmtChangeIPOutput.Clear()
 		$AdapterNameInputIFFind =Get-NetAdapter | Select-Object Name , InterfaceDescription, ifIndex, MacAddress| Sort-Object Name| Format-List Name , InterfaceDescription, ifIndex, MacAddress | Out-String
@@ -1029,20 +1119,6 @@ Function BackConnectionStatusForm {
 	$DiagTraceroute.Hide()
 	$DiagnosticsMenu.Show()
 }
-
-# CENTER FIX FOR FORMS
-#$MainMenu.MaximizeBox = $false
-#$MainMenu.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
-#$MainMenu.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
-
-#$ActiveDirectoryMenu.MaximizeBox = $false
-#$ActiveDirectoryMenu.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
-#$ActiveDirectoryMenu.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterParent
-
-#$ADBulkUserCreation.MaximizeBox = $false
-#$ADBulkUserCreation.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
-#$ADBulkUserCreation.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterParent
-
 
 
 # JOIN PATH FOR ALL DESIGNERS
