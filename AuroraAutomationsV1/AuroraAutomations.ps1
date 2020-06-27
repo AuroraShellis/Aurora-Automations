@@ -837,30 +837,157 @@ Function QueryAdaptors {
 		$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText($AdapterNameInputIFFind)
 }
 
-### CHANGING LOCAL COMPUTER AND JOINING DOMAIN
-Function ChangeComputerDomainBack {
-	$MgmtChangePCForm.Hide()
-	$ManagementMenu.Show()
+### CHANGING LOCAL COMPUTER AND JOINING DOMAIN OR LEAVING DOMAIN INTO WORKGROUP
+Function RenamePcOnlyLockBoxes {
+	if($MgmtRenameCheckBox.Checked -eq $true){
+		$MgmtChangeDomainNameInput.Clear()
+		$MgmtChangeWorkGroupNameInput.Clear()
+		$MgmtChangeDomainNameInput.ReadOnly = $true
+		$MgmtChangeWorkGroupNameInput.ReadOnly = $true
+	}else{
+		$MgmtChangeDomainNameInput.ReadOnly = $false
+		$MgmtChangeWorkGroupNameInput.ReadOnly = $false
+	}
 }
+
+Function UserLockTextBoxes {
+	$DomainNameUserInputChecker = $MgmtChangeDomainNameInput.Text
+	$WorkGroupUserInputChecker = $MgmtChangeWorkGroupNameInput.Text
+
+	if(-not [string]::IsNullOrEmpty($DomainNameUserInputChecker) -and ([string]::IsNullOrEmpty($WorkGroupUserInputChecker))){
+		$MgmtChangeWorkGroupNameInput.Clear()
+		$MgmtChangeWorkGroupNameInput.ReadOnly = $true
+	}elseif(-not [string]::IsNullOrEmpty($WorkGroupUserInputChecker) -and ([string]::IsNullOrEmpty($DomainNameUserInputChecker))){
+		$MgmtChangeDomainNameInput.Clear()
+		$MgmtChangeDomainNameInput.ReadOnly = $true
+	}else{
+		$MgmtChangeDomainNameInput.Clear()
+		$MgmtChangeWorkGroupNameInput.Clear()
+		$MgmtChangeWorkGroupNameInput.ReadOnly = $false
+		$MgmtChangeDomainNameInput.ReadOnly = $false
+	}
+}
+
+Function DomainChangeSubmitFunction {
+	$MgmtChangePCOutput.Clear()
+	$TargetPCName = $MgmtChangePCNameInput.Text
+	$DomainNameUserInput = $MgmtChangeDomainNameInput.Text
+	$WorkGroupUserInput = $MgmtChangeWorkGroupNameInput.Text
+
+	$DomainAdminUserName = $MgmtChangeDomainUsernameInput.Text
+	$DomainAdminPassword = ConvertTo-SecureString -AsPlainText $MgmtChangeDomainPassInput.Text -Force
+	$DomainAdminCreds = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $DomainAdminUserName, $DomainAdminPassword
+
+	if($MgmtRenameCheckBox.Checked -eq $true){
+		if($MgmtRestartCheckBox.Checked -eq $true){
+			try{
+				Rename-Computer -NewName $TargetPCName -DomainCredential $DomainAdminCreds -Force -Confirm:$false -Restart
+				$MgmtChangePCForm.MgmtChangePCOutput.AppendText("Renamed This PC to " + $TargetPCName + "Sucessfully.`nYour machine will restart automatically in a Second.")
+			}catch{
+				$MgmtChangePCForm.MgmtChangePCOutput.AppendText("Something went wrong. Debug Code B")
+			}
+		}else{
+			try{
+				Rename-Computer -NewName $TargetPCName -DomainCredential $DomainAdminCreds -Force -Confirm:$false
+				$MgmtChangePCForm.MgmtChangePCOutput.AppendText("Renamed This PC to " + $TargetPCName + "Sucessfully.")
+				$MgmtChangePCForm.MgmtChangePCOutput.AppendText("`nPlease Restart your PC to apply these changes.")
+			}catch{
+				$MgmtChangePCForm.MgmtChangePCOutput.AppendText("Something went wrong. Debug Code AB")
+			}
+		}
+	}elseif((-not [string]::IsNullOrEmpty($DomainNameUserInput) -and ([string]::IsNullOrEmpty($WorkGroupUserInput)))){
+		if($MgmtRestartCheckBox.Checked -eq $true){
+			try{
+				Add-Computer -DomainName $DomainNameUserInput -NewName $TargetPCName -Credential $DomainAdminCreds -Force -Confirm:$false -Restart
+				$MgmtChangePCForm.MgmtChangePCOutput.AppendText("Renamed This PC to " + $TargetPCName + ".`nAlso Joined the Domain: " + $DomainNameUserInput + " Sucessfully.`nYour machine will restart automatically in a Second.")
+			}catch{
+				$MgmtChangePCForm.MgmtChangePCOutput.AppendText("Something went wrong. Debug Code C")
+			}
+		}else{
+			try{
+				Add-Computer -DomainName $DomainNameUserInput -NewName $TargetPCName -Credential $DomainAdminCreds -Force -Confirm:$false
+				$MgmtChangePCForm.MgmtChangePCOutput.AppendText("Renamed This PC to " + $TargetPCName + ".`nAlso Joined the Domain: " + $DomainNameUserInput + " Sucessfully.")
+				$MgmtChangePCForm.MgmtChangePCOutput.AppendText("`nPlease Restart your PC to apply these changes.")
+			}catch{
+				$MgmtChangePCForm.MgmtChangePCOutput.AppendText("Something went wrong. Debug Code CD")
+			}
+		}
+	}elseif((-not [string]::IsNullOrEmpty($WorkGroupUserInput) -and ([string]::IsNullOrEmpty($DomainNameUserInput)))){
+		if($MgmtRestartCheckBox.Checked -eq $true){
+			try{
+				$CurrentPCName = $env:computername
+				if($CurrentPCName -ne $TargetPCName){
+					Rename-Computer -NewName $TargetPCName -DomainCredential $DomainAdminCreds -Force -Confirm:$false
+					$CheckIfInDomainVar = (Get-WmiObject -Class Win32_ComputerSystem).PartOfDomain
+					if($CheckIfInDomainVar -eq $true){
+						Remove-Computer -ComputerName $TargetPCName -UnjoinDomainCredential $DomainAdminCreds -WorkgroupName $WorkGroupUserInput -Force -Confirm:$false -Restart
+						$MgmtChangePCForm.MgmtChangePCOutput.AppendText("Renamed This PC to " + $TargetPCName + "Sucessfully.`n Also Left the Domain and Joined the " + $WorkGroupUserInput + "Workgroup.`nYour machine will restart automatically in a Second.")
+					}else{
+						Add-Computer -WorkGroupName $WorkGroupUserInput -Force -Confirm:$false -Restart
+						$MgmtChangePCForm.MgmtChangePCOutput.AppendText("Renamed This PC to " + $TargetPCName + "Sucessfully. Joined the " + $WorkGroupUserInput + " Workgroup.`nYour machine will restart automatically in a Second.")
+					}
+				}else{
+					$CheckIfInDomainVar = (Get-WmiObject -Class Win32_ComputerSystem).PartOfDomain
+					if($CheckIfInDomainVar -eq $true){
+						Remove-Computer -ComputerName $TargetPCName -UnjoinDomainCredential $DomainAdminCreds -WorkgroupName $WorkGroupUserInput -Force -Confirm:$false -Restart
+						$MgmtChangePCForm.MgmtChangePCOutput.AppendText("Sucessfully.`n Also Left the Domain and Joined the " + $WorkGroupUserInput + "Workgroup.`nYour machine will restart automatically in a Second.")
+					}else{
+						Add-Computer -WorkGroupName $WorkGroupUserInput -Force -Confirm:$false -Restart
+						$MgmtChangePCForm.MgmtChangePCOutput.AppendText("Sucessfully. Joined the " + $WorkGroupUserInput + " Workgroup.`nYour machine will restart automatically in a Second.")
+					}
+				}
+			}catch{
+				$MgmtChangePCForm.MgmtChangePCOutput.AppendText("Something went wrong. Debug Code D")
+			}
+		}else{
+			try{
+				$CurrentPCName = $env:computername
+				if($CurrentPCName -ne $TargetPCName){
+					Rename-Computer -NewName $TargetPCName -DomainCredential $DomainAdminCreds -Force -Confirm:$false
+					$CheckIfInDomainVar = (Get-WmiObject -Class Win32_ComputerSystem).PartOfDomain
+					if($CheckIfInDomainVar -eq $true){
+						Remove-Computer -ComputerName $TargetPCName -UnjoinDomainCredential $DomainAdminCreds -WorkgroupName $WorkGroupUserInput -Force -Confirm:$false
+						$MgmtChangePCForm.MgmtChangePCOutput.AppendText("Renamed This PC to " + $TargetPCName + "Sucessfully.`nAlso Left the Domain and Joined the " + $WorkGroupUserInput + " Workgroup.")
+						$MgmtChangePCForm.MgmtChangePCOutput.AppendText("`nPlease Restart your PC to apply these changes.")
+					}else{
+						Add-Computer -WorkGroupName $WorkGroupUserInput -Force -Confirm:$false
+						$MgmtChangePCForm.MgmtChangePCOutput.AppendText("Renamed This PC to " + $TargetPCName + "Sucessfully. Also Joined the " + $WorkGroupUserInput + " Workgroup.")
+						$MgmtChangePCForm.MgmtChangePCOutput.AppendText("`nPlease Restart your PC to apply these changes.")
+					}
+				}else{
+					$CheckIfInDomainVar = (Get-WmiObject -Class Win32_ComputerSystem).PartOfDomain
+					if($CheckIfInDomainVar -eq $true){
+						Remove-Computer -ComputerName $TargetPCName -UnjoinDomainCredential $DomainAdminCreds -WorkgroupName $WorkGroupUserInput -Force -Confirm:$false
+						$MgmtChangePCForm.MgmtChangePCOutput.AppendText("Sucessfully Left the Domain and Joined the " + $WorkGroupUserInput + " Workgroup.")
+						$MgmtChangePCForm.MgmtChangePCOutput.AppendText("`nPlease Restart your PC to apply these changes.")
+					}else{
+						Add-Computer -WorkGroupName $WorkGroupUserInput -Force -Confirm:$false
+						$MgmtChangePCForm.MgmtChangePCOutput.AppendText("Sucessfully Joined the " + $WorkGroupUserInput + " Workgroup.")
+						$MgmtChangePCForm.MgmtChangePCOutput.AppendText("`nPlease Restart your PC to apply these changes.")
+					}
+				}
+			}catch{
+				$MgmtChangePCForm.MgmtChangePCOutput.AppendText("Something went wrong. Debug Code DF")
+			}
+		}
+	}elseif([string]::IsNullOrEmpty($WorkGroupUserInput) -and ([string]::IsNullOrEmpty($DomainNameUserInput))){
+		$MgmtChangePCForm.MgmtChangePCOutput.AppendText("Domain or Workgroup Fields Can Not Be Empty...")
+	}elseif([string]::IsNullOrEmpty($DomainAdminUserName) -and ([string]::IsNullOrEmpty($DomainAdminPassword))){
+		$MgmtChangePCForm.MgmtChangePCOutput.AppendText("User Credentials Can Not Be Empty...")
+	}else{
+		$MgmtChangePCForm.MgmtChangePCOutput.AppendText("Debug Code X? Something went wrong.")
+	}
+}
+
 Function QueryComouterListJoinDomainForm {
 	$MgmtChangePCForm.MgmtChangePCOutput.Clear()
 	$QueryComputerList = Get-ADComputer -Filter * | Select-Object  Name, DNSHostName | Format-List Name, DNSHostName | Out-String
 	$MgmtChangePCForm.MgmtChangePCOutput.AppendText($QueryComputerList)
 }
 
-Function AddComputerDomain {
-	$MgmtChangePCForm.MgmtChangePCOutput.Clear()
-	$ComputerNameAdd = $MgmtChangePCInput.Text
-	try {Add-Computer -DomainName $ComputerNameAdd -Force
-	}
-	catch {
-		$MgmtChangePCForm.MgmtChangePCOutput.AppendText("Computer Name Already Exists")
-	}
-}Function RemoveComputerDomain{
-	$ComputerNameDelete = $MgmtChangePCInput.Text
-	try{Remove-Computer $ComputerNameDelete -Force}
-	catch{$MgmtChangePCForm.MgmtChangePCOutput.AppendText("Computer Does Not Exist")
-		}
+Function ChangeComputerDomainBack {
+	$MgmtChangePCForm.Hide()
+	$ManagementMenu.Show()
 }
 
 ### MAC ADDRESS GENERATION FORM
