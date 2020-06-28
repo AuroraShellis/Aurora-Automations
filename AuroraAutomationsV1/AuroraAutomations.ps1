@@ -764,7 +764,7 @@ Function ChangeIPAddressSubmit {
 			Set-NetIPInterface -InterfaceIndex $AdapterIndexInput -Dhcp Enabled -AddressFamily IPv4
 			Set-DnsClientServerAddress -InterfaceIndex $AdapterIndexInput -ResetServerAddresses
 			
-			New-NetIPAddress -InterfaceIndex $AdapterIndexInput -Ipaddress $IPAddressInput -PrefixLength $PrefixLength -AddressFamily IPv4 -SkipAsSource $True
+			New-NetIPAddress -InterfaceIndex $AdapterIndexInput -Ipaddress $IPAddressInput -PrefixLength $PrefixLength -AddressFamily IPv4 -ErrorAction Stop #-SkipAsSource $True
 			Set-DnsClientServerAddress -InterfaceIndex $AdapterIndexInput -ServerAddresses $PreferredDNSInput
 			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nSuccussfully Changed Adapter Index: "+ $AdapterIndexInput + " to the following;")
 			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nIP:"+$IPAddressInput)
@@ -781,7 +781,7 @@ Function ChangeIPAddressSubmit {
 			Set-NetIPInterface -InterfaceIndex $AdapterIndexInput -Dhcp Enabled -AddressFamily IPv4
 			Set-DnsClientServerAddress -InterfaceIndex $AdapterIndexInput -ResetServerAddresses
 			
-			New-NetIPAddress -InterfaceIndex $AdapterIndexInput -Ipaddress $IPAddressInput -PrefixLength $PrefixLength -AddressFamily IPv4 -SkipAsSource $True
+			New-NetIPAddress -InterfaceIndex $AdapterIndexInput -Ipaddress $IPAddressInput -PrefixLength $PrefixLength -AddressFamily IPv4 -ErrorAction Stop #-SkipAsSource $True
 			Set-DnsClientServerAddress -InterfaceIndex $AdapterIndexInput -ServerAddresses ($PreferredDNSInput,$AlternativeDNSInput)
 			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nSuccussfully Changed Adapter Index: "+ $AdapterIndexInput + " to the following;")
 			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nIP:"+$IPAddressInput)
@@ -798,7 +798,7 @@ Function ChangeIPAddressSubmit {
 			Set-NetIPInterface -InterfaceIndex $AdapterIndexInput -Dhcp Enabled -AddressFamily IPv4
 			Set-DnsClientServerAddress -InterfaceIndex $AdapterIndexInput -ResetServerAddresses
 			
-			New-NetIPAddress -InterfaceIndex $AdapterIndexInput -Ipaddress $IPAddressInput -PrefixLength $PrefixLength -DefaultGateway $DefaultGateawayInput -AddressFamily IPv4 -SkipAsSource $True
+			New-NetIPAddress -InterfaceIndex $AdapterIndexInput -Ipaddress $IPAddressInput -PrefixLength $PrefixLength -DefaultGateway $DefaultGateawayInput -AddressFamily IPv4 -ErrorAction Stop #-SkipAsSource $True
 			Set-DnsClientServerAddress -InterfaceIndex $AdapterIndexInput -ServerAddresses $PreferredDNSInput
 			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nSuccussfully Changed Adapter Index: "+ $AdapterIndexInput + " to the following;")
 			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nIP:"+$IPAddressInput)
@@ -815,7 +815,7 @@ Function ChangeIPAddressSubmit {
 			Set-NetIPInterface -InterfaceIndex $AdapterIndexInput -Dhcp Enabled -AddressFamily IPv4
 			Set-DnsClientServerAddress -InterfaceIndex $AdapterIndexInput -ResetServerAddresses
 			
-			New-NetIPAddress -InterfaceIndex $AdapterIndexInput -Ipaddress $IPAddressInput -PrefixLength $PrefixLength -DefaultGateway $DefaultGateawayInput -AddressFamily IPv4 -SkipAsSource $True
+			New-NetIPAddress -InterfaceIndex $AdapterIndexInput -Ipaddress $IPAddressInput -PrefixLength $PrefixLength -DefaultGateway $DefaultGateawayInput -AddressFamily IPv4 -ErrorAction Stop #-SkipAsSource $True
 			Set-DnsClientServerAddress -InterfaceIndex $AdapterIndexInput -ServerAddresses ($PreferredDNSInput,$AlternativeDNSInput)
 			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nSuccussfully Changed Adapter Index: "+ $AdapterIndexInput + " to the following;")
 			$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nIP:"+$IPAddressInput)
