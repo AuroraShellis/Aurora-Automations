@@ -159,7 +159,7 @@ $MgmtChangePCLabel7.Location = (New-Object -TypeName System.Drawing.Point -Argum
 $MgmtChangePCLabel7.Name = [System.String]'MgmtChangePCLabel7'
 $MgmtChangePCLabel7.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]129,[System.Int32]13))
 $MgmtChangePCLabel7.TabIndex = [System.Int32]16
-$MgmtChangePCLabel7.Text = [System.String]'Domain Admin Username:'
+$MgmtChangePCLabel7.Text = [System.String]'Admin Username:'
 #
 #MgmtChangeDomainUsernameInput
 #
@@ -175,7 +175,7 @@ $MgmtChangePCLabel8.Location = (New-Object -TypeName System.Drawing.Point -Argum
 $MgmtChangePCLabel8.Name = [System.String]'MgmtChangePCLabel8'
 $MgmtChangePCLabel8.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]130,[System.Int32]13))
 $MgmtChangePCLabel8.TabIndex = [System.Int32]18
-$MgmtChangePCLabel8.Text = [System.String]'Domain Admin Password: '
+$MgmtChangePCLabel8.Text = [System.String]'Admin Password: '
 #
 #MgmtChangeDomainPassInput
 #

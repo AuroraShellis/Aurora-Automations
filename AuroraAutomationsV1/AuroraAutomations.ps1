@@ -98,6 +98,8 @@ Function ChangingLocalIP {
 }
 Function LocalComputerDomain {
 	$ManagementMenu.Hide()
+	$MgmtChangePCForm.MgmtChangePCOutput.Clear()
+	$MgmtChangePCForm.MgmtChangePCOutput.AppendText("Please remember to enter credentials that have Administrator rights.`nWe Reqiure Local Administrator credentials if your PC isn't connected to a Domain.`nOtherwise ensure Domain Administrator credentials are included instead.")
 	$MgmtChangePCForm.ShowDialog()
 }
 Function MACAddressGenerator {
@@ -900,6 +902,8 @@ Function DomainChangeSubmitFunction {
 				$MgmtChangePCForm.MgmtChangePCOutput.AppendText("Could not Rename PC. Something went wrong. Debug Code BNR")
 			}
 		}
+	}elseif([string]::IsNullOrEmpty($DomainNameUserInput) -and ([string]::IsNullOrEmpty($WorkGroupUserInput))){
+		$MgmtChangePCForm.MgmtChangePCOutput.AppendText("`nUsername and Password Field Can Not Be Empty.")
 	}elseif((-not [string]::IsNullOrEmpty($DomainNameUserInput) -and ([string]::IsNullOrEmpty($WorkGroupUserInput)))){
 		if($MgmtRestartCheckBox.Checked -eq $true){
 			try{
@@ -1022,6 +1026,7 @@ Function QueryComouterListJoinDomainForm {
 
 Function ChangeComputerDomainBack {
 	$MgmtChangePCForm.Hide()
+	$MgmtChangeIPForm.MgmtChangePCOutput.Clear()
 	$ManagementMenu.Show()
 }
 
