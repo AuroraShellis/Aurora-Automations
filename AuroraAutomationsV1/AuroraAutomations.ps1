@@ -54,6 +54,8 @@ Function ManagmentShowMenu {
 }
 Function Individual.User {
 	$ActiveDirectoryMenu.Hide()
+	$ADUserCreationForm.OutputTxtBox.AppendText("All Users will have our default preassigned password.`nThe user will be prompted to change their password on the first login.")
+	$ADUserCreationForm.OutputTxtBox.AppendText("`nOUs will not be created. Please ensure the OUs are existing before trying to add a user.")
 	$ADUserCreationForm.ShowDialog()
 }
 Function PasswordShowMenu {
@@ -169,6 +171,21 @@ Function DiagnosticsBack{
 
 ### ACTIVE DIRECTORY BUTTONS - 3RD LAYER
 ### USER CREATION FORM
+Function ADUserCreationLockInputBoxes {
+	if($ADUseCreationOUCheckBox.Checked -eq $true){
+		$ADUserCreationOUInput.ReadOnly = $false
+	}else{
+		$ADUserCreationOUInput.Clear()
+		$ADUserCreationOUInput.ReadOnly = $true
+	}
+}
+
+Function ADOUGetList{
+	$ADUserCreationForm.OutputTxtBox.Clear()
+	$ADOUObjectList = Get-ADObject -Filter {ObjectClass -eq 'organizationalunit'} | Select-Object DistinguishedName, Name | Format-List DistinguishedName, Name | Out-String
+	$ADUserCreationForm.OutputTxtBox.AppendText($ADOUObjectList)
+}
+
 Function Individual.User.Submit {
 	$ADUserCreationForm.OutputTxtBox.Clear()
 	$FirstName = $FirstNameTxtBox.Text
@@ -186,7 +203,13 @@ Function Individual.User.Submit {
 	$SamAccountName = $FirstNameSub + "." + $LastNameSub
 	$Domain = (Get-ADDomain).DNSRoot
 	$UserPrincipal = $SamAccountName + "@" + $Domain
-	$UserContainer = (Get-ADDomain).UsersContainer
+	$OUTargetPathUser = $ADUserCreationOUInput.Text
+	if(-not [string]::IsNullOrEmpty($OUTargetPathUser)){
+		$TargetOUQuery = "OU=" + $OUTargetPathUser + "," + (Get-ADDomain).DistinguishedName
+		$UserContainer = $TargetOUQuery
+	}else{
+		$UserContainer = (Get-ADDomain).UsersContainer
+	}
 	$DefaultPassword = "P@ssword01"
 	UserCreation
 }
@@ -198,6 +221,7 @@ Function UserCreation {
 		$ADUserCreationForm.OutputTxtBox.AppendText("Account Full Name: " + (Get-ADUser $SamAccountName).Name)
 		$ADUserCreationForm.OutputTxtBox.AppendText("`nUser Principal Name: " + (Get-ADUser $SamAccountName).UserPrincipalName)
 		$ADUserCreationForm.OutputTxtBox.AppendText("`nSAM Account Name: " + (Get-ADDomain).NetBIOSName + "\" + (Get-ADUser $SamAccountName).SamAccountName)
+		$ADUserCreationForm.OutputTxtBox.AppendText("`nAccount Location is = " + $UserContainer)
 		$ADUserCreationForm.OutputTxtBox.AppendText("`nPassword is = " + $DefaultPassword)
 		$ADUserCreationForm.OutputTxtBox.AppendText("`nPassword will be reset on next login.")
 	}catch [Microsoft.ActiveDirectory.Management.ADIdentityAlreadyExistsException] {
@@ -213,6 +237,7 @@ Function UserCreation {
 			$ADUserCreationForm.OutputTxtBox.AppendText("Account Full Name: " + (Get-ADUser $NewSamAccountName).Name)
 			$ADUserCreationForm.OutputTxtBox.AppendText("`nUser Principal Name: " + (Get-ADUser $NewSamAccountName).UserPrincipalName)
 			$ADUserCreationForm.OutputTxtBox.AppendText("`nSAM Account Name: " + (Get-ADDomain).NetBIOSName + "\" + (Get-ADUser $NewSamAccountName).SamAccountName)
+			$ADUserCreationForm.OutputTxtBox.AppendText("`nAccount Location is = " + $UserContainer)
 			$ADUserCreationForm.OutputTxtBox.AppendText("`nPassword is = " + $DefaultPassword)
 			$ADUserCreationForm.OutputTxtBox.AppendText("`nPassword will be reset on next login.")
 		}catch{
