@@ -507,6 +507,17 @@ Function PasswordListOU{
 	$PWOLObjectList = Get-ADObject -Filter {ObjectClass -eq 'organizationalunit'} | Select-Object DistinguishedName, Name | Format-List DistinguishedName, Name | Out-String
 	$ADPasswordReset.ADPasswordOutput.AppendText($PWOLObjectList)
 }
+Function PasswordUsersCNQuery{
+	$ADPasswordReset.ADPasswordOutput.Clear()
+	$TargetPasswordUsersCNQuery = "CN=Users," + (Get-ADDomain).DistinguishedName
+	try{
+		$PasswordCNUserSearchList = Get-ADUser -Filter * -SearchBase $TargetPasswordUsersCNQuery | Select-Object SamAccountName, Name, Enabled, ObjectClass | Format-List SamAccountName, Name, Enabled, ObjectClass | Out-String
+		$ADPasswordReset.ADPasswordOutput.AppendText($PasswordCNUserSearchList)
+	}
+	catch{
+	 $ADPasswordReset.ADPasswordOutput.AppendText("Could not find any Users in the Default Users Container. Check if their are Users in there.")
+	}
+}
 Function PasswordResetBack{
 	$ADPasswordReset.ADPasswordOutput.Clear()
 	$ADPasswordReset.Hide()
