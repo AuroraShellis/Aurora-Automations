@@ -309,6 +309,19 @@ Function OUGetList{
 	$ADOUM.OUOutput.AppendText($OUObjectList)
 }
 
+Function ADOUMFormUsersCNQuery{
+	$ADOUM.OUOutput.Clear()
+	$TargetOUMUsersCNQuery = "CN=Users," + (Get-ADDomain).DistinguishedName
+	try{
+		$OUMCNUserSearchList = Get-ADUser -Filter * -SearchBase $TargetOUMUsersCNQuery | Select-Object SamAccountName, Name, Enabled, ObjectClass | Format-List SamAccountName, Name, Enabled, ObjectClass | Out-String
+		$ADOUM.OUOutput.AppendText($OUMCNUserSearchList)
+	}
+	catch{
+	 $ADOUM.OUOutput.AppendText("Could not find any Users in the Default Users Container. Check if their are Users in there.")
+	}
+}
+
+
 Function ADOUM.Back{
 	$ADOUM.Hide()
 	$ADOUM.OUOutput.Clear()
@@ -336,6 +349,7 @@ Function ADDeleteFormOUQuery{
 		}
 	}
 }
+
 Function ADDeleteFormUsersCNQuery{
 	$ADUserDeletion.UserDeleteOutput.Clear()
 	$TargetUserDeleteUsersCNQuery = "CN=Users," + (Get-ADDomain).DistinguishedName

@@ -20,6 +20,7 @@ $ADOUM = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Button]$OUQueryButton = $null
 [System.Windows.Forms.Label]$QueryOULabel = $null
 [System.Windows.Forms.TextBox]$QueryOUTextBox = $null
+[System.Windows.Forms.Button]$OUCNUsersQueryButton = $null
 [System.Windows.Forms.Label]$MoveOULabelOU = $null
 function InitializeComponent
 {
@@ -44,6 +45,7 @@ $MoveOULabelOU = (New-Object -TypeName System.Windows.Forms.Label)
 $OUQueryButton = (New-Object -TypeName System.Windows.Forms.Button)
 $QueryOUTextBox = (New-Object -TypeName System.Windows.Forms.TextBox)
 $QueryOULabel = (New-Object -TypeName System.Windows.Forms.Label)
+$OUCNUsersQueryButton = (New-Object -TypeName System.Windows.Forms.Button)
 $ADOUM.SuspendLayout()
 #
 #OUBackButton
@@ -79,11 +81,10 @@ $OuDesc.Text = [System.String]'These features deal with OU Management.'
 #
 $OUOutput.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]40,[System.Int32]79))
 $OUOutput.Name = [System.String]'OUOutput'
+$OUOutput.ReadOnly = $true
 $OUOutput.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]295,[System.Int32]255))
 $OUOutput.TabIndex = [System.Int32]3
 $OUOutput.Text = [System.String]''
-$OUOutput.add_TextChanged($ADPrereqOutput_TextChanged)
-$OUOutput.ReadOnly = $true
 #
 #OUCreateLabel
 #
@@ -93,7 +94,6 @@ $OUCreateLabel.Name = [System.String]'OUCreateLabel'
 $OUCreateLabel.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]60,[System.Int32]13))
 $OUCreateLabel.TabIndex = [System.Int32]4
 $OUCreateLabel.Text = [System.String]'Create OU:'
-$OUCreateLabel.add_Click($label1_Click)
 #
 #OUCreateBox
 #
@@ -101,7 +101,6 @@ $OUCreateBox.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList
 $OUCreateBox.Name = [System.String]'OUCreateBox'
 $OUCreateBox.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]247,[System.Int32]20))
 $OUCreateBox.TabIndex = [System.Int32]5
-$OUCreateBox.add_TextChanged($OUCreateBox_TextChanged)
 #
 #DeleteOUBox
 #
@@ -118,7 +117,6 @@ $DeleteOULabel.Name = [System.String]'DeleteOULabel'
 $DeleteOULabel.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]167,[System.Int32]13))
 $DeleteOULabel.TabIndex = [System.Int32]7
 $DeleteOULabel.Text = [System.String]'Delete OU (And All Child Objects):'
-$DeleteOULabel.add_Click($label2_Click)
 #
 #DeleteOUButton
 #
@@ -164,7 +162,6 @@ $OULabelOut.Name = [System.String]'OULabelOut'
 $OULabelOut.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]42,[System.Int32]13))
 $OULabelOut.TabIndex = [System.Int32]12
 $OULabelOut.Text = [System.String]'Output:'
-$OULabelOut.add_Click($label4_Click)
 #
 #CheckOUButton
 #
@@ -205,7 +202,7 @@ $MoveOULabelOU.Text = [System.String]'Target OU:'
 #
 $OUQueryButton.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]529,[System.Int32]385))
 $OUQueryButton.Name = [System.String]'OUQueryButton'
-$OUQueryButton.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]73,[System.Int32]23))
+$OUQueryButton.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]73,[System.Int32]34))
 $OUQueryButton.TabIndex = [System.Int32]17
 $OUQueryButton.Text = [System.String]'Query OU'
 $OUQueryButton.UseVisualStyleBackColor = $true
@@ -227,9 +224,20 @@ $QueryOULabel.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([
 $QueryOULabel.TabIndex = [System.Int32]19
 $QueryOULabel.Text = [System.String]'Query OU for Users:'
 #
+#OUCNUsersQueryButton
+#
+$OUCNUsersQueryButton.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]355,[System.Int32]385))
+$OUCNUsersQueryButton.Name = [System.String]'OUCNUsersQueryButton'
+$OUCNUsersQueryButton.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]102,[System.Int32]34))
+$OUCNUsersQueryButton.TabIndex = [System.Int32]20
+$OUCNUsersQueryButton.Text = [System.String]'Query Default Users Container'
+$OUCNUsersQueryButton.UseVisualStyleBackColor = $true
+$OUCNUsersQueryButton.add_Click({ADOUMFormUsersCNQuery})
+#
 #ADOUM
 #
 $ADOUM.ClientSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]624,[System.Int32]441))
+$ADOUM.Controls.Add($OUCNUsersQueryButton)
 $ADOUM.Controls.Add($QueryOULabel)
 $ADOUM.Controls.Add($QueryOUTextBox)
 $ADOUM.Controls.Add($OUQueryButton)
@@ -250,11 +258,11 @@ $ADOUM.Controls.Add($OUOutput)
 $ADOUM.Controls.Add($OuDesc)
 $ADOUM.Controls.Add($OUCreateButton)
 $ADOUM.Controls.Add($OUBackButton)
-$ADOUM.MaximizeBox = $false
 $ADOUM.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
-$ADOUM.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
 $ADOUM.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
+$ADOUM.MaximizeBox = $false
 $ADOUM.Name = [System.String]'ADOUM'
+$ADOUM.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
 $ADOUM.Text = [System.String]'Organizational Unit Management - Aurora Automations'
 $ADOUM.ResumeLayout($false)
 $ADOUM.PerformLayout()
@@ -278,6 +286,7 @@ Add-Member -InputObject $ADOUM -Name MoveOUUserTo -Value $MoveOUUserTo -MemberTy
 Add-Member -InputObject $ADOUM -Name OUQueryButton -Value $OUQueryButton -MemberType NoteProperty
 Add-Member -InputObject $ADOUM -Name QueryOULabel -Value $QueryOULabel -MemberType NoteProperty
 Add-Member -InputObject $ADOUM -Name QueryOUTextBox -Value $QueryOUTextBox -MemberType NoteProperty
+Add-Member -InputObject $ADOUM -Name OUCNUsersQueryButton -Value $OUCNUsersQueryButton -MemberType NoteProperty
 Add-Member -InputObject $ADOUM -Name MoveOULabelOU -Value $MoveOULabelOU -MemberType NoteProperty
 }
 . InitializeComponent
