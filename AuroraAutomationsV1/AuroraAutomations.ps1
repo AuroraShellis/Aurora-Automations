@@ -98,7 +98,6 @@ Function ChangingLocalIP {
 }
 Function LocalComputerDomain {
 	$ManagementMenu.Hide()
-	$MgmtChangePCForm.MgmtChangePCOutput.Clear()
 	$MgmtChangePCForm.MgmtChangePCOutput.AppendText("Please remember to enter credentials that have Administrator rights.`nWe Reqiure Local Administrator credentials if your PC isn't connected to a Domain.`nOtherwise ensure Domain Administrator credentials are included instead.")
 	$MgmtChangePCForm.ShowDialog()
 }
@@ -136,7 +135,7 @@ Function DiagnosticsCheckMachines {
 }
 Function DiagnosticsListUsers {
 	$DiagListADUsers.DiagListUsersOutput.Clear()
-	$DiagListADUsersOutputEnter = Get-ADUser -Filter * | Select-Object SamAccountName, Name, Enabled, ObjectClass | Format-List SamAccountName, Name, Enabled, ObjectClass | Out-String
+	$DiagListADUsersOutputEnter = Get-ADUser -Filter * | Select-Object DistinguishedName, SamAccountName, Name, Enabled, ObjectClass | Format-List DistinguishedName, SamAccountName, Name, Enabled, ObjectClass | Out-String
 	$DiagListADUsers.DiagListUsersOutput.AppendText("Users Are:")
 	$DiagListADUsers.DiagListUsersOutput.AppendText($DiagListADUsersOutputEnter)
 	$DiagnosticsMenu.Hide()
@@ -1065,7 +1064,7 @@ Function QueryComouterListJoinDomainForm {
 
 Function ChangeComputerDomainBack {
 	$MgmtChangePCForm.Hide()
-	$MgmtChangeIPForm.MgmtChangePCOutput.Clear()
+	$MgmtChangePCForm.MgmtChangePCOutput.Clear()
 	$ManagementMenu.Show()
 }
 
@@ -1153,8 +1152,8 @@ Function ActiveDirectortDetailsBack {
 	$DiagADDetails.Hide()
 	$DiagnosticsMenu.Show()
 }
-### CHECK MACHINES FORMS
 
+### CHECK MACHINES FORMS
 Function RefreshMachinesDiagnosticsList{
 $DiagListADPCs.DiagListPCOutput.Clear()
 $DiagnosticsRefreshList = Get-ADComputer -Filter * -Properties operatingSystem | group -Property operatingSystem | Select Name,Count | Format-List  Name,Count | Out-String
@@ -1171,10 +1170,11 @@ Function BackMachineListDiagnostics{
 	$DiagListADPCs.Hide()
 	$DiagnosticsMenu.Show()
 }
+
 ### CHECK ALL USERS IN ACTIVE DIRECTORY
 Function RefreshUserListAD {
 	$DiagListADUsers.DiagListUsersOutput.Clear()
-	$DiagListADUsersOutput = Get-ADUser -Filter * | Select-Object SamAccountName, Name, Enabled, ObjectClass | Format-List SamAccountName, Name, Enabled, ObjectClass | Out-String
+	$DiagListADUsersOutput = Get-ADUser -Filter * | Select-Object DistinguishedName, SamAccountName, Name, Enabled, ObjectClass | Format-List DistinguishedName, SamAccountName, Name, Enabled, ObjectClass | Out-String
 	$DiagListADUsers.DiagListUsersOutput.AppendText("Users Are:")
 	$DiagListADUsers.DiagListUsersOutput.AppendText($DiagListADUsersOutput)
 }
@@ -1183,6 +1183,7 @@ Function RefreshUserListAD {
 	$DiagListADUsers.Hide()
 	$DiagnosticsMenu.Show()
 }
+
 ### CHECK OS ARCHITECTURE FORM
 Function RemoteQueryOSArchitecture {
 	$DiagCheckOS.DiagRemoteOSOutput.Clear()
@@ -1212,6 +1213,7 @@ Function CheckOSBack {
 	$DiagCheckOS.Hide()
 	$DiagnosticsMenu.Show()
 }
+
 ### PORT STATUS FORM
 Function RefreshPortStatus {
 	$DiagPortStatus.DiagPortStatusOutput.Clear()
