@@ -398,7 +398,7 @@ Function GroupQuery {
 		$ADGroupMgmt.ADGroupMgmtOutput.AppendText("Input can not be empty.")
 	}else{
 		try{
-			$GroupSearchList =	Get-ADGroup -Filter * -SearchBase $TargetGMQuery | Select-Object Name , GroupCategory, GroupScope | Format-List  Name , GroupCategory, GroupScope | Out-string
+			$GroupSearchList =	Get-ADGroup -Filter * -SearchBase $TargetGMQuery | Select-Object DistinguishedName, Name , GroupCategory, GroupScope | Format-List  DistinguishedName, Name , GroupCategory, GroupScope | Out-string
 			if(-not [string]::IsNullOrEmpty($GroupSearchList)){
 				$ADGroupMgmt.ADGroupMgmtOutput.AppendText($GroupSearchList)
 			}else{
@@ -424,6 +424,7 @@ Function GroupCreation {
 		 $ADGroupMgmt.ADGroupMgmtOutput.AppendText("Unspecified Organizational Unit or Group Name Already Exists.")
 	}
 }
+
 Function GroupDeletion {
 	$ADGroupMgmt.ADGroupMgmtOutput.Clear()
 	$GroupNameDeletion = $ADGroupNameInput.Text
@@ -452,6 +453,19 @@ Function GroupMovementOU {
 		$ADGroupMgmt.ADGroupMgmtOutput.AppendText("OU or Group does not exist")
 	}
 }
+
+Function ADGroupUsersCNQuery{
+	$ADGroupMgmt.ADGroupMgmtOutput.Clear()
+	$TargetGroupUsersCNQuery = "CN=Users," + (Get-ADDomain).DistinguishedName
+	try{
+		$GroupCNUserSearchList = Get-ADGroup -Filter * -SearchBase $TargetGroupUsersCNQuery | Select-Object DistinguishedName, Name , GroupCategory, GroupScope | Format-List DistinguishedName, Name , GroupCategory, GroupScope | Out-String
+		$ADGroupMgmt.ADGroupMgmtOutput.AppendText($GroupCNUserSearchList)
+	}
+	catch{
+	 $ADGroupMgmt.ADGroupMgmtOutput.AppendText("Something broke. Could not find any Groups in the Default Users Container. Check if their are Groups in there.")
+	}
+}
+
 Function ListOUGroupManagement {
 	$ADGroupMgmt.ADGroupMgmtOutput.Clear()
 	$GroupManagmentListOU = Get-ADObject -Filter {ObjectClass -eq 'organizationalunit'} | Select-Object DistinguishedName, Name | Format-List DistinguishedName, Name | Out-String
