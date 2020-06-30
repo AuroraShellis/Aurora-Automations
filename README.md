@@ -9,10 +9,10 @@ This project aims to automate Active Directory, Management and Diagnostics Tasks
 We had a Three Week Limit to this Creation.
 
 ## Team Aurora Shellis composes of:
-Matthew Westlake (170008898)
+Matthew Westlake (170008898) - Email: west356@manukaumail.com
 
 Micheal Chen (140005528) - Email: aurora@chencorp.co.nz
 
-Pogai (David) Tuiala (130002750)
+Pogai (David) Tuiala (130002750) - Email: tuia131@manukaumail.com
 
 Ryan Alpay (170010504) - Email: ryanmatthew.alpay@mail.com
