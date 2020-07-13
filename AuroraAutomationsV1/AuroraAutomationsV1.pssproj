@@ -18,15 +18,16 @@
     <PackageModules>True</PackageModules>
     <ApplicationIconPath>E:\Dropbox\Assets\LogoV3.ico</ApplicationIconPath>
     <PackagePlatform>x64</PackagePlatform>
-    <FileVersion>1.0.0</FileVersion>
+    <FileVersion>1.1.0</FileVersion>
     <FileDescription>Aurora Automations</FileDescription>
     <ProductName>Aurora Automations</ProductName>
-    <ProductVersion>1.0.0</ProductVersion>
+    <ProductVersion>1.1.0</ProductVersion>
     <Copyright>Team Aurora Shellis</Copyright>
     <ManifestPath>$(OutDir)\$(ProjectName).psd1</ManifestPath>
     <Author>Team Aurora Shellis</Author>
     <Guid>f746c0f1-a563-48cc-86ce-5c1ed82289de</Guid>
     <ProcessorArchitecture />
+    <Version>1.1.0</Version>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

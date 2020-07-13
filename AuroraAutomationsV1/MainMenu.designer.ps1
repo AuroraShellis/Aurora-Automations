@@ -183,6 +183,7 @@ $MainMenu.Controls.Add($ActiveDirectoryLabel)
 $MainMenu.MaximizeBox = $false
 $MainMenu.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
 $MainMenu.StartPosition = [System.Windows.Forms.FormStartPosition]::Manual
+$MainMenu.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]200,[System.Int32]200))
 $MainMenu.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $MainMenu.Name = [System.String]'MainMenu'
 $MainMenu.Text = [System.String]'Main Menu - Aurora Automations'

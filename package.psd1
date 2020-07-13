@@ -6,13 +6,13 @@
             Obfuscate = $false
             HideConsoleWindow = $false
             DotNetVersion = 'v4.6.2'
-            FileVersion = '1.0.0'
-            FileDescription = ''
-            ProductName = ''
-            ProductVersion = ''
-            Copyright = ''
+            FileVersion = '1.1.0'
+            FileDescription = 'Aurora Automations'
+            ProductName = 'Aurora Automations'
+            ProductVersion = '1.1.0'
+            Copyright = 'Team Aurora Shellis'
             RequireElevation = $true
-            ApplicationIconPath = ''
+            ApplicationIconPath = 'E:\Dropbox\Assets\LogoV3.ico'
             PackageType = 'Console'
         }
         Bundle = @{
