@@ -96,7 +96,7 @@ $DiagTraceroute.Controls.Add($DiagTraceSubmit)
 $DiagTraceroute.Controls.Add($DiagTraceBack)
 $DiagTraceroute.MaximizeBox = $false
 $DiagTraceroute.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
-$DiagTraceroute.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
+$DiagTraceroute.StartPosition = [System.Windows.Forms.FormStartPosition]::Manual
 $DiagTraceroute.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $DiagTraceroute.Name = [System.String]'DiagTraceroute'
 $DiagTraceroute.Text = [System.String]'Connection Test - Aurora Automations'

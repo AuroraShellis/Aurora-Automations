@@ -173,7 +173,7 @@ $ADUserCreationForm.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::Fi
 $ADUserCreationForm.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $ADUserCreationForm.MaximizeBox = $false
 $ADUserCreationForm.Name = [System.String]'ADUserCreationForm'
-$ADUserCreationForm.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
+$ADUserCreationForm.StartPosition = [System.Windows.Forms.FormStartPosition]::Manual
 $ADUserCreationForm.Text = [System.String]'Active Directory User Creation - Aurora Automation'
 $ADUserCreationForm.ResumeLayout($false)
 $ADUserCreationForm.PerformLayout()

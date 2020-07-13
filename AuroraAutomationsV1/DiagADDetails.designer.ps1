@@ -74,7 +74,7 @@ $DiagADDetails.Controls.Add($DiagADDetailsSubmit)
 $DiagADDetails.Controls.Add($DiagADDetailsBack)
 $DiagADDetails.MaximizeBox = $false
 $DiagADDetails.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
-$DiagADDetails.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
+$DiagADDetails.StartPosition = [System.Windows.Forms.FormStartPosition]::Manual
 $DiagADDetails.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $DiagADDetails.Name = [System.String]'DiagADDetails'
 $DiagADDetails.Text = [System.String]'Active Directory Details and Information - Aurora Automations'

@@ -205,7 +205,7 @@ $ADPasswordReset.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::Fixed
 $ADPasswordReset.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $ADPasswordReset.MaximizeBox = $false
 $ADPasswordReset.Name = [System.String]'ADPasswordReset'
-$ADPasswordReset.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
+$ADPasswordReset.StartPosition = [System.Windows.Forms.FormStartPosition]::Manual
 $ADPasswordReset.Text = [System.String]'Actve Directory Password Reset - Aurora Automations'
 $ADPasswordReset.ResumeLayout($false)
 $ADPasswordReset.PerformLayout()

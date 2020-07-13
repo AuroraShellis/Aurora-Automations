@@ -115,7 +115,7 @@ $DiagnosticsMenu.Controls.Add($DiagADListUsers)
 $DiagnosticsMenu.Controls.Add($DiagADDetailsButton)
 $DiagnosticsMenu.MaximizeBox = $false
 $DiagnosticsMenu.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
-$DiagnosticsMenu.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
+$DiagnosticsMenu.StartPosition = [System.Windows.Forms.FormStartPosition]::Manual
 $DiagnosticsMenu.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $DiagnosticsMenu.Name = [System.String]'DiagnosticsMenu'
 $DiagnosticsMenu.Text = [System.String]'Diagnostics Menu - Aurora Automations'

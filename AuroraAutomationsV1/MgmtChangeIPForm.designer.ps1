@@ -247,7 +247,7 @@ $MgmtChangeIPForm.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::Fixe
 $MgmtChangeIPForm.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $MgmtChangeIPForm.MaximizeBox = $false
 $MgmtChangeIPForm.Name = [System.String]'MgmtChangeIPForm'
-$MgmtChangeIPForm.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
+$MgmtChangeIPForm.StartPosition = [System.Windows.Forms.FormStartPosition]::Manual
 $MgmtChangeIPForm.Text = [System.String]' Change IP Address - Aurora Automations'
 $MgmtChangeIPForm.ResumeLayout($false)
 $MgmtChangeIPForm.PerformLayout()

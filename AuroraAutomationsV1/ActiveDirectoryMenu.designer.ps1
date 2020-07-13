@@ -114,7 +114,7 @@ $ActiveDirectoryMenu.Controls.Add($ADDomainCreate)
 $ActiveDirectoryMenu.Controls.Add($ADInstall)
 $ActiveDirectoryMenu.MaximizeBox = $false
 $ActiveDirectoryMenu.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
-$ActiveDirectoryMenu.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
+$ActiveDirectoryMenu.StartPosition = [System.Windows.Forms.FormStartPosition]::Manual
 
 $ActiveDirectoryMenu.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $ActiveDirectoryMenu.Name = [System.String]'ActiveDirectoryMenu'

@@ -74,7 +74,7 @@ $DiagListADPCs.Controls.Add($DiagListPCSubmit)
 $DiagListADPCs.Controls.Add($DiagListPCBack)
 $DiagListADPCs.MaximizeBox = $false
 $DiagListADPCs.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
-$DiagListADPCs.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
+$DiagListADPCs.StartPosition = [System.Windows.Forms.FormStartPosition]::Manual
 $DiagListADPCs.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $DiagListADPCs.Name = [System.String]'DiagListADPCs'
 $DiagListADPCs.Text = [System.String]'Check Machines Connected to Active Directory - Aurora Automations'

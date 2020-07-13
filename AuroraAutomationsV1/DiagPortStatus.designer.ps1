@@ -74,7 +74,7 @@ $DiagPortStatus.Controls.Add($DiagPortStatusSubmit)
 $DiagPortStatus.Controls.Add($DiagPortStatusBack)
 $DiagPortStatus.MaximizeBox = $false
 $DiagPortStatus.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
-$DiagPortStatus.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
+$DiagPortStatus.StartPosition = [System.Windows.Forms.FormStartPosition]::Manual
 $DiagPortStatus.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $DiagPortStatus.Name = [System.String]'DiagPortStatus'
 $DiagPortStatus.Text = [System.String]'Check Port Status - Aurora Automations'

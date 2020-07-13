@@ -1,22 +1,28 @@
 Add-Type -AssemblyName PresentationFramework, System.Windows.Forms, System.Drawing
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force
 
-# BUTTONS CONFIGURATION
-## MAIN MENU
+# FIRST LAYER BUTTONS CONFIGURATION
+# MAIN MENU
 Function ADMenu {
 	$MainMenu.Hide()
-	$ActiveDirectorymenu.ShowDialog()
+	$MainMenuXYLoc = $MainMenu.Location
+	$ActiveDirectoryMenu.Location = $MainMenuXYLoc
+	$ActiveDirectoryMenu.ShowDialog()
 }
 Function ManagementMenu {
 	$MainMenu.Hide()
+	$MainMenuXYLoc = $MainMenu.Location
+	$ManagementMenu.Location = $MainMenuXYLoc
 	$ManagementMenu.ShowDialog()
 }
 Function DiagnosticsMenu {
 	$MainMenu.Hide()
+	$MainMenuXYLoc = $MainMenu.Location
+	$DiagnosticsMenu.Location = $MainMenuXYLoc
 	$DiagnosticsMenu.ShowDialog()
 }
 Function CreditsMenu {
-	$CreditsForm.CreditsOutput.Clear()
+	#$CreditsForm.CreditsOutput.Clear()
 	$CreditsForm.CreditsOutput.AppendText("Hot Topic in Networking Q2 2020`n")
 	$CreditsForm.CreditsOutput.AppendText("This was made by Team Aurora Shellis and is composed of;`n`n")
 	$CreditsForm.CreditsOutput.AppendText("`nMatthew Westlake - west356@manukaumail.com`nMicheal Chen - Email: aurora@chencorp.co.nz`nPogai (David) Tuiala - Email: tuia131@manukaumail.com`nRyan Alpay - Email: ryanmatthew.alpay@mail.com`n`n")
@@ -27,44 +33,62 @@ Function CreditsMenu {
 	$CreditsForm.CreditsOutput.AppendText("`nSullivan, T. (2012, July 23). PowerShell: Tracert or Trace-Route? Retrieved from Trevor Sullivan's Tech Room:" +" https://trevorsullivan.net/2012/07/23/powershell-tracert-or-trace-route/ `n")
 	
 	$MainMenu.Hide()
+	$MainMenuXYLoc = $MainMenu.Location
+	$CreditsForm.Location = $MainMenuXYLoc
 	$CreditsForm.ShowDialog()
 }
+# END OF FIRST LAYER BUTTONS CONFIGURATION
 
-##CREDITS MAIN MENU
+## SECOND LAYER BUTTONS CONFIGURATION
+## CREDITS MAIN MENU
 Function CreditsBack {
 	$CreditsForm.CreditsOutput.Clear()
 	$CreditsForm.Hide()
+	$CreditsFormMenuXYLoc = $CreditsForm.Location
+	$MainMenu.Location = $CreditsFormMenuXYLoc
 	$MainMenu.Show()
 }
 
 ## ACTIVE DIRECTORY MAIN MENU
 Function ADUserDeleteShowMenu {
-	$ADUserDeletion.UserDeleteOutput.AppendText("WARNING: When the Delete button is pressed. There will be NO Confirmation.")
 	$ActiveDirectoryMenu.Hide()
+	$ActiveDirectoryXYLoc = $ActiveDirectoryMenu.Location
+	$ADUserDeletion.Location = $ActiveDirectoryXYLoc
+	$ADUserDeletion.UserDeleteOutput.AppendText("WARNING: When the Delete button is pressed. There will be NO Confirmation.")
 	$ADUserDeletion.ShowDialog()
 }
 Function ADOUMShowMenu {
 	$ActiveDirectoryMenu.Hide()
+	$ActiveDirectoryXYLoc = $ActiveDirectoryMenu.Location
+	$ADOUM.Location = $ActiveDirectoryXYLoc
 	$ADOUM.ShowDialog()
 }
 Function ManagmentShowMenu {
-	$ADGroupMgmt.ADGroupMgmtOutput.AppendText("WARNING: When the Delete or Move button is pressed. There will be NO Confirmation.")
 	$ActiveDirectoryMenu.Hide()
+	$ActiveDirectoryXYLoc = $ActiveDirectoryMenu.Location
+	$ADGroupMgmt.Location = $ActiveDirectoryXYLoc
+	$ADGroupMgmt.ADGroupMgmtOutput.AppendText("WARNING: When the Delete or Move button is pressed. There will be NO Confirmation.")
 	$ADGroupMgmt.ShowDialog()
 }
 Function Individual.User {
 	$ActiveDirectoryMenu.Hide()
+	$ActiveDirectoryXYLoc = $ActiveDirectoryMenu.Location
+	$ADUserCreationForm.Location = $ActiveDirectoryXYLoc
 	$ADUserCreationForm.OutputTxtBox.AppendText("All Users will have our default preassigned password.`nThe user will be prompted to change their password on the first login.")
 	$ADUserCreationForm.OutputTxtBox.AppendText("`nOUs will not be created. Please ensure the OUs are existing before trying to add a user.")
 	$ADUserCreationForm.ShowDialog()
 }
 Function PasswordShowMenu {
 	$ActiveDirectoryMenu.Hide()
+	$ActiveDirectoryXYLoc = $ActiveDirectoryMenu.Location
+	$ADPasswordReset.Location = $ActiveDirectoryXYLoc
 	$ADPasswordReset.ADPasswordOutput.AppendText("WARNING: Password will be changed without Confirmation.")
 	$ADPasswordReset.ShowDialog()
 }
 Function BulkImportsShowMenu {
 	$ActiveDirectoryMenu.Hide()
+	$ActiveDirectoryXYLoc = $ActiveDirectoryMenu.Location
+	$ADBulkUserCreation.Location = $ActiveDirectoryXYLoc
 	$ADBulkUserCreation.ADBulkOutput.AppendText("Browse to a CSV using the Text Box above. The CSV should follow this structure from Left to Right:")
 	$ADBulkUserCreation.ADBulkOutput.AppendText("`nFirst Name,Last Name,OU `n")
 	$ADBulkUserCreation.ADBulkOutput.AppendText("`nThe CSV should also include these headings in the first row of data.")
@@ -75,20 +99,28 @@ Function BulkImportsShowMenu {
 }
 Function ADMenuBack {
 	$ActiveDirectoryMenu.Hide()
+	$ActiveDirectoryMenuXYLoc = $ActiveDirectoryMenu.Location
+	$MainMenu.Location = $ActiveDirectoryMenuXYLoc
 	$MainMenu.Show()
 }
 
 ## MANAGEMENT MAIN MENU BUTTONS
 Function CreationFileShare {
 	$ManagementMenu.Hide()
+	$ManagementMenuXYLoc = $ManagementMenu.Location
+	$MgmtFileShareForm.Location = $ManagementMenuXYLoc
 	$MgmtFileShareForm.ShowDialog()
 }
 Function FileSharePermission {
 	$ManagementMenu.Hide()
+	$ManagementMenuXYLoc = $ManagementMenu.Location
+	$MgmtFilePermissionForm.Location = $ManagementMenuXYLoc
 	$MgmtFilePermissionForm.ShowDialog()
 }
 Function ChangingLocalIP {
 	$ManagementMenu.Hide()
+	$ManagementMenuXYLoc = $ManagementMenu.Location
+	$MgmtChangeIPForm.Location = $ManagementMenuXYLoc
 	$MgmtChangeIPForm.MgmtChangeIPOutput.Clear()
 	$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("Query the Current IP Addresses, Find the Right Adaptor and Set your new IP Address or Reset the IP Configuration.`n")
 	$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText("`nNOTE: We Support the following Configurations:")
@@ -100,20 +132,28 @@ Function ChangingLocalIP {
 }
 Function LocalComputerDomain {
 	$ManagementMenu.Hide()
+	$ManagementMenuXYLoc = $ManagementMenu.Location
+	$MgmtChangePCForm.Location = $ManagementMenuXYLoc
 	$MgmtChangePCForm.MgmtChangePCOutput.AppendText("Please remember to enter credentials that have Administrator rights.`nWe Reqiure Local Administrator credentials if your PC isn't connected to a Domain.`nOtherwise ensure Domain Administrator credentials are included instead.")
 	$MgmtChangePCForm.ShowDialog()
 }
 Function MACAddressGenerator {
 	$ManagementMenu.Hide()
+	$ManagementMenuXYLoc = $ManagementMenu.Location
+	$MgmtMACAddressForm.Location = $ManagementMenuXYLoc
 	$MgmtMACAddressForm.ShowDialog()
 }
 Function RemoteDisk {
-	$MgmtDiskMgmtForm.MgmtDiskMgmtOutput.Clear()
 	$ManagementMenu.Hide()
+	$ManagementMenuXYLoc = $ManagementMenu.Location
+	$MgmtDiskMgmtForm.Location = $ManagementMenuXYLoc
+	$MgmtDiskMgmtForm.MgmtDiskMgmtOutput.Clear()
 	$MgmtDiskMgmtForm.ShowDialog()
 }
 Function ManagementBack {
 	$ManagementMenu.Hide()
+	$ManagementMenuXYLoc = $ManagementMenu.Location
+	$MainMenu.Location = $ManagementMenuXYLoc
 	$MainMenu.Show()
 }
 
@@ -122,6 +162,8 @@ Function DiagnosticsADDetails {
 	$DiagnosticsDetailsLoadingOutput = Get-ADDomain | Format-List | Out-String
 	$DiagADDetails.DiagADDetailsOutput.AppendText($DiagnosticsDetailsLoadingOutput)
 	$DiagnosticsMenu.Hide()
+	$DiagnosticsMenuXYLoc = $DiagnosticsMenu.Location
+	$DiagADDetails.Location = $DiagnosticsMenuXYLoc
 	$DiagADDetails.ShowDialog()
 }
 Function DiagnosticsCheckMachines {
@@ -132,6 +174,8 @@ Function DiagnosticsCheckMachines {
 	$DiagListADPCs.DiagListPCOutput.AppendText(" Names of the Machines Connected to the Active Directory")
 	$DiagListADPCs.DiagListPCOutput.AppendText($DiagnosticsMachineLoading2)
 	$DiagnosticsMenu.Hide()
+	$DiagnosticsMenuXYLoc = $DiagnosticsMenu.Location
+	$DiagListADPCs.Location = $DiagnosticsMenuXYLoc
 	$DiagListADPCs.ShowDialog()
 
 }
@@ -141,6 +185,8 @@ Function DiagnosticsListUsers {
 	$DiagListADUsers.DiagListUsersOutput.AppendText("Users Are:")
 	$DiagListADUsers.DiagListUsersOutput.AppendText($DiagListADUsersOutputEnter)
 	$DiagnosticsMenu.Hide()
+	$DiagnosticsMenuXYLoc = $DiagnosticsMenu.Location
+	$DiagListADUsers.Location = $DiagnosticsMenuXYLoc
 	$DiagListADUsers.ShowDialog()
 }
 Function DiagnosticsOSCheck {
@@ -148,6 +194,8 @@ Function DiagnosticsOSCheck {
 	$OutputCheckRemoteOUT = Get-ADComputer -Filter * -Properties operatingSystem | Select-Object Name, OperatingSystem | Format-List Name, OperatingSystem | Out-String
 	$DiagCheckOS.DiagRemoteOSOutput.AppendText($OutputCheckRemoteOUT)
 	$DiagnosticsMenu.Hide()
+	$DiagnosticsMenuXYLoc = $DiagnosticsMenu.Location
+	$DiagCheckOS.Location = $DiagnosticsMenuXYLoc
 	$DiagCheckOS.ShowDialog()
 }
 Function DiagnosticsPortStatus {
@@ -155,18 +203,25 @@ Function DiagnosticsPortStatus {
 	$PortStatusOutputOut = Get-NetTCPConnection | Sort-Object LocalPort | Select-Object LocalPort, State | Out-String
 	$DiagPortStatus.DiagPortStatusOutput.AppendText($PortStatusOutputOut)
 	$DiagnosticsMenu.Hide()
+	$DiagnosticsMenuXYLoc = $DiagnosticsMenu.Location
+	$DiagPortStatus.Location = $DiagnosticsMenuXYLoc
 	$DiagPortStatus.ShowDialog()
 }
 Function DiagnosticsConnectionTest {
 	$DiagnosticsMenu.Hide()
+	$DiagnosticsMenuXYLoc = $DiagnosticsMenu.Location
+	$DiagTraceroute.Location = $DiagnosticsMenuXYLoc
 	$DiagTraceroute.DiagTraceOutput.AppendText("Please note: The traceroute may take awhile to process. Be patience.`n")
 	$DiagTraceroute.DiagTraceOutput.AppendText("Due to limitations the program will stop responding during a traceroute.`n This is expected behavior.")
 	$DiagTraceroute.ShowDialog()
 }
 Function DiagnosticsBack{
 	$DiagnosticsMenu.Hide()
+	$DiagnosticsMenuXYLoc = $DiagnosticsMenu.Location
+	$MainMenu.Location = $DiagnosticsMenuXYLoc
 	$MainMenu.Show()
 }
+## END OF SECOND LAYER BUTTONS CONFIGURATION
 
 
 ### ACTIVE DIRECTORY BUTTONS - 3RD LAYER
@@ -251,6 +306,8 @@ Function UserCreation {
 Function Individual.User.Back{
 	$ADUserCreationForm.OutputTxtBox.Clear()
 	$ADUserCreationForm.Hide()
+	$ADUserCreationFormXYLoc = $ADUserCreationForm.Location
+	$ActiveDirectoryMenu.Location = $ADUserCreationFormXYLoc
 	$ActiveDirectoryMenu.Show()
 }
 
@@ -345,10 +402,11 @@ Function ADOUMFormUsersCNQuery{
 	}
 }
 
-
 Function ADOUM.Back{
 	$ADOUM.Hide()
 	$ADOUM.OUOutput.Clear()
+	$ADOUMXYLoc = $ADOUM.Location
+	$ActiveDirectoryMenu.Location = $ADOUMXYLoc
 	$ActiveDirectoryMenu.Show()
 }
 
@@ -410,6 +468,8 @@ Function UDGetList{
 Function ADUD.Back{
 	$ADUserDeletion.Hide()
 	$ADUserDeletion.UserDeleteOutput.Clear()
+	$ADUserDeletionXYLoc = $ADUserDeletion.Location
+	$ActiveDirectoryMenu.Location = $ADUserDeletionXYLoc
 	$ActiveDirectoryMenu.Show()
 }
 
@@ -499,6 +559,8 @@ Function ListOUGroupManagement {
 Function GroupBack {
 	$ADGroupMgmt.ADGroupMgmtOutput.Clear()
 	$ADGroupMgmt.Hide()
+	$ADGroupMgmtXYLoc = $ADGroupMgmt.Location
+	$ActiveDirectoryMenu.Location = $ADGroupMgmtXYLoc
 	$ActiveDirectoryMenu.Show()
 }
 
@@ -523,6 +585,7 @@ Function PasswordOUQuery{
 		}
 	}
 }
+
 Function PasswordResetInputs{
 	$ADPasswordReset.ADPasswordOutput.Clear()
 	$PWUsernameInput = $PassResetUserInput.Text
@@ -540,11 +603,13 @@ Function PasswordResetInputs{
 		$ADPasswordReset.ADPasswordOutput.AppendText("Password does not match.")
 	}
 }
+
 Function PasswordListOU{
 	$ADPasswordReset.ADPasswordOutput.Clear()
 	$PWOLObjectList = Get-ADObject -Filter {ObjectClass -eq 'organizationalunit'} | Select-Object DistinguishedName, Name | Format-List DistinguishedName, Name | Out-String
 	$ADPasswordReset.ADPasswordOutput.AppendText($PWOLObjectList)
 }
+
 Function PasswordUsersCNQuery{
 	$ADPasswordReset.ADPasswordOutput.Clear()
 	$TargetPasswordUsersCNQuery = "CN=Users," + (Get-ADDomain).DistinguishedName
@@ -556,9 +621,12 @@ Function PasswordUsersCNQuery{
 	 $ADPasswordReset.ADPasswordOutput.AppendText("Could not find any Users in the Default Users Container. Check if their are Users in there.")
 	}
 }
+
 Function PasswordResetBack{
 	$ADPasswordReset.ADPasswordOutput.Clear()
 	$ADPasswordReset.Hide()
+	$ADPasswordResetXYLoc = $ADPasswordReset.Location
+	$ActiveDirectoryMenu.Location = $ADPasswordResetXYLoc
 	$ActiveDirectoryMenu.Show()
 }
 
@@ -646,9 +714,12 @@ Function ADBulkCSVAddUsers{
 		}
 	}
 }
+
 Function CSVBulkBack{
 	$ADBulkUserCreation.Hide()
 	$ADBulkUserCreation.ADBulkOutput.Clear()
+	$ADBulkUserCreationXYLoc = $ADBulkUserCreation.Location
+	$ActiveDirectoryMenu.Location = $ADBulkUserCreationXYLoc
 	$ActiveDirectoryMenu.Show()
 }
 
@@ -744,10 +815,14 @@ Function QueryAllFileShare {
 	$MgmtFileShareForm.MgmtFileShareOutput.AppendText("These are the All the Shares Available in the Machine:")
 	$MgmtFileShareForm.MgmtFileShareOutput.AppendText($SMBShareGetAll)
 }
+
 Function BackFileShareManagement{
 	$MgmtFileShareForm.Hide()
+	$MgmtFileShareFormXYLoc = $MgmtFileShareForm.Location
+	$ManagementMenu.Location = $MgmtFileShareFormXYLoc
 	$ManagementMenu.Show()
 }
+
 ### CHECK FOLDER AND FILE(?) PREMISSIONS FORM
 Function MgmtFilePermissionBrowse {
 	$MgmtFilePermissionForm.MgmtFilePermInput.Clear()
@@ -774,18 +849,14 @@ Function MgmtFolderSubmitCheck {
 
 Function MgmtFilePremBack{
 	$MgmtFilePermissionForm.Hide()
-	$ManagementMenu.Show()
 	$MgmtFilePermissionForm.MgmtFilePermOutput.Clear()
 	$MgmtFilePermissionForm.MgmtFilePermInput.Clear()
+	$MgmtFilePermissionFormXYLoc = $MgmtFilePermissionForm.Location
+	$ManagementMenu.Location = $MgmtFilePermissionFormXYLoc
+	$ManagementMenu.Show()
 }
 
 ### CHANGE IP LOCAL ADDRESS
-Function ChangeIPAddressBack {
-	$MgmtChangeIPForm.MgmtChangeIPOutput.Clear()
-	$MgmtChangeIPForm.Hide()
-	$ManagementMenu.Show()
-}
-
 Function QueryComputerIPAddress {
 	$MgmtChangeIPForm.MgmtChangeIPOutput.Clear()
 	$QueryComputerIP = Get-NetIPConfiguration -InterfaceAlias * | Out-String
@@ -905,6 +976,14 @@ Function QueryAdaptors {
 		$MgmtChangeIPForm.MgmtChangeIPOutput.Clear()
 		$AdapterNameInputIFFind =Get-NetAdapter | Select-Object Name , InterfaceDescription, ifIndex, MacAddress| Sort-Object Name| Format-List Name , InterfaceDescription, ifIndex, MacAddress | Out-String
 		$MgmtChangeIPForm.MgmtChangeIPOutput.AppendText($AdapterNameInputIFFind)
+}
+
+Function ChangeIPAddressBack {
+	$MgmtChangeIPForm.Hide()
+	$MgmtChangeIPForm.MgmtChangeIPOutput.Clear()
+	$MgmtChangeIPFormXYLoc = $MgmtChangeIPForm.Location
+	$ManagementMenu.Location = $MgmtChangeIPFormXYLoc
+	$ManagementMenu.Show()
 }
 
 ### CHANGING LOCAL COMPUTER AND JOINING DOMAIN OR LEAVING DOMAIN INTO WORKGROUP
@@ -1090,6 +1169,8 @@ Function QueryComouterListJoinDomainForm {
 Function ChangeComputerDomainBack {
 	$MgmtChangePCForm.Hide()
 	$MgmtChangePCForm.MgmtChangePCOutput.Clear()
+	$MgmtChangePCFormXYLoc = $MgmtChangePCForm.Location
+	$ManagementMenu.Location = $MgmtChangePCFormXYLoc
 	$ManagementMenu.Show()
 }
 
@@ -1126,21 +1207,21 @@ Function MACFormSubmit {
 		}
 	}
 }
+
 Function MACBack{
-	$MGmtMACAddressForm.Hide()
+	$MgmtMACAddressForm.Hide()
+	$MgmtMACAddressFormXYLoc = $MgmtMACAddressForm.Location
+	$ManagementMenu.Location = $MgmtMACAddressFormXYLoc
 	$ManagementMenu.Show()
 }
 
 ### REMOTE DISK MANAGEMENT
-Function RemoteDiskBack{
-	$MgmtDiskMgmtForm.Hide()
-	$ManagementMenu.Show()
-}
 Function QueryDiskLocal{
 	$MgmtDiskMgmtForm.MgmtDiskMgmtOutput.Clear()
 	$DiskQueryLocalPress = Get-PSDrive | Where {$_.Free -gt 1} | Out-String
 	$MgmtDiskMgmtForm.MgmtDiskMgmtOutput.AppendText($DiskQueryLocalPress)
 }
+
 Function RemoteDiskCheck{
 	$MgmtDiskMgmtForm.MgmtDiskMgmtOutput.Clear()
 	$RemoteComputer = $MgmtDiskMgmtInput.Text
@@ -1156,6 +1237,7 @@ Function RemoteDiskCheck{
 		$MgmtDiskMgmtForm.MgmtDiskMgmtOutput.AppendText("Error: No Connection was Established to the Remote Computer.`n Note: Due to time constraints, the remoute computer needs to have a disabled firewall.")
 	}
 }
+
 Function OpenDiskMangementLocal{
 	try{
 		diskmgmt.msc
@@ -1164,6 +1246,12 @@ Function OpenDiskMangementLocal{
 	}
 }
 
+Function RemoteDiskBack{
+	$MgmtDiskMgmtForm.Hide()
+	$MgmtDiskMgmtFormXYLoc = $MgmtDiskMgmtForm.Location
+	$ManagementMenu.Location = $MgmtDiskMgmtFormXYLoc
+	$ManagementMenu.Show()
+}
 
 ## DIAGNOSTICS MENU BUTTONS - 3RD LAYER
 ### CHECK ACTIVE DIRECTORY INFORMATION
@@ -1172,27 +1260,32 @@ Function RefreshActiveDirectoryDetails{
 	$DetailsRefreshActiveDirectory = Get-ADDomain | Format-List | Out-String
 	$DiagADDetails.DiagADDetailsOutput.AppendText($DetailsRefreshActiveDirectory)
 }
+
 Function ActiveDirectortDetailsBack {
 	$DiagADDetails.DiagADDetailsOutput.Clear()
 	$DiagADDetails.Hide()
+	$DiagADDetailsXYLoc = $DiagADDetails.Location
+	$DiagnosticsMenu.Location = $DiagADDetailsXYLoc
 	$DiagnosticsMenu.Show()
 }
 
 ### CHECK MACHINES FORMS
 Function RefreshMachinesDiagnosticsList{
-$DiagListADPCs.DiagListPCOutput.Clear()
-$DiagnosticsRefreshList = Get-ADComputer -Filter * -Properties operatingSystem | group -Property operatingSystem | Select Name,Count | Format-List  Name,Count | Out-String
-$DiagnosticsRefreshList2 = Get-ADComputer -Filter * | Select-Object Name,DNSHostName,Enabled | Format-List Name,DNSHostName,Enabled | Out-String
+	$DiagListADPCs.DiagListPCOutput.Clear()
+	$DiagnosticsRefreshList = Get-ADComputer -Filter * -Properties operatingSystem | group -Property operatingSystem | Select Name,Count | Format-List  Name,Count | Out-String
+	$DiagnosticsRefreshList2 = Get-ADComputer -Filter * | Select-Object Name,DNSHostName,Enabled | Format-List Name,DNSHostName,Enabled | Out-String
 
-$DiagListADPCs.DiagListPCOutput.AppendText("OS Type Count: `n ")
-$DiagListADPCs.DiagListPCOutput.AppendText($DiagnosticsRefreshList)
-$DiagListADPCs.DiagListPCOutput.AppendText("Names of the Machines Connected to the Active Directory:")
-$DiagListADPCs.DiagListPCOutput.AppendText($DiagnosticsRefreshList2)
-
+	$DiagListADPCs.DiagListPCOutput.AppendText("OS Type Count: `n ")
+	$DiagListADPCs.DiagListPCOutput.AppendText($DiagnosticsRefreshList)
+	$DiagListADPCs.DiagListPCOutput.AppendText("Names of the Machines Connected to the Active Directory:")
+	$DiagListADPCs.DiagListPCOutput.AppendText($DiagnosticsRefreshList2)
 }
+
 Function BackMachineListDiagnostics{
 	$DiagListADPCs.DiagListPCOutput.Clear()
 	$DiagListADPCs.Hide()
+	$DiagListADPCsXYLoc = $DiagListADPCs.Location
+	$DiagnosticsMenu.Location = $DiagListADPCsXYLoc
 	$DiagnosticsMenu.Show()
 }
 
@@ -1203,9 +1296,12 @@ Function RefreshUserListAD {
 	$DiagListADUsers.DiagListUsersOutput.AppendText("Users Are:")
 	$DiagListADUsers.DiagListUsersOutput.AppendText($DiagListADUsersOutput)
 }
+
  Function BackCheckALLUsersAD {
 	$DiagListADUsers.DiagListUsersOutput.Clear()
 	$DiagListADUsers.Hide()
+	$DiagListADUsersXYLoc = $DiagListADUsers.Location
+	$DiagnosticsMenu.Location = $DiagListADUsersXYLoc
 	$DiagnosticsMenu.Show()
 }
 
@@ -1216,8 +1312,7 @@ Function RemoteQueryOSArchitecture {
 	$TestDiagRemoteComputer = Test-Connection -BufferSize 32 -Count 1 -ComputerName $DiagRemoteComputer -Quiet
 	if([string]::IsNullOrEmpty($DiagRemoteComputer)){
 		$DiagCheckOS.DiagRemoteOSOutput.AppendText("Input field must not be empty.")
-	}
-	elseif($TestDiagRemoteComputer -eq $true){
+	}elseif($TestDiagRemoteComputer -eq $true){
 		$DiagRemoteInfo1 = (Get-WmiObject -ComputerName $DiagRemoteComputer win32_operatingsystem).name
 		$DiagRemoteInfo2 = (Get-WmiObject -ComputerName $DiagRemoteComputer Win32_OperatingSystem).OSArchitecture
 		$DiagRemoteJoin = $DiagRemoteInfo1.Split("|")[0]
@@ -1227,15 +1322,19 @@ Function RemoteQueryOSArchitecture {
 		$DiagCheckOS.DiagRemoteOSOutput.AppendText("Error: No Connection was Established to the Remote Computer. Check if the input is valid. `n Warning: This requires the remote firewall to be turned off due to limitations.")
 	}
 }
+
 Function RefreshCheckLocalMachinesOS {
 	$DiagCheckOS.DiagRemoteOSOutput.Clear()
 	$DiagCheckOS.DiagRemoteOSOutput.AppendText("These are the list of computers connected to your " + (Get-ADDomain).DNSRoot )
 	$OutputCheckRemoteIN = Get-ADComputer -Filter * -Properties operatingSystem | Select-Object Name, OperatingSystem | Format-List Name, OperatingSystem | Out-String
 	$DiagCheckOS.DiagRemoteOSOutput.AppendText($OutputCheckRemoteIN)
 }
+
 Function CheckOSBack {
 	$DiagCheckOS.DiagRemoteOSOutput.Clear()
 	$DiagCheckOS.Hide()
+	$DiagCheckOSXYLoc = $DiagCheckOS.Location
+	$DiagnosticsMenu.Location = $DiagCheckOSXYLoc
 	$DiagnosticsMenu.Show()
 }
 
@@ -1246,9 +1345,12 @@ Function RefreshPortStatus {
 	$DiagPortStatus.DiagPortStatusOutput.AppendText($PortStatusOutputIn)
 
 }
+
 Function BackPortStatus{
 	$DiagPortStatus.DiagPortStatusOutput.Clear()
 	$DiagPortStatus.Hide()
+	$DiagPortStatusXYLoc = $DiagPortStatus.Location
+	$DiagnosticsMenu.Location = $DiagPortStatusXYLoc
 	$DiagnosticsMenu.Show()
 }
 
@@ -1346,10 +1448,13 @@ Function CheckingIPStatus {
 		$DiagTraceroute.DiagTraceOutput.AppendText("Error: No Connection was Established to the Remote IP. Check if the input is valid.")
 	}
 }
+
 Function BackConnectionStatusForm {
 	$DiagTraceroute.DiagTraceInput.Clear()
 	$DiagTraceroute.DiagTraceOutput.Clear()
 	$DiagTraceroute.Hide()
+	$DiagTracerouteXYLoc = $DiagTraceroute.Location
+	$DiagnosticsMenu.Location = $DiagTracerouteXYLoc
 	$DiagnosticsMenu.Show()
 }
 

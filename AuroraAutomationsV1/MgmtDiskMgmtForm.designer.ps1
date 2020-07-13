@@ -123,7 +123,7 @@ $MgmtDiskMgmtForm.Controls.Add($MgmtDiskMgmtQuery)
 $MgmtDiskMgmtForm.Controls.Add($MgmtDiskMgmtBack)
 $MgmtDiskMgmtForm.MaximizeBox = $false
 $MgmtDiskMgmtForm.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
-$MgmtDiskMgmtForm.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
+$MgmtDiskMgmtForm.StartPosition = [System.Windows.Forms.FormStartPosition]::Manual
 $MgmtDiskMgmtForm.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $MgmtDiskMgmtForm.Name = [System.String]'MgmtDiskMgmtForm'
 $MgmtDiskMgmtForm.Text = [System.String]'Remote and Local Disk Management - Aurora Automations'

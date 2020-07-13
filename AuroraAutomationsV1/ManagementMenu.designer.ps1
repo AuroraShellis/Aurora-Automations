@@ -114,7 +114,7 @@ $ManagementMenu.Controls.Add($MgmtChangeIP)
 $ManagementMenu.Controls.Add($MgmtFilePermission)
 $ManagementMenu.MaximizeBox = $false
 $ManagementMenu.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
-$ManagementMenu.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
+$ManagementMenu.StartPosition = [System.Windows.Forms.FormStartPosition]::Manual
 $ManagementMenu.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $ManagementMenu.Name = [System.String]'ManagementMenu'
 $ManagementMenu.Text = [System.String]'Management Menu - Aurora Automations'

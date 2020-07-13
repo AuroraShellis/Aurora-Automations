@@ -74,7 +74,7 @@ $DiagListADUsers.Controls.Add($DiagListUsersSubmit)
 $DiagListADUsers.Controls.Add($DiagListUsersBack)
 $DiagListADUsers.MaximizeBox = $false
 $DiagListADUsers.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
-$DiagListADUsers.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
+$DiagListADUsers.StartPosition = [System.Windows.Forms.FormStartPosition]::Manual
 $DiagListADUsers.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $DiagListADUsers.Name = [System.String]'DiagListADUsers'
 $DiagListADUsers.Text = [System.String]'List Users in Active Directory - Aurora Automations'

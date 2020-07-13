@@ -235,7 +235,7 @@ $MgmtFileShareForm.Controls.Add($MgmtFileShareSubmit)
 $MgmtFileShareForm.Controls.Add($MgmtFileShareBack)
 $MgmtFileShareForm.MaximizeBox = $false
 $MgmtFileShareForm.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
-$MgmtFileShareForm.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
+$MgmtFileShareForm.StartPosition = [System.Windows.Forms.FormStartPosition]::Manual
 $MgmtFileShareForm.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $MgmtFileShareForm.Name = [System.String]'MgmtFileShareForm'
 $MgmtFileShareForm.Text = [System.String]'File Share Creation - Aurora Automations'

@@ -251,7 +251,7 @@ $ADGroupMgmt.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSing
 $ADGroupMgmt.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $ADGroupMgmt.MaximizeBox = $false
 $ADGroupMgmt.Name = [System.String]'ADGroupMgmt'
-$ADGroupMgmt.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
+$ADGroupMgmt.StartPosition = [System.Windows.Forms.FormStartPosition]::Manual
 $ADGroupMgmt.Text = [System.String]'Active Directory Group Management - Aurora Automations'
 $ADGroupMgmt.ResumeLayout($false)
 $ADGroupMgmt.PerformLayout()

@@ -262,7 +262,7 @@ $ADOUM.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
 $ADOUM.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $ADOUM.MaximizeBox = $false
 $ADOUM.Name = [System.String]'ADOUM'
-$ADOUM.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
+$ADOUM.StartPosition = [System.Windows.Forms.FormStartPosition]::Manual
 $ADOUM.Text = [System.String]'Organizational Unit Management - Aurora Automations'
 $ADOUM.ResumeLayout($false)
 $ADOUM.PerformLayout()
